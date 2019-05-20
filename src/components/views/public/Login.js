@@ -79,7 +79,7 @@ class Login extends Component {
           <div className={`block-center mt-xl wd-xl login-body `}>
             <div className="panel panel-dark panel-flat">
               <div className="panel-heading text-center" id="login-page-container">
-                <h1>Hodor !</h1>
+                <h1>Heimdal</h1>
               </div>
               <div className="panel-body">
                 {loginBody}
