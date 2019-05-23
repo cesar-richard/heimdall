@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import Login from './components/views/public/Login';
 import './App.css';
@@ -19,8 +20,8 @@ class App extends Component {
     );
   }
   renderMain() {
-    const {session} = this.props;
-    const isLoggedIn = session && session.access_token;
+    const {auth} = this.props;
+    const isLoggedIn = auth && auth.authState;
 
     if (!isLoggedIn) {
       return (
@@ -58,4 +59,11 @@ renderLabel(){
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,86 +1,114 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-//import { generateAuthState } from '../../../actions/authActions';
-//import { createSession } from '../../../actions/sessionActions';
-import { setLoading } from '../../../actions/connectActions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { generateAuthState } from '../../../actions/authActions';
+import { createSession } from '../../../actions/sessionActions';
+import {setLoading} from '../../../actions/connectActions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import queryString from 'query-string';
+import axios from 'axios';
+
 
 class Login extends Component {
   constructor(props) {
     super(props);
-      //try {
-        // delete old token handled by redux's Persist...
-        //window.localStorage.removeItem('persist:root');
-      //} catch(e) {
-        // do nothing
-      //}
-    this.handleChange = this.handleChange.bind(this);  
+    //try {
+    // delete old token handled by redux's Persist...
+    //window.localStorage.removeItem('persist:root');
+    //} catch(e) {
+    // do nothing
+    //}
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }  
-  
-  handleChange (event) {
-    this.setState({ [event.target.name]: event.target.value });
   }
-  
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     this.props.setLoading(true);
-    
-    try {
-      //let [result] = await getMalcolmAuth(this.props.resourceId, this.state.password);
-      const SYSTEM_ID = ***REMOVED***
-  let formData = {
-    service: "http://heimdal",
-    username: this.state.login,
-    password: this.state.password,
-  }
 
-  fetch("https://api.nemopay.net/services/ROSETTINGS/getCasUrl?system_id=" + SYSTEM_ID, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Nemopay-Version': '2017-12-15',
+    try {
+      const SYSTEM_ID = ***REMOVED***
+      let formData = {
+        service: "http://heimdal",
+        username: this.state.login,
+        password: this.state.password,
       }
-    })
-    .then(casUrl => {
-      casUrl.text().then(casUrlText => {
-        casUrlText = casUrlText.replace(/"/g,"");
-        fetch(casUrlText + "/v1/tickets/", {
-            method: "POST",
-            mode: 'no-cors',
-            headers: {
-              'Content-type': 'application/x-www-form-urlencoded',
-              //'Accept': 'text/html'
-            },
-            body: queryString.stringify(formData)
-          })
-          .then(response =>
-            console.log(response.body)
-          )
-          .catch(console.error);
-      })
-    })
-    .catch(console.error);
-  let [result] = "test";
-      if (result && result.length && (typeof result === 'string')) {
-        //const [algo, payload, signature] = result.split('.');
-        //const decoded = JSON.parse(atob(payload));
-        //this.props.dispatch(generateAuthState());
-        //this.props.dispatch(createSession({
-        //  access_token: result
-        //}));
-      } else {
-        throw new Error('Auth did not return any information');
-      }
+
+      axios({
+          url: "https://api.nemopay.net/services/ROSETTINGS/getCasUrl",
+          method: "POST",
+          params: {
+            system_id: SYSTEM_ID
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Nemopay-Version': '2017-12-15',
+          }
+        })
+        .then(casUrl => {
+          axios({
+              url: "https://cors-anywhere.herokuapp.com/" + casUrl.data + "/v1/tickets/",
+              method: "POST",
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Accept': 'text/plain'
+              },
+              data: queryString.stringify(formData)
+            })
+            .then(tgt => {
+              console.log(tgt.data);
+              axios({
+                url: "https://cors-anywhere.herokuapp.com/" + casUrl.data + '/v1/tickets/' + tgt.data,
+                method: "POST",
+                headers: {
+                  'Content-type': 'application/x-www-form-urlencoded',
+                  'Accept': 'text/plain'
+                },
+                data: queryString.stringify(formData)
+              })
+              .then(st => {
+                console.log(st.data);
+                axios({
+                  url: "https://api.nemopay.net/services/MYACCOUNT/loginCas2",
+                  method: "POST",
+                  params: {
+                    system_id: SYSTEM_ID
+                  },
+                  headers: {
+                  		'Content-Type': 'application/json',
+                  		'Nemopay-Version': '2017-12-15',
+                  },
+                  data: {
+                    ticket: st.data,
+                    service: formData.service
+                  }
+                })
+                .then(token => {
+                  this.props.generateAuthState();
+                  this.props.createSession({
+                    access_token: token.data
+                  });
+                  this.props.setLoading(false);
+                });
+              })
+              .catch(console.error);
+            })
+            .catch(console.error);
+        })
+        .catch(console.error);
+
 
     } catch (error) {
       let wrongPasswordMessage = 'wrongPasswordMessage';
       let errorTryagain = 'errorTryagain';
       let message = error.status && error.status === 403 ? wrongPasswordMessage : (error.message || errorTryagain);
       console.error(message);
-    } finally {
       this.props.setLoading(false);
     }
   }
@@ -128,7 +156,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoading: (loading) => dispatch(setLoading(loading))
+  setLoading: (loading) => dispatch(setLoading(loading)),
+  createSession: (auth) => dispatch(createSession(auth)),
+  generateAuthState: () => dispatch(generateAuthState())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
