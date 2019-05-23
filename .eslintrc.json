@@ -3,8 +3,5 @@
 		"react-app"
 	],
 	"rules": {
-		"jsx-a11y/href-no-hash": "error",
-		"jsx-a11y/no-redundant-roles": "error",
-		"jsx-a11y/img-redundant-alt": "error"
 	}
 }
