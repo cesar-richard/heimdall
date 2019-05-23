@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import Login from './components/views/public/Login';
 import './App.css';
 
@@ -20,7 +19,7 @@ class App extends Component {
     );
   }
   renderMain() {
-    const {session, location} = this.props;
+    const {session} = this.props;
     const isLoggedIn = session && session.access_token;
 
     if (!isLoggedIn) {

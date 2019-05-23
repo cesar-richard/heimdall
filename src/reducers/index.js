@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 
 import fetchReducers from './fetch';
 import auth from './authReducer';
+import connect from './connectReducer';
 import session from './sessionReducer';
 
 const reducers = combineReducers({
@@ -13,7 +14,8 @@ const reducers = combineReducers({
   auth,
   session,
   routing: routerReducer,
-  form: formReducer
+  form: formReducer,
+  connect
 });
 
 export default persistReducer({
