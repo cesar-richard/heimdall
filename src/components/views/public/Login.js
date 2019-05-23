@@ -16,11 +16,16 @@ class Login extends Component {
       //} catch(e) {
         // do nothing
       //}
+    this.handleChange = this.handleChange.bind(this);  
     this.handleSubmit = this.handleSubmit.bind(this);
   }  
   
+  handleChange (event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  
   async handleSubmit(event) {
-    //event.preventDefault();
+    event.preventDefault();
     this.props.setLoading(true);
     
     try {
@@ -28,8 +33,8 @@ class Login extends Component {
       const SYSTEM_ID = ***REMOVED***
   let formData = {
     service: "http://heimdal",
-    username: "",
-    password: "",
+    username: this.state.login,
+    password: this.state.password,
   }
 
   fetch("https://api.nemopay.net/services/ROSETTINGS/getCasUrl?system_id=" + SYSTEM_ID, {
@@ -47,7 +52,7 @@ class Login extends Component {
             mode: 'no-cors',
             headers: {
               'Content-type': 'application/x-www-form-urlencoded',
-              'Accept': 'text/plain'
+              //'Accept': 'text/html'
             },
             body: queryString.stringify(formData)
           })
@@ -84,11 +89,11 @@ class Login extends Component {
       let loginBody = (
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formLogin">
-            <Form.Control type="login" placeholder="Login" />
+            <Form.Control name="login" type="login" placeholder="Login" onChange={this.handleChange} required />
           </Form.Group>
 
           <Form.Group controlId="formPassword">
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} required />
           </Form.Group>
           <Button variant="primary" type="submit">
             {this.props.isLoading() ? "Veuillez patienter..." : "Connexion"}
@@ -108,9 +113,6 @@ class Login extends Component {
                 {loginBody}
               </div>
               <br />
-            </div>
-            <div>
-              
             </div>
           </div>
         </div>
