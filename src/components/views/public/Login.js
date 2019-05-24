@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { generateAuthState } from "../../../actions/authActions";
 import { createSession } from "../../../actions/sessionActions";
 import { setLoading } from "../../../actions/connectActions";
+import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import queryString from "query-string";
@@ -100,10 +101,14 @@ class Login extends Component {
           }).then(data => callback(null, data));
         },
         (token, callback) => {
+          getAllMyRightsEvents().then(data => callback(null, token, data.data));
+        },
+        (token, gillPermissions, callback) => {
           this.props.setLoading(false);
           this.props.generateAuthState();
           this.props.createSession({
-            access_token: token.data
+            access_token: token.data,
+            gillPermissions
           });
         }
       ],
