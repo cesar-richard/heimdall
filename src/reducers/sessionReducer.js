@@ -2,14 +2,14 @@ export default (state = null, action) => {
   const { payload } = action;
 
   switch (action.type) {
-    case 'CREATE_SESSION':
+    case "CREATE_SESSION":
       return {
         ...state,
         access_token: payload.access_token
-      }
-    case 'CLEAR_SESSION':
+      };
+    case "CLEAR_SESSION":
       return null;
     default:
-        return state;
-    }
-}
+      return state;
+  }
+};

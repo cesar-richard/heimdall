@@ -1,12 +1,12 @@
-export const createSession = (data) => {
+export const createSession = data => {
   return {
-    type: 'CREATE_SESSION',
+    type: "CREATE_SESSION",
     payload: data
-  }
-}
+  };
+};
 
 export const clearSession = () => {
   return {
-    type: 'CLEAR_SESSION'
-  }
-}
+    type: "CLEAR_SESSION"
+  };
+};
