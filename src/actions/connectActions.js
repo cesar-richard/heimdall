@@ -1,4 +1,4 @@
-export const setLoading = (loading) => ({
+export const setLoading = loading => ({
   type: "SETLOADING",
   loading
-})
+});

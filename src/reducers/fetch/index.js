@@ -1,4 +1,4 @@
-import { createFetchReducer } from './fetchReducer';
+import { createFetchReducer } from "./fetchReducer";
 export default {
-  wallets: createFetchReducer('WALLETS'),
-}
+  wallets: createFetchReducer("WALLETS")
+};
