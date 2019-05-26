@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
 import { generateAuthState } from "../../../actions/authActions";
 import { createSession } from "../../../actions/sessionActions";
@@ -33,7 +34,6 @@ class Login extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     this.props.setLoading(true);
-    const SYSTEM_ID = ***REMOVED***;
     let formData = {
       service: "http://heimdal",
       username: this.state.login,
