@@ -4,21 +4,22 @@ import { generateAuthState } from "../../../actions/authActions";
 import { createSession } from "../../../actions/sessionActions";
 import { setLoading } from "../../../actions/connectActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
+import { getCasUrl } from "../../../api/gill/ROSETTINGS";
+import { loginCas2 } from "../../../api/gill/MYACCOUNT";
+import { getTicketGrantingTicket, getServiceTicket } from "../../../api/cas";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import queryString from "query-string";
-import axios from "axios";
 import { waterfall } from "async";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    //try {
-    // delete old token handled by redux's Persist...
-    //window.localStorage.removeItem('persist:root');
-    //} catch(e) {
-    // do nothing
-    //}
+    try {
+      // delete old token handled by redux's Persist...
+      window.localStorage.removeItem("persist:root");
+    } catch (e) {
+      //@  &do nothing
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -42,74 +43,39 @@ class Login extends Component {
     waterfall(
       [
         callback => {
-          axios({
-            url: "https://api.nemopay.net/services/ROSETTINGS/getCasUrl",
-            method: "POST",
-            params: {
-              system_id: SYSTEM_ID
-            },
-            headers: {
-              "Content-Type": "application/json",
-              "Nemopay-Version": "2017-12-15"
-            }
-          }).then(data => callback(null, data));
+          getCasUrl().then(data => callback(null, data));
         },
         (casUrl, callback) => {
-          axios({
-            url:
-              "https://cors-anywhere.herokuapp.com/" +
-              casUrl.data +
-              "/v1/tickets/",
-            method: "POST",
-            headers: {
-              "Content-type": "application/x-www-form-urlencoded",
-              Accept: "text/plain"
-            },
-            data: queryString.stringify(formData)
-          }).then(data => callback(null, casUrl, data));
+          getTicketGrantingTicket(
+            casUrl,
+            formData.username,
+            formData.password,
+            formData.service
+          ).then(data => callback(null, casUrl, data));
         },
         (casUrl, tgt, callback) => {
-          axios({
-            url:
-              "https://cors-anywhere.herokuapp.com/" +
-              casUrl.data +
-              "/v1/tickets/" +
-              tgt.data,
-            method: "POST",
-            headers: {
-              "Content-type": "application/x-www-form-urlencoded",
-              Accept: "text/plain"
-            },
-            data: queryString.stringify(formData)
-          }).then(data => callback(null, data));
+          getServiceTicket(
+            casUrl,
+            tgt.data,
+            formData.username,
+            formData.password,
+            formData.service
+          ).then(data => callback(null, data));
         },
         (st, callback) => {
-          axios({
-            url: "https://api.nemopay.net/services/MYACCOUNT/loginCas2",
-            method: "POST",
-            params: {
-              system_id: SYSTEM_ID
-            },
-            headers: {
-              "Content-Type": "application/json",
-              "Nemopay-Version": "2017-12-15"
-            },
-            data: {
-              ticket: st.data,
-              service: formData.service
-            }
-          }).then(data => callback(null, data));
+          loginCas2(st.data, formData.service).then(data =>
+            callback(null, data)
+          );
         },
         (token, callback) => {
-          getAllMyRightsEvents().then(data => callback(null, token, data.data));
-        },
-        (token, gillPermissions, callback) => {
           this.props.setLoading(false);
           this.props.generateAuthState();
           this.props.createSession({
-            access_token: token.data,
-            gillPermissions
+            access_token: token.data
           });
+        },
+        (token, callback) => {
+          getAllMyRightsEvents().then(data => callback(null, token, data.data));
         }
       ],
       (err, res) => {

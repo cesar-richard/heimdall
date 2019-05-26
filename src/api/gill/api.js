@@ -6,7 +6,11 @@ const request = (endPoint, method, params, headers = {}) => {
   let config = {
     method: method.toLowerCase(),
     url: "https://api.nemopay.net/services/" + endPoint,
-    headers: headers
+    headers: {
+      ...headers,
+      "Content-Type": "application/json",
+      "Nemopay-Version": "2017-12-15"
+    }
   };
 
   const token =
@@ -17,8 +21,8 @@ const request = (endPoint, method, params, headers = {}) => {
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
     ...config.params,
-    system_id: ***REMOVED***,
-    app_key: "***REMOVED***"
+    system_id: 0000,
+    app_key: "APIKEY"
   };
 
   if (token) {
@@ -42,22 +46,22 @@ const request = (endPoint, method, params, headers = {}) => {
   });
 };
 
-export function GET(endPoint, params) {
-  return request(endPoint, "get", params);
+export function GET(endPoint, params, headers) {
+  return request(endPoint, "get", params, headers);
 }
 
-export function POST(endPoint, params) {
-  return request(endPoint, "post", params);
+export function POST(endPoint, params, headers) {
+  return request(endPoint, "post", params, headers);
 }
 
-export function PUT(endPoint, params) {
-  return request(endPoint, "put", params);
+export function PUT(endPoint, params, headers) {
+  return request(endPoint, "put", params, headers);
 }
 
-export function PATCH(endPoint, params) {
-  return request(endPoint, "patch", params);
+export function PATCH(endPoint, params, headers) {
+  return request(endPoint, "patch", params, headers);
 }
 
-export function DELETE(endPoint, params) {
-  return request(endPoint, "delete", params);
+export function DELETE(endPoint, params, headers) {
+  return request(endPoint, "delete", params, headers);
 }

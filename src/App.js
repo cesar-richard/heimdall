@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { clearAuthState } from "./actions/authActions";
+import { clearSession } from "./actions/sessionActions";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,6 +9,7 @@ import {
   withRouter
 } from "react-router-dom";
 import Login from "./components/views/public/Login";
+import Logout from "./components/views/public/Logout";
 import "./App.css";
 
 class App extends Component {
@@ -28,17 +30,20 @@ class App extends Component {
     const { auth } = this.props;
     const isLoggedIn = auth && auth.authState;
 
-    if (!isLoggedIn) {
-      return (
-        <Router>
-          <Switch>
-            <Route path="/" render={props => this.renderLogin(props)} />
-          </Switch>
-        </Router>
-      );
-    } else {
-      return this.renderLabel();
-    }
+    return (
+      <Router>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
+            }
+          />
+          <Route path="/logout" component={Logout} />
+        </Switch>
+      </Router>
+    );
   }
 
   renderLabel() {
@@ -51,6 +56,7 @@ class App extends Component {
             href="/logout"
             onClick={event => {
               event.preventDefault();
+              this.props.clearSession();
               this.props.clearAuthState();
             }}
           >
@@ -75,7 +81,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearAuthState: () => dispatch(clearAuthState())
+  clearAuthState: () => dispatch(clearAuthState()),
+  clearSession: () => dispatch(clearSession())
 });
 
 export default withRouter(
