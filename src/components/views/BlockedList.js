@@ -12,12 +12,16 @@ class BlockedList extends Component {
     super();
     this.state = {
       blockedPeoples: [],
-      loading: true,
+      loading: true
     };
   }
 
   componentDidMount() {
     fundations().then(funList => {
+      funList.data.push({
+        id: null,
+        name: "System",
+      });
       this.setState({ fundations: funList.data });
       let funArray = Object.keys(funList.data).map(key => {
         return getAllBlocked(funList.data[key].id).then(data => {
@@ -44,7 +48,7 @@ class BlockedList extends Component {
         })
         .catch(err => {
           console.error(err);
-          this.setState({loading: false});
+          this.setState({ loading: false });
         });
     });
   }
