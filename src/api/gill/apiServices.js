@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
 
-const request = (endPoint, method, params, headers = {}) => {
+const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
   let config = {
     method: method.toLowerCase(),
     url: "https://api.nemopay.net/services/" + endPoint,
@@ -21,14 +21,16 @@ const request = (endPoint, method, params, headers = {}) => {
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
     ...config.params,
-    system_id: 80405,
-    app_key: "0a93e8e18e6ed78fa50c4d74e949801b"
+    ...forcedParams,
+    system_id: SYSTEMID,
+    app_key: "APIKEY"
   };
 
   if (token) {
     config.params.sessionid = token;
   }
 
+  console.log("config", config, forcedParams );
   return axios(config).catch(err => {
     let { response } = err;
     if (response && response.status === 401) {
@@ -39,29 +41,29 @@ const request = (endPoint, method, params, headers = {}) => {
     const errorObject = {
       config: response.config,
       status: response.status,
-      message: (response.data || {}).message || "An unknown error occurred."
+      message: "Gill said : " + (response.data || {}).message || (response.data || {}).error.message || "An unknown error occurred."
     };
 
     throw errorObject;
   });
 };
 
-export function GET(endPoint, params, headers) {
-  return request(endPoint, "get", params, headers);
+export function GET(endPoint, params, headers, forcedParams) {
+  return request(endPoint, "get", params, headers, forcedParams);
 }
 
-export function POST(endPoint, params, headers) {
-  return request(endPoint, "post", params, headers);
+export function POST(endPoint, params, headers, forcedParams) {
+  return request(endPoint, "post", params, headers, forcedParams);
 }
 
-export function PUT(endPoint, params, headers) {
-  return request(endPoint, "put", params, headers);
+export function PUT(endPoint, params, headers, forcedParams) {
+  return request(endPoint, "put", params, headers, forcedParams);
 }
 
-export function PATCH(endPoint, params, headers) {
-  return request(endPoint, "patch", params, headers);
+export function PATCH(endPoint, params, headers, forcedParams) {
+  return request(endPoint, "patch", params, headers, forcedParams);
 }
 
-export function DELETE(endPoint, params, headers) {
-  return request(endPoint, "delete", params, headers);
+export function DELETE(endPoint, params, headers, forcedParams) {
+  return request(endPoint, "delete", params, headers, forcedParams);
 }
