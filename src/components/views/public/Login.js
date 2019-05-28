@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { generateAuthState } from "../../../actions/authActions";
 import { createSession } from "../../../actions/sessionActions";
 import { setLoading } from "../../../actions/connectActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
@@ -16,10 +15,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     try {
-      // delete old token handled by redux's Persist...
       window.localStorage.removeItem("persist:root");
     } catch (e) {
-      //@  &do nothing
+      //do nothing
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,7 +67,6 @@ class Login extends Component {
         },
         (token, callback) => {
           this.props.setLoading(false);
-          this.props.generateAuthState();
           this.props.createSession({
             access_token: token.data
           });
@@ -141,13 +138,11 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   isLoading: () => state.connect.loading,
-  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({
   setLoading: loading => dispatch(setLoading(loading)),
   createSession: auth => dispatch(createSession(auth)),
-  generateAuthState: () => dispatch(generateAuthState())
 });
 
 export default connect(

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { clearSession } from "../../../actions/sessionActions";
-import { clearAuthState } from "../../../actions/authActions";
 import { Redirect } from "react-router-dom";
 
 class Logout extends Component {
   componentWillMount() {
     this.props.clearSession();
-    this.props.clearAuthState();
   }
 
   render() {
@@ -23,7 +21,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   clearSession: () => dispatch(clearSession()),
-  clearAuthState: () => dispatch(clearAuthState()),
 });
 
 export default connect(
