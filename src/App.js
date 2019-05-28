@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { clearAuthState } from "./actions/authActions";
 import { clearSession } from "./actions/sessionActions";
 import {
   BrowserRouter as Router,
@@ -30,8 +29,8 @@ class App extends Component {
     );
   }
   renderMain() {
-    const { auth } = this.props;
-    const isLoggedIn = auth && auth.authState;
+    const { session } = this.props;
+    const isLoggedIn = session && session.access_token;
 
     return (
       <Router>
@@ -83,15 +82,7 @@ class App extends Component {
             </Tab.Container>
           </div>
           <footer>
-            <a
-              title="Logout"
-              href="/logout"
-              onClick={event => {
-                event.preventDefault();
-                this.props.clearSession();
-                this.props.clearAuthState();
-              }}
-            >
+            <a title="Logout" href="/logout">
               Logout
             </a>
             <span>&copy;2019 - C.Richard</span>
@@ -110,11 +101,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  session: state.session
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearAuthState: () => dispatch(clearAuthState()),
   clearSession: () => dispatch(clearSession())
 });
 

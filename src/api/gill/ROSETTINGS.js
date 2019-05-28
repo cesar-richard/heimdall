@@ -1,4 +1,4 @@
-import { POST } from "./api";
+import { POST } from "./apiServices";
 
 export const getCasUrl = () => {
   return POST(
