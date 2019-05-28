@@ -12,6 +12,7 @@ import Logout from "./components/views/public/Logout";
 import BlockedList from "./components/views/BlockedList";
 import PosList from "./components/views/PosList";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
+import { ToastContainer } from 'react-toastify';
 import "./App.css";
 
 class App extends Component {
@@ -96,7 +97,7 @@ class App extends Component {
   }
 
   render() {
-    return <React.Fragment>{this.renderMain()}</React.Fragment>;
+    return <React.Fragment>{this.renderMain()}<ToastContainer /></React.Fragment>;
   }
 }
 

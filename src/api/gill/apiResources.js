@@ -21,7 +21,7 @@ const request = (endPoint, method, params, headers = {}) => {
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
     ...config.params,
-    system_id: SYSTEMID,
+    system_id: SYSTEM,
     app_key: "APIKEY"
   };
 

@@ -1,5 +1,5 @@
 import { POST } from "./apiServices";
 
-export const getAllMyRightsEvents = () => {
-  return POST("USERRIGHT/getAllMyRightsEvents");
+export const getAllMyRightsEvents = (sessionid) => {
+  return POST("USERRIGHT/getAllMyRightsEvents",{},{},{sessionid});
 };

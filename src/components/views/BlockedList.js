@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setLoading } from "../../actions/connectActions";
 import { getAll as getAllBlocked } from "../../api/gill/BLOCKED";
 import { fundations } from "../../api/gill/resources";
-import { Table } from "react-bootstrap";
+import { Table, ProgressBar } from "react-bootstrap";
 import Moment from "react-moment";
 import "moment/locale/fr";
 
@@ -12,7 +12,10 @@ class BlockedList extends Component {
     super();
     this.state = {
       blockedPeoples: [],
-      loading: true
+      fundations: [],
+      statusMessage: "",
+      loading: true,
+      fundationsLoadedCount: 0,
     };
   }
 
@@ -20,11 +23,12 @@ class BlockedList extends Component {
     fundations().then(funList => {
       funList.data.push({
         id: null,
-        name: "System",
+        name: "System"
       });
       this.setState({ fundations: funList.data });
       let funArray = Object.keys(funList.data).map(key => {
         return getAllBlocked(funList.data[key].id).then(data => {
+          this.setState({fundationsLoadedCount: this.state.fundationsLoadedCount+1})
           return data.data;
         });
       });
@@ -54,7 +58,15 @@ class BlockedList extends Component {
   }
 
   render() {
-    if (this.state.loading) return "Loading";
+    if (this.state.loading){
+      const now = Math.floor((this.state.fundationsLoadedCount / (this.state.fundations.length + 1)) * 100);
+      return (
+        <div>
+          <div>"Loading"</div>
+          <ProgressBar animated now={now} label={`${now}%`} />
+        </div>
+      );
+    }
     else {
       let list = [];
       if (this.state.blockedPeoples !== null) {
