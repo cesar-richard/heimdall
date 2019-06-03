@@ -7,7 +7,14 @@ import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
 import { loginCas2 } from "../../../api/gill/MYACCOUNT";
 import { getTicketGrantingTicket, getServiceTicket } from "../../../api/cas";
-import { Button, Form, ProgressBar } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  ProgressBar,
+  Container,
+  Row,
+  Col
+} from "react-bootstrap";
 import { waterfall } from "async";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -160,23 +167,31 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <div className="text-center">
-          <div className={`block-center mt-xl wd-xl login-body `}>
-            <div className="panel panel-dark panel-flat">
-              <div
-                className="panel-heading text-center"
-                id="login-page-container"
-              >
-                <h1>Heimdal</h1>
-                <div />
+        <Container>
+          <Row>
+            <Col/>
+            <Col sm={3}>
+              <div className="text-center">
+                <div className={`block-center mt-xl wd-xl login-body `}>
+                  <div className="panel panel-dark panel-flat">
+                    <div
+                      className="panel-heading text-center"
+                      id="login-page-container"
+                    >
+                      <h1>Heimdal</h1>
+                      <div />
+                    </div>
+                    <div className="panel-body">{loginBody}</div>
+                    <br />
+                    {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
+                    <br />
+                  </div>
+                </div>
               </div>
-              <div className="panel-body">{loginBody}</div>
-              <br />
-              {this.props.isLoading() ? connectionSteps : []}
-              <br />
-            </div>
-          </div>
-        </div>
+            </Col>
+            <Col/>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }

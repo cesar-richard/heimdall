@@ -30,7 +30,6 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     config.params.sessionid = token;
   }
 
-  console.log("config", config, forcedParams );
   return axios(config).catch(err => {
     let { response } = err;
     if (response && response.status === 401) {

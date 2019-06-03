@@ -3,13 +3,12 @@ import { routerReducer } from "react-router-redux";
 import { reducer as formReducer } from "redux-form";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
-import fetchReducers from "./fetch";
+import fetchReducer from "./fetch";
 import connect from "./connectReducer";
 import session from "./sessionReducer";
 
 const reducers = combineReducers({
-  ...fetchReducers,
+  ...fetchReducer,
   session,
   routing: routerReducer,
   form: formReducer,

@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-export const createFetchReducer = name => {
+export const createFetchReducer = (name) => {
   const hasErrored = (state = false, action) => {
     switch (action.type) {
       case `${name}_HAS_ERRORED`:
@@ -10,7 +10,7 @@ export const createFetchReducer = name => {
       default:
         return state;
     }
-  };
+  }
 
   const isLoading = (state = false, action) => {
     switch (action.type) {
@@ -19,7 +19,7 @@ export const createFetchReducer = name => {
       default:
         return state;
     }
-  };
+  }
 
   const data = (state = {}, action) => {
     switch (action.type) {
@@ -32,7 +32,7 @@ export const createFetchReducer = name => {
       default:
         return state;
     }
-  };
+  }
 
   const hasBeenFetched = (state = false, action) => {
     switch (action.type) {
@@ -43,7 +43,8 @@ export const createFetchReducer = name => {
       default:
         return state;
     }
-  };
+  }
+
 
   return combineReducers({
     data,
@@ -51,4 +52,4 @@ export const createFetchReducer = name => {
     hasBeenFetched,
     isLoading
   });
-};
+}
