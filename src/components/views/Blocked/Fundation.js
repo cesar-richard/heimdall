@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
-import Moment from "react-moment";
 import { Spinner } from "react-bootstrap";
-import "moment/locale/fr";
 
 class Fundation extends Component {
   componentDidMount() {
@@ -13,24 +11,27 @@ class Fundation extends Component {
   render() {
     if (this.props.blocked().isLoading[this.props.fundation.id]) {
       return (
-        <Spinner animation="border" role="status" size="sm">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <tr>
+          <td sm={11}>{this.props.fundation.name}</td>
+          <td>
+            <Spinner animation="border" role="status" size="sm">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          </td>
+        </tr>
       );
     }
 
     if (this.props.blocked().hasBeenFetched[this.props.fundation.id]) {
-      const ret = (
-        <div>
-          {this.props.fundation.name} :
-          {
-            Object.values(
-              this.props.blocked().data[this.props.fundation.id].data
-            ).length
-          }
-        </div>
+      const blockedCount = Object.values(
+        this.props.blocked().data[this.props.fundation.id].data
+      ).length;
+      return (
+        <tr className={blockedCount > 0 ? "table-danger" : "table-info"}>
+          <td>{this.props.fundation.name}</td>
+          <td>{blockedCount}</td>
+        </tr>
       );
-      return ret;
     }
     if (this.props.blocked().hasErrored[this.props.fundation.id]) {
       return "error";
