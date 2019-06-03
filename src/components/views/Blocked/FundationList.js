@@ -20,17 +20,17 @@ class FundationList extends Component {
       );
     }
     if (this.props.fundations().hasBeenFetched) {
-      const fundations = [];//this.props.fundations().data.data;
-      fundations.push({
-        id: 0,
-        name: "System"
-      });
+      const fundations = this.props.fundations().data.data;
 
-      fundationList = fundations.map((fundation, index) => (
+      fundationList = fundations.map((fundation, index) => (<div style={{clear:"both"}}>
         <Fundation key={index} fundation={fundation} />
+        </div>
       ));
+      fundationList.push(<div style={{clear:"both"}}>
+        <Fundation key={0} fundation={{id:0,name: "System"}} />
+        </div>)
       return fundationList;
-    }
+      }
     if (this.props.fundations().hasErrored) {
       return "Error";
     }

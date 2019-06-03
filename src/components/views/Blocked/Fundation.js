@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
-//import Moment from "react-moment";
+import Moment from "react-moment";
 import { Spinner } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -13,14 +13,24 @@ class Fundation extends Component {
   render() {
     if (this.props.blocked().isLoading[this.props.fundation.id]) {
       return (
-        <Spinner  animation="border" role="status" size="sm">
+        <Spinner animation="border" role="status" size="sm">
           <span className="sr-only">Loading...</span>
         </Spinner>
       );
     }
 
     if (this.props.blocked().hasBeenFetched[this.props.fundation.id]) {
-      return <div key={this.props.fundation.id}>{console.log('OK',this.props.blocked().data[this.props.fundation.id].data)}</div>;
+      const ret = (
+        <div>
+          {this.props.fundation.name} :
+          {
+            Object.values(
+              this.props.blocked().data[this.props.fundation.id].data
+            ).length
+          }
+        </div>
+      );
+      return ret;
     }
     if (this.props.blocked().hasErrored[this.props.fundation.id]) {
       return "error";
