@@ -1,23 +1,36 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
-import { generateAuthState } from "../../../actions/authActions";
 import { createSession } from "../../../actions/sessionActions";
 import { setLoading } from "../../../actions/connectActions";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import queryString from "query-string";
-import axios from "axios";
+import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
+import { getCasUrl } from "../../../api/gill/ROSETTINGS";
+import { loginCas2 } from "../../../api/gill/MYACCOUNT";
+import { getTicketGrantingTicket, getServiceTicket } from "../../../api/cas";
+import {
+  Button,
+  Form,
+  ProgressBar,
+  Container,
+  Row,
+  Col
+} from "react-bootstrap";
 import { waterfall } from "async";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    //try {
-    // delete old token handled by redux's Persist...
-    //window.localStorage.removeItem('persist:root');
-    //} catch(e) {
-    // do nothing
-    //}
+    this.state = {
+      statusMessage: "",
+      connectionSteps: 0
+    };
+    try {
+      window.localStorage.removeItem("persist:root");
+    } catch (e) {
+      //do nothing
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,7 +44,6 @@ class Login extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     this.props.setLoading(true);
-    const SYSTEM_ID = 80405;
     let formData = {
       service: "http://heimdal",
       username: this.state.login,
@@ -41,75 +53,71 @@ class Login extends Component {
     waterfall(
       [
         callback => {
-          axios({
-            url: "https://api.nemopay.net/services/ROSETTINGS/getCasUrl",
-            method: "POST",
-            params: {
-              system_id: SYSTEM_ID
-            },
-            headers: {
-              "Content-Type": "application/json",
-              "Nemopay-Version": "2017-12-15"
-            }
-          }).then(data => callback(null, data));
+          this.setState({
+            statusMessage: "Getting CAS url ...",
+            connectionSteps: 0
+          });
+          getCasUrl().then(data => callback(null, data), callback);
         },
         (casUrl, callback) => {
-          axios({
-            url:
-              "https://cors-anywhere.herokuapp.com/" +
-              casUrl.data +
-              "/v1/tickets/",
-            method: "POST",
-            headers: {
-              "Content-type": "application/x-www-form-urlencoded",
-              Accept: "text/plain"
-            },
-            data: queryString.stringify(formData)
-          }).then(data => callback(null, casUrl, data));
+          this.setState({
+            statusMessage: "Getting CAS Ticket Granting Ticket ...",
+            connectionSteps: 1
+          });
+          getTicketGrantingTicket(
+            casUrl,
+            formData.username,
+            formData.password,
+            formData.service
+          ).then(data => callback(null, casUrl, data), callback);
         },
         (casUrl, tgt, callback) => {
-          axios({
-            url:
-              "https://cors-anywhere.herokuapp.com/" +
-              casUrl.data +
-              "/v1/tickets/" +
-              tgt.data,
-            method: "POST",
-            headers: {
-              "Content-type": "application/x-www-form-urlencoded",
-              Accept: "text/plain"
-            },
-            data: queryString.stringify(formData)
-          }).then(data => callback(null, data));
+          this.setState({
+            statusMessage: "Getting CAS Service Ticket ...",
+            connectionSteps: 2
+          });
+          getServiceTicket(
+            casUrl,
+            tgt.data,
+            formData.username,
+            formData.password,
+            formData.service
+          ).then(data => callback(null, data), callback);
         },
         (st, callback) => {
-          axios({
-            url: "https://api.nemopay.net/services/MYACCOUNT/loginCas2",
-            method: "POST",
-            params: {
-              system_id: SYSTEM_ID
-            },
-            headers: {
-              "Content-Type": "application/json",
-              "Nemopay-Version": "2017-12-15"
-            },
-            data: {
-              ticket: st.data,
-              service: formData.service
-            }
-          }).then(data => callback(null, data));
+          this.setState({
+            statusMessage: "Logging into gill ...",
+            connectionSteps: 3
+          });
+          loginCas2(st.data, formData.service).then(
+            data => callback(null, data.data),
+            callback
+          );
         },
         (token, callback) => {
+          this.setState({
+            statusMessage: "Getting user's permissions ...",
+            connectionSteps: 5
+          });
+          getAllMyRightsEvents(token.sessionid).then(
+            data => callback(null, token, data.data),
+            callback
+          );
+        },
+        (token, callback) => {
+          this.setState({
+            statusMessage: "Creating session ...",
+            connectionSteps: 6
+          });
           this.props.setLoading(false);
-          this.props.generateAuthState();
           this.props.createSession({
-            access_token: token.data
+            access_token: token
           });
         }
       ],
       (err, res) => {
-        if (err) console.error(err);
-        if (res) console.log(res);
+        this.setState({ statusMessage: "", connectionSteps: 0 });
+        if (err) toast.error(err.message);
         this.props.setLoading(false);
       }
     );
@@ -121,7 +129,7 @@ class Login extends Component {
         <Form.Group controlId="formLogin">
           <Form.Control
             name="login"
-            type="login"
+            type="username"
             placeholder="Login"
             onChange={this.handleChange}
             required
@@ -147,36 +155,55 @@ class Login extends Component {
       </Form>
     );
 
+    const now = Math.floor((this.state.connectionSteps / 6) * 100);
+    const connectionSteps = (
+      <div sm={6}>
+        <div>
+          <ProgressBar animated now={now} label={`${now}%`} />
+        </div>
+        <div>{this.state.statusMessage}</div>
+      </div>
+    );
+
     return (
       <React.Fragment>
-        <div className="text-center">
-          <div className={`block-center mt-xl wd-xl login-body `}>
-            <div className="panel panel-dark panel-flat">
-              <div
-                className="panel-heading text-center"
-                id="login-page-container"
-              >
-                <h1>Heimdal</h1>
+        <Container>
+          <Row>
+            <Col/>
+            <Col sm={3}>
+              <div className="text-center">
+                <div className={`block-center mt-xl wd-xl login-body `}>
+                  <div className="panel panel-dark panel-flat">
+                    <div
+                      className="panel-heading text-center"
+                      id="login-page-container"
+                    >
+                      <h1>Heimdal</h1>
+                      <div />
+                    </div>
+                    <div className="panel-body">{loginBody}</div>
+                    <br />
+                    {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
+                    <br />
+                  </div>
+                </div>
               </div>
-              <div className="panel-body">{loginBody}</div>
-              <br />
-            </div>
-          </div>
-        </div>
+            </Col>
+            <Col/>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isLoading: () => state.connect.loading,
-  auth: state.auth
+  isLoading: () => state.connect.loading
 });
 
 const mapDispatchToProps = dispatch => ({
   setLoading: loading => dispatch(setLoading(loading)),
-  createSession: auth => dispatch(createSession(auth)),
-  generateAuthState: () => dispatch(generateAuthState())
+  createSession: auth => dispatch(createSession(auth))
 });
 
 export default connect(
