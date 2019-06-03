@@ -5,7 +5,8 @@ export default (state = null, action) => {
     case "CREATE_SESSION":
       return {
         ...state,
-        access_token: payload.access_token
+        access_token: payload.access_token,
+        gillPermissions: payload.gillPermissions
       };
     case "CLEAR_SESSION":
       return null;
