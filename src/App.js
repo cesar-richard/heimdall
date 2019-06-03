@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
-import BlockedList from "./components/views/BlockedList";
+import FundationList from "./components/views/Blocked/FundationList";
 import PosList from "./components/views/PosList";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from 'react-toastify';
@@ -72,7 +72,7 @@ class App extends Component {
                 <Col sm={11}>
                   <Tab.Content>
                     <Tab.Pane eventKey="blocked">
-                      <BlockedList />
+                      <FundationList />
                     </Tab.Pane>
                     <Tab.Pane eventKey="pos">
                       <PosList />

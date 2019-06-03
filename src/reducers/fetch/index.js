@@ -1,4 +1,6 @@
-import { createFetchReducer } from "./fetchReducer";
+import { createFetchReducer } from './fetchReducer';
+import { createBlockReducer } from './blockedReducer';
 export default {
-  wallets: createFetchReducer("WALLETS")
-};
+  fundations: createFetchReducer('FUNDATION'),
+  blocked: createBlockReducer(),
+}

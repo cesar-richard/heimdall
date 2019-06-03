@@ -1,5 +1,5 @@
 import { POST } from "./apiServices";
 
-export const getAll = fundationId => {
+export const getAllBlocked = fundationId => {
   return POST("BLOCKED/getAll", { fun_id: fundationId });
 };
