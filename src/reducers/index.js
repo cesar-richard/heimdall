@@ -3,15 +3,12 @@ import { routerReducer } from "react-router-redux";
 import { reducer as formReducer } from "redux-form";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
-import fetchReducers from "./fetch";
-import auth from "./authReducer";
+import fetchReducer from "./fetch";
 import connect from "./connectReducer";
 import session from "./sessionReducer";
 
 const reducers = combineReducers({
-  ...fetchReducers,
-  auth,
+  ...fetchReducer,
   session,
   routing: routerReducer,
   form: formReducer,
@@ -22,7 +19,7 @@ export default persistReducer(
   {
     storage,
     key: "root",
-    whitelist: ["auth", "session"]
+    whitelist: ["session"]
   },
   reducers
 );
