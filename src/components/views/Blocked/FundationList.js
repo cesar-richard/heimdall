@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
-import { Table, Spinner,ListGroup } from "react-bootstrap";
+import { Spinner, ListGroup } from "react-bootstrap";
 import Fundation from "./Fundation";
 import "moment/locale/fr";
 
@@ -28,11 +28,7 @@ class FundationList extends Component {
       fundationList.push(
         <Fundation key={0} fundation={{ id: 0, name: "System" }} />
       );
-      return (
-        <ListGroup>
-          {[fundationList]}
-        </ListGroup>
-      );
+      return <ListGroup>{[fundationList]}</ListGroup>;
     }
     if (this.props.fundations().hasErrored) {
       return "Error";

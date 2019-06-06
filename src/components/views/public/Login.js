@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { createSession } from "../../../actions/sessionActions";
-import { setLoading } from "../../../actions/connectActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
 import { loginCas2 } from "../../../api/gill/MYACCOUNT";
@@ -169,7 +168,7 @@ class Login extends Component {
       <React.Fragment>
         <Container>
           <Row>
-            <Col/>
+            <Col />
             <Col sm={3}>
               <div className="text-center">
                 <div className={`block-center mt-xl wd-xl login-body `}>
@@ -189,7 +188,7 @@ class Login extends Component {
                 </div>
               </div>
             </Col>
-            <Col/>
+            <Col />
           </Row>
         </Container>
       </React.Fragment>
@@ -202,7 +201,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setLoading: loading => dispatch(setLoading(loading)),
   createSession: auth => dispatch(createSession(auth))
 });
 

@@ -39,7 +39,10 @@ const request = (endPoint, method, params, headers = {}) => {
     const errorObject = {
       config: response.config,
       status: response.status,
-      message: "Gill said : " + (response.data || {}).message || (response.data || {}).error.message || "An unknown error occurred."
+      message:
+        "Gill said : " + (response.data || {}).message ||
+        (response.data || {}).error.message ||
+        "An unknown error occurred."
     };
 
     throw errorObject;
