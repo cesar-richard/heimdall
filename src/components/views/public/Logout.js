@@ -9,18 +9,16 @@ class Logout extends Component {
   }
 
   render() {
-    return (
-      <Redirect to="/" />
-    );
+    return <Redirect to="/" />;
   }
 }
 
 const mapStateToProps = state => ({
-  isLoading: () => state.connect.loading,
+  isLoading: () => state.connect.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearSession: () => dispatch(clearSession()),
+  clearSession: () => dispatch(clearSession())
 });
 
 export default connect(

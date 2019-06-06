@@ -40,11 +40,15 @@ class Fundation extends Component {
         this.props.blocked().data[this.props.fundation.id].data
       ).length;
       return (
-        <ListGroup.Item variant={blockedCount > 0 ? "danger" : "info"}>
+        <ListGroup.Item
+          variant={blockedCount > 0 ? "danger" : "info"}
+          action
+          href={`/blocked/${this.props.fundation.id}`}
+        >
           <Container>
             <Row>
               <Col>{this.props.fundation.name}</Col>
-              <Col>{blockedCount}</Col>
+              <Col>{blockedCount} blocked</Col>
             </Row>
           </Container>
         </ListGroup.Item>

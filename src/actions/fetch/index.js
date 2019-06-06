@@ -1,5 +1,6 @@
-import { createFetchAction } from './fetchAction';
+import { createFetchAction } from "./fetchAction";
 
-import { fundations } from '../../api/gill/resources';
+import { fundations } from "../../api/gill/resources";
 
-export const getFundations = () => createFetchAction('FUNDATION', () => fundations());
+export const getFundations = () =>
+  createFetchAction("FUNDATION", () => fundations());

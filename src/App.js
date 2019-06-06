@@ -12,7 +12,7 @@ import Logout from "./components/views/public/Logout";
 import FundationList from "./components/views/Blocked/FundationList";
 import PosList from "./components/views/PosList";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 class App extends Component {
@@ -53,9 +53,7 @@ class App extends Component {
           <Route
             path="/blocked/:fundationId"
             exact
-            render={props =>
-              !isLoggedIn ? this.renderLogin(props) : "Puteuh"
-            }
+            render={props => (!isLoggedIn ? this.renderLogin(props) : "Puteuh")}
           />
           <Route
             path="/pos/"
@@ -105,14 +103,14 @@ class App extends Component {
           </div>
           <footer>
             <div>
-            <a title="Logout" href="/logout">
-              Logout
-            </a>
+              <a title="Logout" href="/logout">
+                Logout
+              </a>
             </div>
             <div>
-            <span>&copy;2019 - C.Richard</span>
-            <br />
-            <span>Version 0.1</span>
+              <span>&copy;2019 - C.Richard</span>
+              <br />
+              <span>Version 0.1</span>
             </div>
             <br />
           </footer>
@@ -122,7 +120,12 @@ class App extends Component {
   }
 
   render() {
-    return <React.Fragment>{this.renderMain()}<ToastContainer /></React.Fragment>;
+    return (
+      <React.Fragment>
+        {this.renderMain()}
+        <ToastContainer />
+      </React.Fragment>
+    );
   }
 }
 

@@ -29,16 +29,8 @@ export const getAllBlocked = fundationId => {
   return dispatch => {
     dispatch(itemsIsLoading(fundationId, true));
     getAllBlockedApi(fundationId === 0 ? null : fundationId)
-      .then(data =>
-        dispatch(
-          itemsFetchDataSuccess(fundationId, data)
-        )
-      )
-      .catch(err =>
-        dispatch(itemsHasErrored(fundationId, err))
-      )
-      .then(() =>
-        dispatch(itemsIsLoading(fundationId, false))
-      );
+      .then(data => dispatch(itemsFetchDataSuccess(fundationId, data)))
+      .catch(err => dispatch(itemsHasErrored(fundationId, err)))
+      .then(() => dispatch(itemsIsLoading(fundationId, false)));
   };
 };
