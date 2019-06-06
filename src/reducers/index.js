@@ -5,10 +5,12 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import fetchReducer from "./fetch";
 import session from "./sessionReducer";
+import connect from "./connectReducer";
 
 const reducers = combineReducers({
   ...fetchReducer,
   session,
+  connect,
   routing: routerReducer,
   form: formReducer
 });

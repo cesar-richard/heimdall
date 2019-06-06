@@ -81,10 +81,10 @@ class App extends Component {
                 <Col sm={1}>
                   <Nav variant="pills" className="flex-column">
                     <Nav.Item>
-                      <Nav.Link eventKey="blocked">Blocages</Nav.Link>
+                      <Nav.Link eventKey="blocked" href="/blocked">Blocages</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="pos">Points de vente</Nav.Link>
+                      <Nav.Link eventKey="pos" href="/pos">Points de vente</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Col>
