@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
@@ -15,6 +14,7 @@ import {
   Col
 } from "react-bootstrap";
 import { waterfall } from "async";
+import { setLoading } from "../../../actions/connectActions";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -201,7 +201,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createSession: auth => dispatch(createSession(auth))
+  createSession: auth => dispatch(createSession(auth)),
+  setLoading: loading => dispatch(setLoading(loading))
 });
 
 export default connect(

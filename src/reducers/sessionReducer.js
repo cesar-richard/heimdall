@@ -1,4 +1,4 @@
-export default (state = null, action) => {
+export default (state = {loading: false}, action) => {
   const { payload } = action;
 
   switch (action.type) {
