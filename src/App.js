@@ -43,6 +43,27 @@ class App extends Component {
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
           />
+          <Route
+            path="/blocked/"
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
+            }
+          />
+          <Route
+            path="/blocked/:fundationId"
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : "Puteuh"
+            }
+          />
+          <Route
+            path="/pos/"
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
+            }
+          />
           <Route path="/logout" component={Logout} />
         </Switch>
       </Router>
@@ -52,9 +73,9 @@ class App extends Component {
   renderLabel() {
     return (
       <div className="App">
-        <h1>
+        <h3>
           I used to be a student like you, then I took an arrow in the knee...
-        </h1>
+        </h3>
         <div>
           <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey="blocked">
@@ -83,12 +104,16 @@ class App extends Component {
             </Tab.Container>
           </div>
           <footer>
+            <div>
             <a title="Logout" href="/logout">
               Logout
             </a>
+            </div>
+            <div>
             <span>&copy;2019 - C.Richard</span>
             <br />
             <span>Version 0.1</span>
+            </div>
             <br />
           </footer>
         </div>

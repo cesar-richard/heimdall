@@ -1,24 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
-import { Spinner } from "react-bootstrap";
+import { Col, Container, Row, ListGroup, Spinner } from "react-bootstrap";
 
 class Fundation extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchAllBlocked(this.props.fundation.id);
+  }
+
+  handleClick() {
+    console.log("click!", this.props.fundation.name);
   }
 
   render() {
     if (this.props.blocked().isLoading[this.props.fundation.id]) {
       return (
-        <tr>
-          <td sm={11}>{this.props.fundation.name}</td>
-          <td>
-            <Spinner animation="border" role="status" size="sm">
-              <span className="sr-only">Loading...</span>
-            </Spinner>
-          </td>
-        </tr>
+        <ListGroup.Item>
+          <Container>
+            <Row>
+              <Col>{this.props.fundation.name}</Col>
+              <Col>
+                <Spinner animation="border" role="status" size="sm">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </Col>
+            </Row>
+          </Container>
+        </ListGroup.Item>
       );
     }
 
@@ -27,10 +40,14 @@ class Fundation extends Component {
         this.props.blocked().data[this.props.fundation.id].data
       ).length;
       return (
-        <tr className={blockedCount > 0 ? "table-danger" : "table-info"}>
-          <td>{this.props.fundation.name}</td>
-          <td>{blockedCount}</td>
-        </tr>
+        <ListGroup.Item variant={blockedCount > 0 ? "danger" : "info"}>
+          <Container>
+            <Row>
+              <Col>{this.props.fundation.name}</Col>
+              <Col>{blockedCount}</Col>
+            </Row>
+          </Container>
+        </ListGroup.Item>
       );
     }
     if (this.props.blocked().hasErrored[this.props.fundation.id]) {
