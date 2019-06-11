@@ -9,6 +9,7 @@ class Logout extends Component {
   }
 
   render() {
+    sessionStorage.clear();
     return <Redirect to="/" />;
   }
 }

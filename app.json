@@ -1,0 +1,31 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "description": "",
+  "env": {
+    "DANGEROUSLY_DISABLE_HOST_CHECK": {
+      "required": true
+    },
+    "GILL_API_KEY": {
+      "required": true
+    },
+    "SYSTEM_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "Heimdal",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
