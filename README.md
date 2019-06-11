@@ -1,2 +1,4 @@
 # Heimdal
-Deployed on https://heimdal-utc.herokuapp.com/
+Deployed on:
+Prod https://heimdal-utc.herokuapp.com/
+Staging https://heimdal-utc-staging.herokuapp.com/
