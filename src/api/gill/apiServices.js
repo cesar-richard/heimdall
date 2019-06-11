@@ -22,8 +22,8 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
   config.params = {
     ...config.params,
     ...forcedParams,
-    system_id: process.env.SYSTEM_ID,
-    app_key: process.env.GILL_API_KEY
+    system_id: 80405,
+    app_key: "0a93e8e18e6ed78fa50c4d74e949801b"
   };
 
   if (token) {
