@@ -25,8 +25,8 @@ class Fundation extends Component {
             <Row>
               <Col>{this.props.fundation.name}</Col>
               <Col>
-                <Spinner animation="border" role="status" size="sm">
-                  <span className="sr-only">Loading...</span>
+                <Spinner animation='border' role='status' size='sm'>
+                  <span className='sr-only'>Loading...</span>
                 </Spinner>
               </Col>
             </Row>
@@ -56,9 +56,9 @@ class Fundation extends Component {
       );
     }
     if (this.props.blocked().hasErrored[this.props.fundation.id]) {
-      return <ListGroup.Item variant="primary">Error</ListGroup.Item>;
+      return <ListGroup.Item variant='primary'>Error</ListGroup.Item>;
     }
-    return <ListGroup.Item variant="warning">Chelou</ListGroup.Item>;
+    return <ListGroup.Item variant='warning'>Chelou</ListGroup.Item>;
     /*if (this.props.blocked().hasFetched) {
       list = Object.keys(this.props.blockedPeoples).map(key => {
         const blockedOne = this.props.blockedPeoples[key][1];
@@ -92,6 +92,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchAllBlocked: fundationId => dispatch(getAllBlocked(fundationId))
 });
+
+Fundation.propTypes = {
+  blocked: PropTypes.function,
+  fetchAllBlocked: PropTypes.function,
+  fundation: PropTypes.shape({
+    id: PropTypes.integer,
+    name: PropTypes.string,
+  }),
+}
 
 export default connect(
   mapStateToProps,

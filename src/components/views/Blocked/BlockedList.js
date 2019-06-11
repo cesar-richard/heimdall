@@ -38,6 +38,10 @@ const mapDispatchToProps = dispatch => ({
   fetchFundations: () => dispatch(fundations())
 });
 
+BlockedList.propTypes = {
+  fetchFundations: PropTypes.function,
+}
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -18,8 +18,8 @@ import "./App.css";
 class App extends Component {
   renderLogin(props) {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className='App'>
+        <header className='App-header'>
           <Login {...props} />
         </header>
         <span>&copy;2019 - C.Richard</span>
@@ -37,32 +37,32 @@ class App extends Component {
       <Router>
         <Switch>
           <Route
-            path="/"
+            path='/'
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
           />
           <Route
-            path="/blocked/"
+            path='/blocked/'
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
           />
           <Route
-            path="/blocked/:fundationId"
+            path='/blocked/:fundationId'
             exact
             render={props => (!isLoggedIn ? this.renderLogin(props) : "Puteuh")}
           />
           <Route
-            path="/pos/"
+            path='/pos/'
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
           />
-          <Route path="/logout" component={Logout} />
+          <Route path='/logout' component={Logout} />
         </Switch>
       </Router>
     );
@@ -70,30 +70,30 @@ class App extends Component {
 
   renderLabel() {
     return (
-      <div className="App">
+      <div className='App'>
         <h3>
           I used to be a student like you, then I took an arrow in the knee...
         </h3>
         <div>
           <div>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="blocked">
+            <Tab.Container id='left-tabs-example' defaultActiveKey='blocked'>
               <Row>
                 <Col sm={1}>
-                  <Nav variant="pills" className="flex-column">
+                  <Nav variant='pills' className='flex-column'>
                     <Nav.Item>
-                      <Nav.Link eventKey="blocked" href="/blocked">Blocages</Nav.Link>
+                      <Nav.Link eventKey='blocked' href='/blocked'>Blocages</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="pos" href="/pos">Points de vente</Nav.Link>
+                      <Nav.Link eventKey='pos' href='/pos'>Points de vente</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Col>
                 <Col sm={11}>
                   <Tab.Content>
-                    <Tab.Pane eventKey="blocked">
+                    <Tab.Pane eventKey='blocked'>
                       <FundationList />
                     </Tab.Pane>
-                    <Tab.Pane eventKey="pos">
+                    <Tab.Pane eventKey='pos'>
                       <PosList />
                     </Tab.Pane>
                   </Tab.Content>
@@ -103,7 +103,7 @@ class App extends Component {
           </div>
           <footer>
             <div>
-              <a title="Logout" href="/logout">
+              <a title='Logout' href='/logout'>
                 Logout
               </a>
             </div>
@@ -136,6 +136,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearSession: () => dispatch(clearSession())
 });
+
+App.propTypes = {
+  session: PropTypes.shape({
+    access_token: PropTypes.string,
+  }),
+}
 
 export default withRouter(
   connect(
