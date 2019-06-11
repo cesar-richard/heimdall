@@ -39,6 +39,7 @@ class Fundation extends Component {
       const blockedCount = Object.values(
         this.props.blocked().data[this.props.fundation.id].data
       ).length;
+      sessionStorage.blocked = JSON.stringify(this.props.blocked().data);
       return (
         <ListGroup.Item
           variant={blockedCount > 0 ? "danger" : "info"}
@@ -55,9 +56,9 @@ class Fundation extends Component {
       );
     }
     if (this.props.blocked().hasErrored[this.props.fundation.id]) {
-      return "error";
+      return <ListGroup.Item variant="primary">Error</ListGroup.Item>;
     }
-    return "chelou";
+    return <ListGroup.Item variant="warning">Chelou</ListGroup.Item>;
     /*if (this.props.blocked().hasFetched) {
       list = Object.keys(this.props.blockedPeoples).map(key => {
         const blockedOne = this.props.blockedPeoples[key][1];

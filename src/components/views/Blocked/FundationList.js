@@ -7,7 +7,9 @@ import "moment/locale/fr";
 
 class FundationList extends Component {
   componentDidMount() {
-    this.props.fetchFundations();
+    if (!sessionStorage.hasOwnProperty("fundations")) {
+      this.props.fetchFundations();
+    }
   }
 
   render() {
@@ -19,8 +21,18 @@ class FundationList extends Component {
         </Spinner>
       );
     }
-    if (this.props.fundations().hasBeenFetched) {
-      const fundations = this.props.fundations().data.data;
+
+    if (
+      this.props.fundations().hasBeenFetched ||
+      sessionStorage.hasOwnProperty("fundations")
+    ) {
+      let fundations = [];
+      if (sessionStorage.hasOwnProperty("fundations")) {
+        fundations = JSON.parse(sessionStorage.fundations);
+      } else {
+        fundations = this.props.fundations().data.data;
+        sessionStorage.fundations = JSON.stringify(fundations);
+      }
 
       fundationList = fundations.map((fundation, index) => (
         <Fundation key={fundation.id} fundation={fundation} />
@@ -33,7 +45,7 @@ class FundationList extends Component {
     if (this.props.fundations().hasErrored) {
       return "Error";
     }
-    return "chelou";
+    return "No datas";
   }
 }
 
