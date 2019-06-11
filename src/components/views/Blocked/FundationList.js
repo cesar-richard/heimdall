@@ -16,8 +16,8 @@ class FundationList extends Component {
     let fundationList = [];
     if (this.props.fundations().isLoading) {
       return (
-        <Spinner animation="border" role="status" size="sm">
-          <span className="sr-only">Loading...</span>
+        <Spinner animation='border' role='status' size='sm'>
+          <span className='sr-only'>Loading...</span>
         </Spinner>
       );
     }
@@ -57,6 +57,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchFundations: () => dispatch(getFundations())
 });
+
+FundationList.propTypes = {
+  fundations: PropTypes.function,
+  fetchFundations: PropTypes.function,
+}
 
 export default connect(
   mapStateToProps,
