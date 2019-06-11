@@ -21,8 +21,8 @@ const request = (endPoint, method, params, headers = {}) => {
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
     ...config.params,
-    system_id: SYSTEM,
-    app_key: "APIKEY"
+    system_id: process.env.SYSTEM_ID,
+    app_key: process.env.GILL_API_KEY
   };
 
   if (token) {
