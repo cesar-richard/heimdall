@@ -10,7 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading="Chargement ..." persistor={persistor}>
+    <PersistGate loading='Chargement ...' persistor={persistor}>
       <Router>
         <App />
       </Router>

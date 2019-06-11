@@ -10,7 +10,7 @@ class Logout extends Component {
 
   render() {
     sessionStorage.clear();
-    return <Redirect to="/" />;
+    return <Redirect to='/' />;
   }
 }
 
@@ -21,6 +21,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearSession: () => dispatch(clearSession())
 });
+
+Logout.propTypes = {
+  clearSession: PropTypes.function,
+}
 
 export default connect(
   mapStateToProps,

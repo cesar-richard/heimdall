@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
@@ -125,28 +126,28 @@ class Login extends Component {
   render() {
     let loginBody = (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="formLogin">
+        <Form.Group controlId='formLogin'>
           <Form.Control
-            name="login"
-            type="username"
-            placeholder="Login"
+            name='login'
+            type='username'
+            placeholder='Login'
             onChange={this.handleChange}
             required
           />
         </Form.Group>
 
-        <Form.Group controlId="formPassword">
+        <Form.Group controlId='formPassword'>
           <Form.Control
-            name="password"
-            type="password"
-            placeholder="Password"
+            name='password'
+            type='password'
+            placeholder='Password'
             onChange={this.handleChange}
             required
           />
         </Form.Group>
         <Button
-          variant="primary"
-          type="submit"
+          variant='primary'
+          type='submit'
           disabled={this.props.isLoading() ? "disabled" : ""}
         >
           {this.props.isLoading() ? "Veuillez patienter..." : "Connexion"}
@@ -170,17 +171,17 @@ class Login extends Component {
           <Row>
             <Col />
             <Col sm={3}>
-              <div className="text-center">
+              <div className='text-center'>
                 <div className={`block-center mt-xl wd-xl login-body `}>
-                  <div className="panel panel-dark panel-flat">
+                  <div className='panel panel-dark panel-flat'>
                     <div
-                      className="panel-heading text-center"
-                      id="login-page-container"
+                      className='panel-heading text-center'
+                      id='login-page-container'
                     >
                       <h1>Heimdal</h1>
                       <div />
                     </div>
-                    <div className="panel-body">{loginBody}</div>
+                    <div className='panel-body'>{loginBody}</div>
                     <br />
                     {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
                     <br />
@@ -194,6 +195,12 @@ class Login extends Component {
       </React.Fragment>
     );
   }
+}
+
+Login.propTypes = {
+  isLoading: PropTypes.function,
+  setLoading: PropTypes.function,
+  createSession: PropTypes.function,
 }
 
 const mapStateToProps = state => ({
