@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
+import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import { Col, Container, Row, ListGroup, Spinner } from "react-bootstrap";
 
 class Fundation extends Component {
@@ -12,6 +13,7 @@ class Fundation extends Component {
 
   componentDidMount() {
     this.props.fetchAllBlocked(this.props.fundation.id);
+    this.props.fetchSalesLocation(this.props.fundation.id);
   }
 
   handleClick() {
@@ -19,12 +21,20 @@ class Fundation extends Component {
   }
 
   render() {
-    if (this.props.blocked().isLoading[this.props.fundation.id]) {
+    if (
+      this.props.blocked().isLoading[this.props.fundation.id] &&
+      this.props.salesLocations().isLoading[this.props.fundation.id]
+    ) {
       return (
         <ListGroup.Item>
           <Container>
             <Row>
               <Col>{this.props.fundation.name}</Col>
+              <Col>
+                <Spinner animation='border' role='status' size='sm'>
+                  <span className='sr-only'>Loading...</span>
+                </Spinner>
+              </Col>
               <Col>
                 <Spinner animation='border' role='status' size='sm'>
                   <span className='sr-only'>Loading...</span>
@@ -36,10 +46,28 @@ class Fundation extends Component {
       );
     }
 
-    if (this.props.blocked().hasBeenFetched[this.props.fundation.id]) {
-      const blockedCount = Object.values(
-        this.props.blocked().data[this.props.fundation.id].data
-      ).length;
+    if (
+      this.props.blocked().hasBeenFetched[this.props.fundation.id] ||
+      this.props.salesLocations().hasBeenFetched[this.props.fundation.id]
+    ) {
+      const blockedCount = this.props.blocked().hasBeenFetched[
+        this.props.fundation.id
+      ]
+        ? Object.values(this.props.blocked().data[this.props.fundation.id].data)
+            .length
+        : -1;
+      let salesLocationsCount = -1;
+      let activeSalesLocationsCount = -1;
+      if (this.props.salesLocations().hasBeenFetched[this.props.fundation.id]) {
+        salesLocationsCount = Object.values(
+          this.props.salesLocations().data[this.props.fundation.id].data
+        ).length;
+        activeSalesLocationsCount = Object.values(
+          this.props.salesLocations().data[this.props.fundation.id].data
+        ).filter(item => {
+          return item.enabled;
+        }).length;
+      }
       sessionStorage.blocked = JSON.stringify(this.props.blocked().data);
       return (
         <ListGroup.Item
@@ -50,7 +78,36 @@ class Fundation extends Component {
           <Container>
             <Row>
               <Col>{this.props.fundation.name}</Col>
-              <Col>{blockedCount} blocked</Col>
+              <Col>
+                {this.props.blocked().hasBeenFetched[
+                  this.props.fundation.id
+                ] ? (
+                  blockedCount + " blocked"
+                ) : (
+                  <Spinner animation='border' role='status' size='sm'>
+                    <span className='sr-only'>Loading...</span>
+                  </Spinner>
+                )}
+              </Col>
+              <Col>
+                {this.props.salesLocations().hasBeenFetched[
+                  this.props.fundation.id
+                ] ? (
+                  activeSalesLocationsCount === salesLocationsCount &&
+                  salesLocationsCount === 0 ? (
+                    "No sales locations"
+                  ) : (
+                    activeSalesLocationsCount +
+                    "/" +
+                    salesLocationsCount +
+                    " active sales locations"
+                  )
+                ) : (
+                  <Spinner animation='border' role='status' size='sm'>
+                    <span className='sr-only'>Loading...</span>
+                  </Spinner>
+                )}
+              </Col>
             </Row>
           </Container>
         </ListGroup.Item>
@@ -87,21 +144,25 @@ class Fundation extends Component {
 }
 
 const mapStateToProps = state => ({
-  blocked: () => state.blocked
+  blocked: () => state.blocked,
+  salesLocations: () => state.salesLocations
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllBlocked: fundationId => dispatch(getAllBlocked(fundationId))
+  fetchAllBlocked: fundationId => dispatch(getAllBlocked(fundationId)),
+  fetchSalesLocation: fundationId => dispatch(getSalesLocations(fundationId))
 });
 
 Fundation.propTypes = {
   blocked: PropTypes.function,
+  salesLocations: PropTypes.function,
   fetchAllBlocked: PropTypes.function,
+  fetchSalesLocation: PropTypes.function,
   fundation: PropTypes.shape({
     id: PropTypes.integer,
-    name: PropTypes.string,
-  }),
-}
+    name: PropTypes.string
+  })
+};
 
 export default connect(
   mapStateToProps,

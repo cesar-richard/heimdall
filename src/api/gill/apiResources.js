@@ -27,6 +27,7 @@ const request = (endPoint, method, params, headers = {}) => {
   config.params = {
     ...config.params,
     system_id: 80405,
+    event: 1,
     app_key: "0a93e8e18e6ed78fa50c4d74e949801b"
   };
 
