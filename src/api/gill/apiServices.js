@@ -12,11 +12,15 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": "2017-12-15"
     }
   };
-
-  const token =
-    null === store.getState().session
-      ? null
-      : store.getState().session.access_token.sessionid;
+  let token;
+  try {
+    token =
+      null === store.getState().session
+        ? null
+        : store.getState().session.access_token.sessionid;
+  } catch (e) {
+    store.dispatch(clearSession());
+  }
 
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
