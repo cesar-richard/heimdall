@@ -45,7 +45,7 @@ class Login extends Component {
     event.preventDefault();
     this.props.setLoading(true);
     let formData = {
-      service: "http://heimdal",
+      service: "http://heimdal.crichard.fr/login",
       username: this.state.login,
       password: this.state.password
     };
@@ -204,7 +204,7 @@ Login.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  isLoading: () => state.connect.loading
+  isLoading: () => state.connect.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
