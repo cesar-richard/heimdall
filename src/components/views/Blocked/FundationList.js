@@ -61,8 +61,8 @@ const mapDispatchToProps = dispatch => ({
 
 FundationList.propTypes = {
   fundations: PropTypes.function,
-  fetchFundations: PropTypes.function,
-}
+  fetchFundations: PropTypes.function
+};
 
 export default connect(
   mapStateToProps,
