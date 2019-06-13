@@ -27,6 +27,7 @@ const request = (endPoint, method, params, headers = {}) => {
   config.params = {
     ...config.params,
     system_id: ***REMOVED***,
+    event: 1,
     app_key: "***REMOVED***"
   };
 
