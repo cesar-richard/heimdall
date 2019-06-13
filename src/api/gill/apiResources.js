@@ -13,10 +13,15 @@ const request = (endPoint, method, params, headers = {}) => {
     }
   };
 
-  const token =
-    null === store.getState().session
-      ? null
-      : store.getState().session.access_token.sessionid;
+  let token;
+  try {
+    token =
+      null === store.getState().session
+        ? null
+        : store.getState().session.access_token.sessionid;
+  } catch (e) {
+    store.dispatch(clearSession());
+  }
 
   config[method === "get" ? "params" : "data"] = params;
   config.params = {
