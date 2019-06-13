@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
 import { Spinner, ListGroup } from "react-bootstrap";
