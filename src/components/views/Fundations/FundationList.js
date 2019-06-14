@@ -35,7 +35,6 @@ class FundationList extends Component {
         fundations = Object.values(this.props.fundations.data);
         //sessionStorage.fundations = JSON.stringify(fundations);
       }
-      //console.log(this.props.fundations)
       fundationList = fundations.map((fundation, index) => (
         <Fundation key={fundation.id} fundation={fundation} />
       ));
@@ -62,7 +61,7 @@ const mapDispatchToProps = dispatch => ({
 
 FundationList.propTypes = {
   fetchFundations: PropTypes.func.isRequired,
-  //fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
+  fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
   isLoading: PropTypes.bool
 };
 
