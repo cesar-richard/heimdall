@@ -12,6 +12,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": "2017-12-15"
     }
   };
+  
   let token;
   try {
     token =

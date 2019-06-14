@@ -1,4 +1,8 @@
-export const createFetchAction = (name, dataSource) => {
+export const createFetchAction = (
+  name,
+  dataSource,
+  modelParams = { isArray: false, model: Object }
+) => {
   const itemsHasErrored = bool => {
     return {
       type: `${name}_HAS_ERRORED`,
@@ -14,11 +18,12 @@ export const createFetchAction = (name, dataSource) => {
   };
 
   const itemsFetchDataSuccess = data => {
+    const { status, statusText } = data;
     return {
       type: `${name}_FETCH_DATA_SUCCESS`,
-      payload: {
-        data: data
-      }
+      payload: modelParams.isArray
+        ? Object.values(data.data).map(item => new modelParams.model(item))
+        : new modelParams.model(data.data)
     };
   };
 

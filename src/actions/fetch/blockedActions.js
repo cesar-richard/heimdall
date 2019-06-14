@@ -1,4 +1,5 @@
 import { getAllBlocked as getAllBlockedApi } from "../../api/gill/BLOCKED";
+import BlockedModel from "../../models/BlockedModel";
 export const getAllBlocked = fundationId => {
   const itemsHasErrored = (fundationId, bool) => {
     return {
@@ -19,9 +20,7 @@ export const getAllBlocked = fundationId => {
   const itemsFetchDataSuccess = (fundationId, data) => {
     return {
       type: `BLOCKED_FETCH_DATA_SUCCESS`,
-      payload: {
-        data
-      },
+      payload: Object.values(data.data).map(item=>new BlockedModel(item)),
       fundationId: fundationId
     };
   };

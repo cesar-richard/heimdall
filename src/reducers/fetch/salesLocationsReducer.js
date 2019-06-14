@@ -37,7 +37,7 @@ export const createSalesLocationsReducer = name => {
       case `SALESLOCATION_FETCH_DATA_SUCCESS`:
         return {
           ...state,
-          [action.fundationId]: action.payload.data
+          [action.fundationId]: action.payload
         };
       case `SALESLOCATION_CLEAR`:
         return {};

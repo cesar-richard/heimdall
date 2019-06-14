@@ -24,7 +24,7 @@ export const createFetchReducer = name => {
   const data = (state = {}, action) => {
     switch (action.type) {
       case `${name}_FETCH_DATA_SUCCESS`:
-        return action.payload.data;
+        return action.payload;
       case `${name}_IS_LOADING`:
         return action.isLoading ? {} : state;
       case `${name}_CLEAR`:
