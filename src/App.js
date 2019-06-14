@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearSession } from "./actions/sessionActions";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  withRouter
+  withRouter,
+  Redirect
 } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
-import FundationList from "./components/views/Blocked/FundationList";
+import FundationList from "./components/views/Fundations/FundationList";
+import FundationDetails from "./components/views/Fundations/FundationDetails";
 import PosList from "./components/views/PosList";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
@@ -23,9 +25,13 @@ class App extends Component {
         <header className='App-header'>
           <Login {...props} />
         </header>
+        <span>
+          I used to be a student like you, then I took an arrow in the knee...
+        </span>
+        <br />
         <span>&copy;2019 - C.Richard</span>
         <br />
-        <span>Version 0.1</span>
+        <span>Version 0.3</span>
         <br />
       </div>
     );
@@ -45,16 +51,18 @@ class App extends Component {
             }
           />
           <Route
-            path='/blocked/'
+            path='/fundations/'
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
           />
           <Route
-            path='/blocked/:fundationId'
+            path='/fundations/:fundationId'
             exact
-            render={props => (!isLoggedIn ? this.renderLogin(props) : "Puteuh")}
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : <FundationDetails />
+            }
           />
           <Route
             path='/pos/'
@@ -62,6 +70,12 @@ class App extends Component {
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
             }
+          />
+          <Route
+            path='/'
+            render={() => {
+              return <Redirect to='/' />;
+            }}
           />
           <Route path='/logout' component={Logout} />
         </Switch>
@@ -72,35 +86,9 @@ class App extends Component {
   renderLabel() {
     return (
       <div className='App'>
-        <h3>
-          I used to be a student like you, then I took an arrow in the knee...
-        </h3>
         <div>
           <div>
-            <Tab.Container id='left-tabs-example' defaultActiveKey='blocked'>
-              <Row>
-                <Col sm={1}>
-                  <Nav variant='pills' className='flex-column'>
-                    <Nav.Item>
-                      <Nav.Link eventKey='blocked' href='/blocked'>Blocages</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey='pos' href='/pos'>Points de vente</Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </Col>
-                <Col sm={11}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey='blocked'>
-                      <FundationList />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey='pos'>
-                      <PosList />
-                    </Tab.Pane>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
+            <FundationList />
           </div>
           <footer>
             <div>
@@ -109,9 +97,14 @@ class App extends Component {
               </a>
             </div>
             <div>
+              <span>
+                I used to be a student like you, then I took an arrow in the
+                knee...
+              </span>
+              <br />
               <span>&copy;2019 - C.Richard</span>
               <br />
-              <span>Version 0.1</span>
+              <span>Version 0.3</span>
             </div>
             <br />
           </footer>
@@ -140,9 +133,9 @@ const mapDispatchToProps = dispatch => ({
 
 App.propTypes = {
   session: PropTypes.shape({
-    access_token: PropTypes.string,
-  }),
-}
+    access_token: PropTypes.object
+  }).isRequired
+};
 
 export default withRouter(
   connect(

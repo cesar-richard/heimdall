@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
 import { Spinner, ListGroup } from "react-bootstrap";
 import Fundation from "./Fundation";
+import FundationModel from '../../../models/FundationModel';
 import "moment/locale/fr";
 
 class FundationList extends Component {
@@ -15,7 +16,7 @@ class FundationList extends Component {
 
   render() {
     let fundationList = [];
-    if (this.props.fundations().isLoading) {
+    if (this.props.fundations.isLoading) {
       return (
         <Spinner animation='border' role='status' size='sm'>
           <span className='sr-only'>Loading...</span>
@@ -24,17 +25,17 @@ class FundationList extends Component {
     }
 
     if (
-      this.props.fundations().hasBeenFetched ||
+      this.props.fundations.hasBeenFetched ||
       sessionStorage.hasOwnProperty("fundations")
     ) {
       let fundations = [];
       if (sessionStorage.hasOwnProperty("fundations")) {
-        fundations = JSON.parse(sessionStorage.fundations);
+        fundations = Object.values(JSON.parse(sessionStorage.fundations).data);
       } else {
-        fundations = this.props.fundations().data.data;
-        sessionStorage.fundations = JSON.stringify(fundations);
+        fundations = Object.values(this.props.fundations.data);
+        //sessionStorage.fundations = JSON.stringify(fundations);
       }
-
+      //console.log(this.props.fundations)
       fundationList = fundations.map((fundation, index) => (
         <Fundation key={fundation.id} fundation={fundation} />
       ));
@@ -43,7 +44,7 @@ class FundationList extends Component {
       );
       return <ListGroup>{[fundationList]}</ListGroup>;
     }
-    if (this.props.fundations().hasErrored) {
+    if (this.props.fundations.hasErrored) {
       return "Error";
     }
     return "No datas";
@@ -51,8 +52,8 @@ class FundationList extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: () => state.connect.loading,
-  fundations: () => state.fundations
+  isLoading: state.connect.loading,
+  fundations: state.fundations
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -60,9 +61,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 FundationList.propTypes = {
-  fundations: PropTypes.function,
-  fetchFundations: PropTypes.function
+  fetchFundations: PropTypes.func.isRequired,
+  //fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
+  isLoading: PropTypes.bool
 };
+
+FundationList.defaultProps = {
+  isLoading: false
+}
+
 
 export default connect(
   mapStateToProps,

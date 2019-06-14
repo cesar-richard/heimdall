@@ -1,3 +1,12 @@
+import React, { Component } from "react";
+
+class FundationDetails extends Component {
+  render() {
+    return <div>Puteuh !</div>;
+  }
+}
+
+export default FundationDetails;
 /*Object.values(
       this.props.blocked().data[this.props.fundation.id].data
     ).map(blockedOne => {

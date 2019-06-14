@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
 import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import { Col, Container, Row, ListGroup, Spinner } from "react-bootstrap";
+import FundationModel from "../../../models/FundationModel";
 
 class Fundation extends Component {
   constructor(props) {
@@ -22,8 +23,8 @@ class Fundation extends Component {
 
   render() {
     if (
-      this.props.blocked().isLoading[this.props.fundation.id] &&
-      this.props.salesLocations().isLoading[this.props.fundation.id]
+      this.props.blocked.isLoading[this.props.fundation.id] &&
+      this.props.salesLocations.isLoading[this.props.fundation.id]
     ) {
       return (
         <ListGroup.Item>
@@ -47,41 +48,39 @@ class Fundation extends Component {
     }
 
     if (
-      this.props.blocked().hasBeenFetched[this.props.fundation.id] ||
-      this.props.salesLocations().hasBeenFetched[this.props.fundation.id]
+      this.props.blocked.hasBeenFetched[this.props.fundation.id] ||
+      this.props.salesLocations.hasBeenFetched[this.props.fundation.id]
     ) {
-      const blockedCount = this.props.blocked().hasBeenFetched[
+      const blockedCount = this.props.blocked.hasBeenFetched[
         this.props.fundation.id
       ]
-        ? Object.values(this.props.blocked().data[this.props.fundation.id].data)
+        ? Object.values(this.props.blocked.data[this.props.fundation.id])
             .length
         : -1;
       let salesLocationsCount = -1;
       let activeSalesLocationsCount = -1;
-      if (this.props.salesLocations().hasBeenFetched[this.props.fundation.id]) {
-        salesLocationsCount = Object.values(
-          this.props.salesLocations().data[this.props.fundation.id].data
-        ).length;
-        activeSalesLocationsCount = Object.values(
-          this.props.salesLocations().data[this.props.fundation.id].data
-        ).filter(item => {
+      if (this.props.salesLocations.hasBeenFetched[this.props.fundation.id]) {
+        salesLocationsCount = this.props.salesLocations.data[
+          this.props.fundation.id
+        ].length;
+        activeSalesLocationsCount = this.props.salesLocations.data[
+          this.props.fundation.id
+        ].filter(item => {
           return item.enabled;
         }).length;
       }
-      sessionStorage.blocked = JSON.stringify(this.props.blocked().data);
+      sessionStorage.blocked = JSON.stringify(this.props.blocked.data);
       return (
         <ListGroup.Item
           variant={blockedCount > 0 ? "danger" : "info"}
           action
-          href={`/blocked/${this.props.fundation.id}`}
+          href={`/fundations/${this.props.fundation.id}`}
         >
           <Container>
             <Row>
               <Col>{this.props.fundation.name}</Col>
               <Col>
-                {this.props.blocked().hasBeenFetched[
-                  this.props.fundation.id
-                ] ? (
+                {this.props.blocked.hasBeenFetched[this.props.fundation.id] ? (
                   blockedCount + " blocked"
                 ) : (
                   <Spinner animation='border' role='status' size='sm'>
@@ -90,7 +89,7 @@ class Fundation extends Component {
                 )}
               </Col>
               <Col>
-                {this.props.salesLocations().hasBeenFetched[
+                {this.props.salesLocations.hasBeenFetched[
                   this.props.fundation.id
                 ] ? (
                   activeSalesLocationsCount === salesLocationsCount &&
@@ -113,7 +112,7 @@ class Fundation extends Component {
         </ListGroup.Item>
       );
     }
-    if (this.props.blocked().hasErrored[this.props.fundation.id]) {
+    if (this.props.blocked.hasErrored[this.props.fundation.id]) {
       return <ListGroup.Item variant='primary'>Error</ListGroup.Item>;
     }
     return <ListGroup.Item variant='warning'>Chelou</ListGroup.Item>;
@@ -144,8 +143,8 @@ class Fundation extends Component {
 }
 
 const mapStateToProps = state => ({
-  blocked: () => state.blocked,
-  salesLocations: () => state.salesLocations
+  blocked: state.blocked,
+  salesLocations: state.salesLocations
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -154,14 +153,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Fundation.propTypes = {
-  blocked: PropTypes.function,
-  salesLocations: PropTypes.function,
-  fetchAllBlocked: PropTypes.function,
-  fetchSalesLocation: PropTypes.function,
-  fundation: PropTypes.shape({
-    id: PropTypes.integer,
-    name: PropTypes.string
-  })
+  fetchAllBlocked: PropTypes.func,
+  fetchSalesLocation: PropTypes.func,
+  //fundation: PropTypes.instanceOf(FundationModel).isRequired
 };
 
 export default connect(
