@@ -5,6 +5,8 @@ import { getAllBlocked } from "../../../actions/fetch/blockedActions";
 import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import { Col, Container, Row, ListGroup, Spinner } from "react-bootstrap";
 import FundationModel from "../../../models/FundationModel";
+import BlockedModel from "../../../models/BlockedModel";
+import SalesLocationModel from "../../../models/SalesLocationModel";
 
 class Fundation extends Component {
   constructor(props) {
@@ -155,7 +157,9 @@ const mapDispatchToProps = dispatch => ({
 Fundation.propTypes = {
   fetchAllBlocked: PropTypes.func,
   fetchSalesLocation: PropTypes.func,
-  //fundation: PropTypes.instanceOf(FundationModel).isRequired
+  fundation: PropTypes.instanceOf(FundationModel).isRequired,
+  blocked: PropTypes.arrayOf(PropTypes.instanceOf(BlockedModel)),
+  salesLocations: PropTypes.arrayOf(PropTypes.instanceOf(SalesLocationModel)),
 };
 
 export default connect(
