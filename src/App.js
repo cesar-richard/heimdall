@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
+import Forbiden from "./components/views/public/Forbiden";
 import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
 import PosList from "./components/views/PosList";
@@ -60,24 +61,20 @@ class App extends Component {
           <Route
             path='/fundations/:fundationId'
             exact
-            render={props =>
-              !isLoggedIn ? this.renderLogin(props) : <FundationDetails />
-            }
+            component={FundationDetails}
           />
           <Route
-            path='/pos/'
+            path='/403'
             exact
-            render={props =>
-              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
-            }
+            component={Forbiden}
           />
+          <Route path='/logout' exact component={Logout} />
           <Route
             path='/'
             render={() => {
               return <Redirect to='/' />;
             }}
           />
-          <Route path='/logout' component={Logout} />
         </Switch>
       </Router>
     );

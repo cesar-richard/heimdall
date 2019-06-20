@@ -118,29 +118,6 @@ class Fundation extends Component {
       return <ListGroup.Item variant='primary'>Error</ListGroup.Item>;
     }
     return <ListGroup.Item variant='warning'>Chelou</ListGroup.Item>;
-    /*if (this.props.blocked().hasFetched) {
-      list = Object.keys(this.props.blockedPeoples).map(key => {
-        const blockedOne = this.props.blockedPeoples[key][1];
-
-        return (
-          <tr key={key}>
-            <td>{blockedOne.blo_raison}</td>
-            <td>{blockedOne.usr_firstname}</td>
-            <td>{blockedOne.usr_lastname}</td>
-            <td>{blockedOne.login}</td>
-            <td>
-              <Moment format="DD/MM/YYYY HH:mm">{blockedOne.blo_insert}</Moment>
-            </td>
-            <td>
-              <Moment format="DD/MM/YYYY HH:mm">
-                {blockedOne.blo_removed}
-              </Moment>
-            </td>
-            <td>{this.props.name}</td>
-          </tr>
-        );
-      });
-    }*/
   }
 }
 
