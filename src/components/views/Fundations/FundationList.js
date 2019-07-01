@@ -38,9 +38,6 @@ class FundationList extends Component {
       fundationList = fundations.map((fundation, index) => (
         <Fundation key={fundation.id} fundation={fundation} />
       ));
-      fundationList.push(
-        <Fundation key={0} fundation={{ id: 0, name: "System" }} />
-      );
       return <ListGroup>{[fundationList]}</ListGroup>;
     }
     if (this.props.fundations.hasErrored) {
