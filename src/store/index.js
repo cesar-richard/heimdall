@@ -6,7 +6,7 @@ import reducers from "../reducers";
 
 let middles = [thunk];
 if (process.env.NODE_ENV !== "production") {
-  middles.push(logger);
+  //middles.push(logger);
 }
 
 const middlewares = applyMiddleware(...middles);
