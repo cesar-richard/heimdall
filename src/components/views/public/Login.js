@@ -215,21 +215,19 @@ class Login extends Component {
             required
           />
         </Form.Group>
-        <Form.Group controlId='formPassword'>
-          {this.state.casUrl !== "" ? (
+        {this.state.casUrl !== "" ? (
+          <Form.Group controlId='formAccountType'>
+            <Form.Label>CAS : </Form.Label>
             <Switch
               onChange={(el, state) => this.handleSwitch(el, state)}
               name='accountType'
-              onText='Yes'
-              offText='No'
               animate
-              labelText='Connexion CAS ?'
               value={this.state.useCas}
             />
-          ) : (
-            ""
-          )}
-        </Form.Group>
+          </Form.Group>
+        ) : (
+          ""
+        )}
         <Button
           variant='primary'
           type='submit'
