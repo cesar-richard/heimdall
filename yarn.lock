@@ -8081,6 +8081,11 @@ react-app-polyfill@^1.0.1:
     regenerator-runtime "0.13.2"
     whatwg-fetch "3.0.0"
 
+react-bootstrap-switch@^15.5.3:
+  version "15.5.3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-switch/-/react-bootstrap-switch-15.5.3.tgz#97287791d4ec0d1892d142542e7e5248002b1251"
+  integrity sha1-lyh3kdTsDRiS0UJULn5SSAArElE=
+
 react-bootstrap@^1.0.0-beta.9:
   version "1.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.0.0-beta.9.tgz#3d9e429fd3d7a81db241aa824646c73e99a8566c"

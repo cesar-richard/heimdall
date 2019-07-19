@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
-import { loginCas2 } from "../../../api/gill/MYACCOUNT";
+import { login2, loginCas2 } from "../../../api/gill/MYACCOUNT";
 import { getTicketGrantingTicket, getServiceTicket } from "../../../api/cas";
 import {
   Button,
@@ -12,19 +12,25 @@ import {
   ProgressBar,
   Container,
   Row,
-  Col
+  Col,
+  Spinner
 } from "react-bootstrap";
 import { waterfall } from "async";
 import { setLoading } from "../../../actions/connectActions";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Switch from "react-bootstrap-switch";
+import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       statusMessage: "",
-      connectionSteps: 0
+      connectionSteps: 0,
+      hasFetchedCas: false,
+      casUrl: false,
+      useCas: false
     };
     try {
       window.localStorage.removeItem("persist:root");
@@ -32,7 +38,9 @@ class Login extends Component {
       //do nothing
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitCas = this.handleSubmitCas.bind(this);
+    this.handleSubmitWeez = this.handleSubmitWeez.bind(this);
+    this.handleSwitch = this.handleSwitch.bind(this);
   }
 
   handleChange(event) {
@@ -41,7 +49,65 @@ class Login extends Component {
     });
   }
 
-  async handleSubmit(event) {
+  handleSwitch(elem, useCas) {
+    this.setState({ useCas });
+  }
+
+  componentDidMount() {
+    if (!this.state.hasFetchedCas) {
+      getCasUrl().then(data => {
+        if (data.status === 200) {
+          this.setState({ casUrl: data.data, hasFetchedCas: true });
+        }
+      });
+    }
+  }
+
+  async handleSubmitWeez(event) {
+    event.preventDefault();
+    this.props.setLoading(true);
+    waterfall(
+      [
+        callback => {
+          this.setState({
+            statusMessage: "Logging into gill ...",
+            connectionSteps: 0
+          });
+          login2(this.state.login, this.state.password).then(
+            data => callback(null, data.data),
+            callback
+          );
+        },
+        (token, callback) => {
+          this.setState({
+            statusMessage: "Getting user's permissions ...",
+            connectionSteps: 1
+          });
+          getAllMyRightsEvents(token.sessionid).then(
+            data => callback(null, token, data.data),
+            callback
+          );
+        },
+        (token, callback) => {
+          this.setState({
+            statusMessage: "Creating session ...",
+            connectionSteps: 2
+          });
+          this.props.setLoading(false);
+          this.props.createSession({
+            access_token: token
+          });
+        }
+      ],
+      (err, res) => {
+        this.setState({ statusMessage: "", connectionSteps: 0 });
+        if (err) toast.error(err.message);
+        this.props.setLoading(false);
+      }
+    );
+  }
+
+  async handleSubmitCas(event) {
     event.preventDefault();
     this.props.setLoading(true);
     let formData = {
@@ -125,7 +191,11 @@ class Login extends Component {
 
   render() {
     let loginBody = (
-      <Form onSubmit={this.handleSubmit}>
+      <Form
+        onSubmit={
+          this.state.useCas ? this.handleSubmitCas : this.handleSubmitWeez
+        }
+      >
         <Form.Group controlId='formLogin'>
           <Form.Control
             name='login'
@@ -145,6 +215,21 @@ class Login extends Component {
             required
           />
         </Form.Group>
+        <Form.Group controlId='formPassword'>
+          {this.state.casUrl !== "" ? (
+            <Switch
+              onChange={(el, state) => this.handleSwitch(el, state)}
+              name='accountType'
+              onText='Yes'
+              offText='No'
+              animate
+              labelText='Connexion CAS ?'
+              value={this.state.useCas}
+            />
+          ) : (
+            ""
+          )}
+        </Form.Group>
         <Button
           variant='primary'
           type='submit'
@@ -155,7 +240,9 @@ class Login extends Component {
       </Form>
     );
 
-    const now = Math.floor((this.state.connectionSteps / 6) * 100);
+    const now = Math.floor(
+      (this.state.connectionSteps / (this.state.useCas ? 6 : 2)) * 100
+    );
     const connectionSteps = (
       <div sm={6}>
         <div>
@@ -181,7 +268,15 @@ class Login extends Component {
                       <h1>Heimdal</h1>
                       <div />
                     </div>
-                    <div className='panel-body'>{loginBody}</div>
+                    <div className='panel-body'>
+                      {this.state.hasFetchedCas ? (
+                        loginBody
+                      ) : (
+                        <Spinner animation='border' role='status' size='sm'>
+                          <span className='sr-only'>Loading...</span>
+                        </Spinner>
+                      )}
+                    </div>
                     <br />
                     {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
                     <br />
@@ -200,8 +295,8 @@ class Login extends Component {
 Login.propTypes = {
   isLoading: PropTypes.function,
   setLoading: PropTypes.function,
-  createSession: PropTypes.function,
-}
+  createSession: PropTypes.function
+};
 
 const mapStateToProps = state => ({
   isLoading: () => state.connect.isLoading
