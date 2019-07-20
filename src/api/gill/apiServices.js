@@ -12,7 +12,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": "2017-12-15"
     }
   };
-  
+
   let token;
   try {
     token =
@@ -42,13 +42,15 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     }
 
     response = response || {};
+
+    console.error(response.data.error);
+    let message = response.data.message ? response.data.message :
+    response.data.error ? response.data.error.type : "unknown error";
     const errorObject = {
       config: response.config,
       status: response.status,
       message:
-        "Gill said : " + (response.data || {}).message ||
-        (response.data || {}).error.message ||
-        "An unknown error occurred."
+        "Gill said : " + message
     };
 
     throw errorObject;

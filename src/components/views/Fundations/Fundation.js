@@ -85,7 +85,8 @@ class Fundation extends Component {
                 {this.props.blocked.hasBeenFetched[this.props.fundation.id] ? (
                   blockedCount + " blocked"
                 ) : this.props.blocked.hasErrored[this.props.fundation.id]?
-                    "Error"
+                    this.props.blocked.hasErrored[this.props.fundation.id].status==403?
+                      this.props.blocked.hasErrored[this.props.fundation.id].message: "Error"
                   : (
                     <Spinner animation='border' role='status' size='sm'>
                       <span className='sr-only'>Loading...</span>
