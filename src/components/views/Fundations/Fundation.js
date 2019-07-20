@@ -84,11 +84,13 @@ class Fundation extends Component {
               <Col>
                 {this.props.blocked.hasBeenFetched[this.props.fundation.id] ? (
                   blockedCount + " blocked"
-                ) : (
-                  <Spinner animation='border' role='status' size='sm'>
-                    <span className='sr-only'>Loading...</span>
-                  </Spinner>
-                )}
+                ) : this.props.blocked.hasErrored[this.props.fundation.id]?
+                    "Error"
+                  : (
+                    <Spinner animation='border' role='status' size='sm'>
+                      <span className='sr-only'>Loading...</span>
+                    </Spinner>
+                  )}
               </Col>
               <Col>
                 {this.props.salesLocations.hasBeenFetched[
