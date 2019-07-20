@@ -63,9 +63,9 @@ export const unblock = (bloId, fundationId) => {
   };
 
   return dispatch => {
-    dispatch(itemsIsLoading(fundationId, true));
-    unblockApi(bloId, fundationId === 0 ? null : fundationId).then(
-      dispatch(getAllBlocked(fundationId === 0 ? null : fundationId))
+    fundationId= fundationId === 0 ? null : fundationId;
+    unblockApi(bloId, fundationId).then(
+      dispatch(getAllBlocked(fundationId))
     );
   };
 };

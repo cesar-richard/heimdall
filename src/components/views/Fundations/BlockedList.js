@@ -31,6 +31,13 @@ class BlockedList extends Component {
   }
 
   render() {
+    if (this.props.blocked.isLoading[this.props.fundationId]) {
+      return (
+        <Spinner animation='border' role='status' size='sm'>
+          <span className='sr-only'>Loading...</span>
+        </Spinner>
+      );
+    }
     if (this.props.blocked.hasBeenFetched[this.props.fundationId]) {
       let blockedPeoples = this.props.blocked.data[this.props.fundationId];
       let elementList = [];
@@ -55,7 +62,7 @@ class BlockedList extends Component {
                     data-bloid={item.blo_id}
                     onClick={this.handleClick}
                   >
-                    Débloquer {item.blo_id}
+                    Débloquer
                   </Button>
                 </Col>
               </Row>
@@ -84,11 +91,7 @@ class BlockedList extends Component {
         "No datas"
       );
     }
-    return (
-      <Spinner animation='border' role='status' size='sm'>
-        <span className='sr-only'>Loading...</span>
-      </Spinner>
-    );
+    return "Debug";
   }
 }
 
