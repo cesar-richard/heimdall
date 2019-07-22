@@ -27,7 +27,7 @@ class App extends Component {
           <Login {...props} />
         </header>
         <span>
-          I used to be a student like you, then I took an arrow in the knee...
+          I used to be an engineer like you, then I took an arrow in the knee...
         </span>
         <br />
         <span>&copy;2019 - C.Richard</span>
@@ -95,7 +95,7 @@ class App extends Component {
             </div>
             <div>
               <span>
-                I used to be a student like you, then I took an arrow in the
+                I used to be a engineer like you, then I took an arrow in the
                 knee...
               </span>
               <br />

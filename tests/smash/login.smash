@@ -1,0 +1,17 @@
+Open Chrome
+Open Firefox
+
+    Navigate to 'localhost:3000/login'
+        Wait until '#login-page-container' is visible
+
+            Click '.bootstrap-switch-handle-off'
+
+            Type 'licorne@utc.fr' into 'input[name=login]' ..
+                Type 'r9222yda' into 'input[name=password]'
+                Click 'button[type=submit]'
+
+            Type 'licorne@utc.fr' into 'input[name=login]' ..
+                Type 'fake' into 'input[name=password]'
+                Click 'button[type=submit]'
+    Navigate to 'localhost:3000/logout'
+        Verify '#login-page-container' is visible
