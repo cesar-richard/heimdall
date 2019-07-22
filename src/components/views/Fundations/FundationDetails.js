@@ -31,15 +31,15 @@ class FundationDetails extends Component {
         item => item.id === parseInt(fundationId)
       );
       return (
-        <Container>
+        <Container fluid>
           <Row>
             <h1>{fundation.name}</h1>
           </Row>
           <Row>
-            <Col>
+            <Col xs={8}>
               <BlockedList fundationId={fundation.id} />
             </Col>
-            <Col>
+            <Col xs={4}>
               <SalesLocationList fundationId={fundation.id} />
             </Col>
           </Row>
