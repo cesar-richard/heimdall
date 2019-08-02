@@ -10,7 +10,8 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  Card,
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -33,14 +34,15 @@ class SalesLocationList extends Component {
     );
   }
 
-  render() {
-    if (this.props.salesLocations.isLoading[this.props.fundationId]) {
+  renderBody(){
+    if (this.props.salesLocations.isLoading[this.props.fundationId]){
       return (
         <Spinner animation='border' role='status' size='sm'>
           <span className='sr-only'>Loading...</span>
         </Spinner>
       );
     }
+
     if (this.props.salesLocations.hasBeenFetched[this.props.fundationId]) {
       let salesLocations = this.props.salesLocations.data[
         this.props.fundationId
@@ -52,7 +54,6 @@ class SalesLocationList extends Component {
             <Container>
               <Row>
                 <Col>{item.name}</Col>
-                <Col>{item.enabled ? "Enabled" : "Disabled"}</Col>
                 <Col>
                   <Button
                     variant={item.enabled ?'danger':'success'}
@@ -70,22 +71,26 @@ class SalesLocationList extends Component {
       });
       return salesLocations.length > 0 ? (
         <ListGroup>
-          <ListGroup.Item>
-            <Container>
-              <Row>
-                <Col>Nom</Col>
-                <Col>Status</Col>
-                <Col>Command</Col>
-              </Row>
-            </Container>
-          </ListGroup.Item>
           {[elementList]}
         </ListGroup>
       ) : (
-        "No datas"
+        "No sales locations"
       );
     }
-    return "Debug";
+    return "Debug TODO alert";
+  }
+
+  render() {
+    return(
+      <Card className='text-center'>
+        <Card.Header>
+          <h4>Points de vente</h4>
+        </Card.Header>
+        {this.renderBody()}
+        <Card.Footer>
+          FORM ADD
+        </Card.Footer>
+      </Card>);
   }
 }
 
