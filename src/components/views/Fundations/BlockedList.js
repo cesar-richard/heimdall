@@ -12,7 +12,8 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  Card,
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -30,7 +31,7 @@ class BlockedList extends Component {
     this.props.unblock(e.target.dataset.bloid, this.props.fundationId);
   }
 
-  render() {
+  renderBody() {
     if (this.props.blocked.isLoading[this.props.fundationId]) {
       return (
         <Spinner animation='border' role='status' size='sm'>
@@ -46,9 +47,7 @@ class BlockedList extends Component {
           <ListGroup.Item key={item.blo_id}>
             <Container>
               <Row>
-                <Col>{item.usr_firstname}</Col>
-                <Col>{item.usr_lastname}</Col>
-                <Col>{item.login}</Col>
+                <Col>{item.usr_firstname} {item.usr_lastname} ({item.login})</Col>
                 <Col>{item.blo_raison}</Col>
                 <Col>
                   <Moment format='DD/MM/YYYY HH:mm'>{item.blo_insert}</Moment>
@@ -72,19 +71,6 @@ class BlockedList extends Component {
       });
       return blockedPeoples.length > 0 ? (
         <ListGroup>
-          <ListGroup.Item>
-            <Container>
-              <Row>
-                <Col>Prénom</Col>
-                <Col>Nom</Col>
-                <Col>Login</Col>
-                <Col>Motif</Col>
-                <Col>Start</Col>
-                <Col>Stop</Col>
-                <Col>Unblock</Col>
-              </Row>
-            </Container>
-          </ListGroup.Item>
           {[elementList]}
         </ListGroup>
       ) : (
@@ -92,6 +78,19 @@ class BlockedList extends Component {
       );
     }
     return "Debug";
+  }
+
+  render(){
+    return(
+      <Card className='text-center'>
+        <Card.Header>
+          <h4>Blocages</h4>
+        </Card.Header>
+        {this.renderBody()}
+        <Card.Footer>
+          FORM ADD
+        </Card.Footer>
+      </Card>);
   }
 }
 

@@ -5,8 +5,8 @@ import { getFundations } from "../../../actions/fetch";
 import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import FundationModel from "../../../models/FundationModel";
 import BlockedList from "./BlockedList";
-import SalesLocationList from "./SalesLocationList";
-import { Spinner, ListGroup, Container, Row, Col } from "react-bootstrap";
+import SalesLocationList from "../SalesLocations/SalesLocationList";
+import { Spinner, ListGroup, Container, Row, Col, CardGroup } from "react-bootstrap";
 import Moment from "react-moment";
 import "moment/locale/fr";
 
@@ -36,12 +36,10 @@ class FundationDetails extends Component {
             <h1>{fundation.name}</h1>
           </Row>
           <Row>
-            <Col xs={8}>
+            <CardGroup>
               <BlockedList fundationId={fundation.id} />
-            </Col>
-            <Col xs={4}>
               <SalesLocationList fundationId={fundation.id} />
-            </Col>
+            </CardGroup>
           </Row>
         </Container>
       );
