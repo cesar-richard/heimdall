@@ -1135,6 +1135,43 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@progress/kendo-charts@^1.9.0":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-charts/-/kendo-charts-1.13.1.tgz#9f191c398e846d37797598fe0a2bf14140c5d820"
+  integrity sha512-8vkT6WWoj1wsZ2CyJQLvbrcNWk44NE7CIYeA1bn3F4QJI3aPwalT7ov+L/9ri8V05vxpk9Qff4U0Xf/eo8NkAw==
+
+"@progress/kendo-drawing@^1.5.12":
+  version "1.5.12"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-drawing/-/kendo-drawing-1.5.12.tgz#79ba7dcd1c24735cc289b3940d0a352e1a01ecca"
+  integrity sha512-MYmB5wt6mb8uyId7B+36qWzZEDTuXKKCwkPegfxVlHMFtvcclPY/LRdeUzbdq/s+z4kiZnR2rHw5WsH6IfM3tA==
+  dependencies:
+    pako "^1.0.5"
+
+"@progress/kendo-react-common@3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-common/-/kendo-react-common-3.2.2.tgz#f94595f21d9f792ea3ce5e0c67a7d387810778cd"
+  integrity sha512-nm+PPWFNRED9Xzm9nJFFtpizeexsNE6R5+ZLsTyQn+Fw8Qw6fw1KvGgExh8k4sb+UCNdffrYo9ITFHKMXChxFA==
+  dependencies:
+    "@telerik/kendo-draggable" "1.9.2"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-gauges@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-gauges/-/kendo-react-gauges-3.2.2.tgz#02012b7acfb4a393db9085e8688da5f1352c9cbe"
+  integrity sha512-bw/Tsm/WjIiE+4l8HUT/enaNC59fVZcp/0tkB6SqKvIYTuh9Fppqtq4eOjAhnHMMBXdVTVTNhsAF6v8lumeRBQ==
+  dependencies:
+    "@progress/kendo-charts" "^1.9.0"
+    "@progress/kendo-react-common" "3.2.2"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-intl@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-intl/-/kendo-react-intl-3.2.2.tgz#3899643f70dce7fdae50b0f82cb9f7858645d16b"
+  integrity sha512-xMq0272bqM+hhIp27sucykTxu5Yf192f26suHPrPMuTrElCpxaPVbt8vxcB7qnY4bBg3W33blqdaAZGZgssKBQ==
+  dependencies:
+    "@telerik/kendo-intl" "^1.4.4"
+    prop-types "^15.6.0"
+
 "@react-bootstrap/react-popper@1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@react-bootstrap/react-popper/-/react-popper-1.2.1.tgz#4edf4851d5b4dcf2eb6b264ebbed1a7b7654177b"
@@ -1259,6 +1296,16 @@
     "@svgr/plugin-jsx" "^4.1.0"
     "@svgr/plugin-svgo" "^4.0.3"
     loader-utils "^1.1.0"
+
+"@telerik/kendo-draggable@1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@telerik/kendo-draggable/-/kendo-draggable-1.9.2.tgz#191cb2fa1051d1c727d570d24e732872d64541ae"
+  integrity sha512-6TqfyPMFibX2kAcLyXYcsZAFmJFRxpQtizoL6YZNdFb4/YRkgijbwXsVJs7nMecTzrmroc0fieixt2XdJXgicA==
+
+"@telerik/kendo-intl@^1.4.4":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@telerik/kendo-intl/-/kendo-intl-1.5.2.tgz#2f2540b0c243c08d95895a8fc925315449f198fc"
+  integrity sha512-T5Ie2QYtbBCYS88hI3ulKhXykH0ds1FWbgaITt6dn9pmjyEbkF66a8iCbtBhI9pAwH0GLqfOoYXRcbBEUth0Sg==
 
 "@types/babel__core@^7.1.0":
   version "7.1.2"
@@ -6923,7 +6970,7 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-pako@~1.0.5:
+pako@^1.0.5, pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
@@ -7909,7 +7956,7 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^3.0.0"
 
-prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
