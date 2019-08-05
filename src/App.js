@@ -98,7 +98,7 @@ class App extends Component {
             <br />
             <span>&copy;2019 - C.Richard</span>
             <br />
-            <span>Version 0.4</span>
+            <span>Version 1.4.0</span>
           </footer>
         </div>
       </React.Fragment>
