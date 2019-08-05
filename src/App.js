@@ -22,19 +22,9 @@ import "./App.css";
 class App extends Component {
   renderLogin(props) {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <Login {...props} />
-        </header>
-        <span>
-          I used to be an engineer like you, then I took an arrow in the knee...
-        </span>
-        <br />
-        <span>&copy;2019 - C.Richard</span>
-        <br />
-        <span>Version 0.3</span>
-        <br />
-      </div>
+      <header className='App-header'>
+        <Login {...props} />
+      </header>
     );
   }
   renderMain() {
@@ -63,11 +53,7 @@ class App extends Component {
             exact
             component={FundationDetails}
           />
-          <Route
-            path='/403'
-            exact
-            component={Forbiden}
-          />
+          <Route path='/403' exact component={Forbiden} />
           <Route path='/logout' exact component={Logout} />
           <Route
             path='/'
@@ -82,39 +68,39 @@ class App extends Component {
 
   renderLabel() {
     return (
-      <div className='App'>
-        <div>
-          <div>
-            <FundationList />
-          </div>
-          <footer>
-            <div>
-              <a title='Logout' href='/logout'>
-                Logout
-              </a>
-            </div>
-            <div>
-              <span>
-                I used to be a engineer like you, then I took an arrow in the
-                knee...
-              </span>
-              <br />
-              <span>&copy;2019 - C.Richard</span>
-              <br />
-              <span>Version 0.3</span>
-            </div>
-            <br />
-          </footer>
-        </div>
-      </div>
+      <FundationList />
     );
   }
 
   render() {
+    const { session } = this.props;
+    const isLoggedIn = session && session.access_token;
+    const logOutBlock = isLoggedIn ? (
+      <div>
+        <a title='Logout' href='/logout'>
+          Logout
+        </a>
+      </div>
+    ) : (
+      <></>
+    );
     return (
       <React.Fragment>
-        {this.renderMain()}
-        <ToastContainer />
+        <div className='App'>
+          {this.renderMain()}
+          <ToastContainer />
+          <footer className='text-center'>
+            {logOutBlock}
+            <span>
+              I used to be a engineer like you, then I took an arrow in the
+              knee...
+            </span>
+            <br />
+            <span>&copy;2019 - C.Richard</span>
+            <br />
+            <span>Version 0.4</span>
+          </footer>
+        </div>
       </React.Fragment>
     );
   }

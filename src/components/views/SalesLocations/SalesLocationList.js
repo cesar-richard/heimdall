@@ -37,9 +37,11 @@ class SalesLocationList extends Component {
   renderBody(){
     if (this.props.salesLocations.isLoading[this.props.fundationId]){
       return (
-        <Spinner animation='border' role='status' size='sm'>
-          <span className='sr-only'>Loading...</span>
-        </Spinner>
+        <ListGroup.Item>
+          <Spinner animation='border' role='status' size='sm'>
+            <span className='sr-only'>Loading...</span>
+          </Spinner>
+        </ListGroup.Item>
       );
     }
 
@@ -87,9 +89,6 @@ class SalesLocationList extends Component {
           <h4>Points de vente</h4>
         </Card.Header>
         {this.renderBody()}
-        <Card.Footer>
-          FORM ADD
-        </Card.Footer>
       </Card>);
   }
 }

@@ -14,6 +14,8 @@ import {
   Col,
   Button,
   Card,
+  Form,
+  FormControl,
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -34,9 +36,11 @@ class BlockedList extends Component {
   renderBody() {
     if (this.props.blocked.isLoading[this.props.fundationId]) {
       return (
-        <Spinner animation='border' role='status' size='sm'>
-          <span className='sr-only'>Loading...</span>
-        </Spinner>
+        <ListGroup.Item>
+          <Spinner animation='border' role='status' size='sm'>
+            <span className='sr-only'>Loading...</span>
+          </Spinner>
+        </ListGroup.Item>
       );
     }
     if (this.props.blocked.hasBeenFetched[this.props.fundationId]) {
@@ -88,7 +92,11 @@ class BlockedList extends Component {
         </Card.Header>
         {this.renderBody()}
         <Card.Footer>
-          FORM ADD
+          <Form inline>
+            <FormControl type='text' placeholder='Login' className='mr-sm-2' />
+            <FormControl type='text' placeholder='Motif' className='mr-sm-2' />
+            <Button variant='outline-danger'>Bloquer</Button>
+          </Form>
         </Card.Footer>
       </Card>);
   }
