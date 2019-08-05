@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
@@ -6,11 +6,28 @@ import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions"
 import FundationModel from "../../../models/FundationModel";
 import BlockedList from "./BlockedList";
 import SalesLocationList from "../SalesLocations/SalesLocationList";
-import { Spinner, ListGroup, Container, Row, Col, CardGroup } from "react-bootstrap";
+import {
+  Spinner,
+  ListGroup,
+  Container,
+  Row,
+  Col,
+  CardGroup
+} from "react-bootstrap";
+import {
+    ArcGauge
+} from '@progress/kendo-react-gauges';
 import Moment from "react-moment";
 import "moment/locale/fr";
 
 class FundationDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: Math.floor(Math.random() * 101)
+    };
+  }
+
   componentDidMount() {
     const { fundationId } = this.props.match.params;
     //if (!sessionStorage.hasOwnProperty("fundations")) {
@@ -19,9 +36,30 @@ class FundationDetails extends Component {
     //if (!sessionStorage.hasOwnProperty("salesLocations")) {
     this.props.fetchSalesLocation(fundationId);
     //}
+    this.intervalID = setInterval(() => {
+      this.setState({ value: Math.floor(Math.random() * 101) });
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
   render() {
+    const colors = [
+      { from: 0, to: 25, color: 'red' },
+      { from: 25, to: 75, color: 'orange' },
+      { from: 75, to: 100, color: 'lime' }
+    ];
+
+    const arcOptions = {
+      value: this.state.value,
+      colors
+    };
+
+    const arcCenterRenderer = (value, color) => {
+      return (<h3 style={{ color: color }}>{value}%</h3>);
+    };
+
     const { fundationId } = this.props.match.params;
     if (
       this.props.fundations.hasBeenFetched ||
@@ -40,6 +78,9 @@ class FundationDetails extends Component {
               <BlockedList fundationId={fundation.id} />
               <SalesLocationList fundationId={fundation.id} />
             </CardGroup>
+          </Row>
+          <Row>
+            <ArcGauge {...arcOptions} arcCenterRender={arcCenterRenderer} />
           </Row>
         </Container>
       );
