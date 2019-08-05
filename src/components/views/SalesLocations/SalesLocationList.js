@@ -12,6 +12,7 @@ import {
   Col,
   Button,
   Card,
+  Alert,
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -76,10 +77,16 @@ class SalesLocationList extends Component {
           {[elementList]}
         </ListGroup>
       ) : (
-        "No sales locations"
+        <Alert variant='primary'>
+          No sales locations !
+        </Alert>
       );
     }
-    return "Debug TODO alert";
+    return (
+      <Alert variant='danger'>
+        Error !
+      </Alert>
+    );
   }
 
   render() {
