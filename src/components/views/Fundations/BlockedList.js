@@ -16,6 +16,7 @@ import {
   Card,
   Form,
   FormControl,
+  Alert,
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -78,10 +79,16 @@ class BlockedList extends Component {
           {[elementList]}
         </ListGroup>
       ) : (
-        "No datas"
+        <Alert variant='success'>
+          Nobody !
+        </Alert>
       );
     }
-    return "Debug";
+    return (
+      <Alert variant='danger'>
+        Error !
+      </Alert>
+    );
   }
 
   render(){
