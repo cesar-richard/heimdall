@@ -1,6 +1,8 @@
 {
   "name": "heimdal",
   "version": "1.4.0",
+  "author": "Cesar Richard <cesar.richard2@gmail.com",
+  "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
