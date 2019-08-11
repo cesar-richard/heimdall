@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
 import { getFundations } from "../../../actions/fetch";
-import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
+import { getSalesLocations } from "../../../api/gill/resources";
+import { getAllBlocked } from "../../../api/gill/BLOCKED";
 import SalesLocationModel from "../../../models/SalesLocationModel";
 import SalesLocationItem from "./SalesLocationItem";
 import {
@@ -14,17 +15,32 @@ import {
   Col,
   Button,
   Card,
-  Alert,
+  Alert
 } from "react-bootstrap";
 import "moment/locale/fr";
 
-class SalesLocationList extends Component {
-  componentDidMount() {
-    this.props.fetchSalesLocation(this.props.fundationId);
-  }
+export default function SalesLocationList(props) {
+  const { fundation } = props;
+  const [isLocationsLoading, setLocationsLoading] = React.useState(true);
+  const [isBlockedLoading, setBlockedLoading] = React.useState(true);
+  const [blocked, setBlocked] = React.useState(null);
+  const [salesLocations, setSalesLocations] = React.useState(null);
 
-  renderBody(){
-    if (this.props.salesLocations.isLoading[this.props.fundationId]){
+  React.useEffect(() => {
+    if (salesLocations && blocked) return;
+    Promise.all([
+      getSalesLocations(fundation.id),
+      getAllBlocked(fundation.id)
+    ]).then(datas => {
+      setSalesLocations(datas[0].data);
+      setLocationsLoading(false);
+      setBlocked(datas[1].data);
+      setBlockedLoading(false);
+    });
+  });
+
+  const renderBody = () => {
+    if (isLocationsLoading) {
       return (
         <ListGroup.Item>
           <Spinner animation='border' role='status' size='sm'>
@@ -34,59 +50,34 @@ class SalesLocationList extends Component {
       );
     }
 
-    if (this.props.salesLocations.hasBeenFetched[this.props.fundationId]) {
-      let salesLocations = this.props.salesLocations.data[
-        this.props.fundationId
-      ];
+    if (salesLocations) {
       let elementList = [];
       salesLocations.map(item => {
-        elementList.push(
-          SalesLocationItem(item)
-        );
+        elementList.push(SalesLocationItem(fundation.id,item, salesLocations, setSalesLocations, setLocationsLoading));
       });
       return salesLocations.length > 0 ? (
-        <ListGroup>
-          {[elementList]}
-        </ListGroup>
+        <ListGroup>{[elementList]}</ListGroup>
       ) : (
-        <Alert variant='primary'>
-          No sales locations !
-        </Alert>
+        <Alert variant='primary'>No sales locations !</Alert>
       );
     }
-    return (
-      <Alert variant='danger'>
-        Error !
-      </Alert>
-    );
-  }
+    return <Alert variant='danger'>Error !</Alert>;
+  };
 
-  render() {
-    return(
+  const render = () => {
+    return (
       <Card className='text-center'>
         <Card.Header>
           <h4>Points de vente</h4>
         </Card.Header>
-        {this.renderBody()}
-      </Card>);
-  }
+        {renderBody()}
+      </Card>
+    );
+  };
+
+  return render();
 }
 
-const mapStateToProps = state => ({
-  salesLocations: state.salesLocations
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchSalesLocation: fundationId => dispatch(getSalesLocations(fundationId))
-});
-
 SalesLocationList.propTypes = {
-  fetchSalesLocation: PropTypes.func,
-  salesLocations: PropTypes.arrayOf(PropTypes.instanceOf(SalesLocationModel)),
   fundationId: PropTypes.number
 };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SalesLocationList);

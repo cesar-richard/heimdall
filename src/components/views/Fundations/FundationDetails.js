@@ -2,7 +2,6 @@ import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
-//import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import FundationModel from "../../../models/FundationModel";
 import BlockedList from "./BlockedList";
 import SalesLocationList from "../SalesLocations/SalesLocationList";
@@ -14,9 +13,7 @@ import {
   Col,
   CardGroup
 } from "react-bootstrap";
-import {
-    ArcGauge
-} from '@progress/kendo-react-gauges';
+import { ArcGauge } from "@progress/kendo-react-gauges";
 import Moment from "react-moment";
 import "moment/locale/fr";
 
@@ -30,12 +27,7 @@ class FundationDetails extends Component {
 
   componentDidMount() {
     const { fundationId } = this.props.match.params;
-    //if (!sessionStorage.hasOwnProperty("fundations")) {
     this.props.fetchFundations();
-    //}
-    //if (!sessionStorage.hasOwnProperty("salesLocations")) {
-    //this.props.fetchSalesLocation(fundationId);
-    //}
     this.intervalID = setInterval(() => {
       this.setState({ value: Math.floor(Math.random() * 101) });
     }, 1000);
@@ -46,9 +38,9 @@ class FundationDetails extends Component {
 
   render() {
     const colors = [
-      { from: 0, to: 25, color: 'red' },
-      { from: 25, to: 75, color: 'orange' },
-      { from: 75, to: 100, color: 'lime' }
+      { from: 0, to: 25, color: "red" },
+      { from: 25, to: 75, color: "orange" },
+      { from: 75, to: 100, color: "lime" }
     ];
 
     const arcOptions = {
@@ -57,7 +49,7 @@ class FundationDetails extends Component {
     };
 
     const arcCenterRenderer = (value, color) => {
-      return (<h3 style={{ color: color }}>{value}%</h3>);
+      return <h3 style={{ color: color }}>{value}%</h3>;
     };
 
     const { fundationId } = this.props.match.params;
@@ -76,7 +68,7 @@ class FundationDetails extends Component {
           <Row>
             <CardGroup>
               <BlockedList fundationId={fundation.id} />
-              <SalesLocationList fundationId={fundation.id} />
+              <SalesLocationList fundation={fundation} />
             </CardGroup>
           </Row>
           <Row>
@@ -105,8 +97,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFundations: () => dispatch(getFundations()),
-  //fetchSalesLocation: fundationId => dispatch(getSalesLocations(fundationId))
+  fetchFundations: () => dispatch(getFundations())
 });
 
 export default connect(

@@ -1,4 +1,4 @@
-import { GET } from "./apiResources";
+import { GET, PUT } from "./apiResources";
 
 export const getFundations = () => {
   return GET("fundations", { ordering: "name" }).then(ret => {
@@ -9,4 +9,13 @@ export const getFundations = () => {
 
 export const getSalesLocations = fundationId => {
   return GET("saleslocations", { fundation: fundationId });
+};
+
+export const putSalesLocations = (fundationId, salesLocationId, name, enabled) => {
+  return PUT("saleslocations/" + salesLocationId, {
+    id: salesLocationId,
+    fun_id: fundationId,
+    enabled,
+    name
+  });
 };

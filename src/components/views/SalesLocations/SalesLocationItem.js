@@ -1,24 +1,31 @@
 import React from "react";
+import { ListGroup, Container, Row, Col, Button, Card } from "react-bootstrap";
 import {
-  ListGroup,
-  Container,
-  Row,
-  Col,
-  Button,
-  Card,
-} from "react-bootstrap";
-import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
+  getSalesLocations,
+  putSalesLocations
+} from "../../../api/gill/resources";
 
-export default function SalesLocationItem(salesLocation, salesLocations, setSalesLocations) {
+export default function SalesLocationItem(
+  fundationId,
+  salesLocation,
+  salesLocations,
+  setSalesLocations,
+  setLocationsLoading
+) {
   const handleClick = e => {
-    console.log(
-      "Handled click",
+    putSalesLocations(
+      fundationId,
       e.target.dataset.slid,
-      e.target.dataset.enabled,
-      e.target.dataset.name
-    );
-    //this.props.fetchSalesLocation(2);
-  }
+      e.target.dataset.name,
+      e.target.dataset.enabled
+    ).then(() => {
+      setLocationsLoading(true);
+      getSalesLocations(fundationId).then(datas => {
+        setLocationsLoading(false);
+        setSalesLocations(datas.data);
+      });
+    });
+  };
 
   return (
     <ListGroup.Item key={salesLocation.id}>
@@ -27,9 +34,9 @@ export default function SalesLocationItem(salesLocation, salesLocations, setSale
           <Col>{salesLocation.name}</Col>
           <Col>
             <Button
-              variant={salesLocation.enabled ?'danger':'success'}
+              variant={salesLocation.enabled ? "danger" : "success"}
               data-slid={salesLocation.id}
-              data-enabled={salesLocation.enabled}
+              data-enabled={!salesLocation.enabled}
               data-name={salesLocation.name}
               onClick={handleClick}
             >
