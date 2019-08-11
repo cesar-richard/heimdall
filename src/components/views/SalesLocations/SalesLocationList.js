@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
-import { getFundations, getSalesLocations } from "../../../actions/fetch";
+import { getFundations } from "../../../actions/fetch";
+import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import SalesLocationModel from "../../../models/SalesLocationModel";
+import SalesLocationItem from "./SalesLocationItem";
 import {
   Spinner,
   ListGroup,
@@ -17,22 +19,8 @@ import {
 import "moment/locale/fr";
 
 class SalesLocationList extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   componentDidMount() {
     this.props.fetchSalesLocation(this.props.fundationId);
-  }
-
-  handleClick(e) {
-    console.log(
-      "Handled click",
-      e.target.dataset.slid,
-      e.target.dataset.enabled,
-      this.props.fundationId
-    );
   }
 
   renderBody(){
@@ -53,23 +41,7 @@ class SalesLocationList extends Component {
       let elementList = [];
       salesLocations.map(item => {
         elementList.push(
-          <ListGroup.Item key={item.id}>
-            <Container>
-              <Row>
-                <Col>{item.name}</Col>
-                <Col>
-                  <Button
-                    variant={item.enabled ?'danger':'success'}
-                    data-slid={item.id}
-                    data-enabled={item.enabled}
-                    onClick={this.handleClick}
-                  >
-                    {item.enabled ? "Disable" : "Enable"}
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          </ListGroup.Item>
+          SalesLocationItem(item)
         );
       });
       return salesLocations.length > 0 ? (

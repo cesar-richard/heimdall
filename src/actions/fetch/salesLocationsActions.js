@@ -1,4 +1,4 @@
-import { saleslocations as getSalesLocationsApi } from "../../api/gill/resources";
+import { getSalesLocations as getSalesLocationsApi } from "../../api/gill/resources";
 import SalesLocationModel from "../../models/SalesLocationModel";
 export const getSalesLocations = fundationId => {
   const itemsHasErrored = (fundationId, bool) => {

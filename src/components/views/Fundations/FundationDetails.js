@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
-import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
+//import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
 import FundationModel from "../../../models/FundationModel";
 import BlockedList from "./BlockedList";
 import SalesLocationList from "../SalesLocations/SalesLocationList";
@@ -34,7 +34,7 @@ class FundationDetails extends Component {
     this.props.fetchFundations();
     //}
     //if (!sessionStorage.hasOwnProperty("salesLocations")) {
-    this.props.fetchSalesLocation(fundationId);
+    //this.props.fetchSalesLocation(fundationId);
     //}
     this.intervalID = setInterval(() => {
       this.setState({ value: Math.floor(Math.random() * 101) });
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchFundations: () => dispatch(getFundations()),
-  fetchSalesLocation: fundationId => dispatch(getSalesLocations(fundationId))
+  //fetchSalesLocation: fundationId => dispatch(getSalesLocations(fundationId))
 });
 
 export default connect(
