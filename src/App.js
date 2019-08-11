@@ -14,7 +14,6 @@ import Logout from "./components/views/public/Logout";
 import Forbiden from "./components/views/public/Forbiden";
 import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
-import PosList from "./components/views/PosList";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
