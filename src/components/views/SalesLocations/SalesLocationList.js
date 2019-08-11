@@ -15,7 +15,9 @@ import {
   Col,
   Button,
   Card,
-  Alert
+  Alert,
+  Form,
+  FormControl
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -25,9 +27,11 @@ export default function SalesLocationList(props) {
   const [isBlockedLoading, setBlockedLoading] = React.useState(true);
   const [blocked, setBlocked] = React.useState(null);
   const [salesLocations, setSalesLocations] = React.useState(null);
+  const [valueFilter, setValueFilter] = React.useState("");
 
   React.useEffect(() => {
     if (salesLocations && blocked) return;
+    console.log("PUTAIN");
     Promise.all([
       getSalesLocations(fundation.id),
       getAllBlocked(fundation.id)
@@ -39,45 +43,63 @@ export default function SalesLocationList(props) {
     });
   });
 
-  const renderBody = () => {
-    if (isLocationsLoading) {
-      return (
-        <ListGroup.Item>
-          <Spinner animation='border' role='status' size='sm'>
-            <span className='sr-only'>Loading...</span>
-          </Spinner>
-        </ListGroup.Item>
-      );
-    }
-
-    if (salesLocations) {
-      let elementList = [];
-      salesLocations.map(item => {
-        elementList.push(SalesLocationItem(fundation.id,item, salesLocations, setSalesLocations, setLocationsLoading));
-      });
-      return salesLocations.length > 0 ? (
-        <ListGroup>{[elementList]}</ListGroup>
-      ) : (
-        <Alert variant='primary'>No sales locations !</Alert>
-      );
-    }
-    return <Alert variant='danger'>Error !</Alert>;
-  };
-
-  const render = () => {
+  if (isLocationsLoading) {
     return (
+      <ListGroup.Item>
+        <Spinner animation='border' role='status' size='sm'>
+          <span className='sr-only'>Loading...</span>
+        </Spinner>
+      </ListGroup.Item>
+    );
+  }
+
+  if (salesLocations) {
+    return salesLocations.length > 0 ? (
       <Card className='text-center'>
         <Card.Header>
           <h4>Points de vente</h4>
         </Card.Header>
-        {renderBody()}
+        <ListGroup>
+          <Form inline>
+            <FormControl
+              type='text'
+              placeholder='Filtrer'
+              onChange={val => setValueFilter(val.target.value)}
+            />
+          </Form>
+          {salesLocations
+            .filter(x => {
+              return x.name.toLowerCase().includes(valueFilter.toLowerCase());
+            })
+            .map((item, key) =>
+              SalesLocationItem(
+                fundation.id,
+                item,
+                salesLocations,
+                setSalesLocations
+              )
+            )}
+        </ListGroup>
+      </Card>
+    ) : (
+      <Card className='text-center'>
+        <Card.Header>
+          <h4>Points de vente</h4>
+        </Card.Header>
+        <Alert variant='primary'>No sales locations !</Alert>
       </Card>
     );
-  };
-
-  return render();
+  }
+  return (
+    <Card className='text-center'>
+      <Card.Header>
+        <h4>Points de vente</h4>
+      </Card.Header>
+      <Alert variant='danger'>Error !</Alert>
+    </Card>
+  );
 }
 
 SalesLocationList.propTypes = {
-  fundationId: PropTypes.number
+  fundation: PropTypes.object.isRequired
 };

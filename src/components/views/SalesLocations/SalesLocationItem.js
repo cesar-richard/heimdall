@@ -9,8 +9,7 @@ export default function SalesLocationItem(
   fundationId,
   salesLocation,
   salesLocations,
-  setSalesLocations,
-  setLocationsLoading
+  setSalesLocations
 ) {
   const handleClick = e => {
     putSalesLocations(
@@ -18,12 +17,9 @@ export default function SalesLocationItem(
       e.target.dataset.slid,
       e.target.dataset.name,
       e.target.dataset.enabled
-    ).then(() => {
-      setLocationsLoading(true);
-      getSalesLocations(fundationId).then(datas => {
-        setLocationsLoading(false);
-        setSalesLocations(datas.data);
-      });
+    ).then(datas => {
+      salesLocations[salesLocations.findIndex(x => x.id === datas.data.id)] =
+        datas.data;
     });
   };
 

@@ -67,7 +67,7 @@ class FundationDetails extends Component {
           </Row>
           <Row>
             <CardGroup>
-              <BlockedList fundationId={fundation.id} />
+              {/*<BlockedList fundationId={fundation.id} />*/}
               <SalesLocationList fundation={fundation} />
             </CardGroup>
           </Row>
@@ -87,7 +87,7 @@ class FundationDetails extends Component {
 
 FundationDetails.propTypes = {
   fetchFundations: PropTypes.func.isRequired,
-  fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
+  fundations: PropTypes.object,
   match: PropTypes.object
 };
 
