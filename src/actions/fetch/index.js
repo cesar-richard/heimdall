@@ -1,9 +1,9 @@
 import { createFetchAction } from "./fetchAction";
 
-import { fundations, saleslocations } from "../../api/gill/resources";
+import { getFundations as getFundationsApi, getSalesLocations as getSalesLocationsApi } from "../../api/gill/resources";
 
 export const getFundations = () =>
-  createFetchAction("FUNDATION", () => fundations());
+  createFetchAction("FUNDATION", () => getFundationsApi());
 
-export const getSalesLocations = () =>
-  createFetchAction("SALESLOCATION", (fundationId) => saleslocations(fundationId));
+export const getSalesLocations = (fundationId) =>
+  createFetchAction("SALESLOCATION", (fundationId) => getSalesLocationsApi(fundationId));
