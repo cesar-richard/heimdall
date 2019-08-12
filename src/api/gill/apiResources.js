@@ -1,6 +1,7 @@
 import axios from "axios";
 import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
+import { Router } from 'react-router-dom';
 
 const request = (endPoint, method, params, headers = {}) => {
   let config = {
@@ -21,6 +22,7 @@ const request = (endPoint, method, params, headers = {}) => {
         : store.getState().session.access_token.sessionid;
   } catch (e) {
     store.dispatch(clearSession());
+    Router.push('/');
   }
 
   config[method === "get" ? "params" : "data"] = params;
@@ -39,6 +41,7 @@ const request = (endPoint, method, params, headers = {}) => {
     let { response } = err;
     if (response && response.status === 401) {
       store.dispatch(clearSession());
+      Router.redirect('/');
     }
 
     response = response || {};
