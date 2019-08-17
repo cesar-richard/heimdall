@@ -21,10 +21,7 @@ export default function SalesLocationItem(props) {
           datas.data;
         setLoading(false);
       })
-      .catch(e => {
-        console.error(e);
-        setLoading(false);
-      });
+      .catch(setLoading(false));
   };
 
   return (
