@@ -31,7 +31,6 @@ export default function SalesLocationList(props) {
 
   React.useEffect(() => {
     if (salesLocations && blocked) return;
-    console.log("PUTAIN");
     Promise.all([
       getSalesLocations(fundation.id),
       getAllBlocked(fundation.id)
@@ -71,14 +70,14 @@ export default function SalesLocationList(props) {
             .filter(x => {
               return x.name.toLowerCase().includes(valueFilter.toLowerCase());
             })
-            .map((item, key) =>
-              SalesLocationItem(
-                fundation.id,
-                item,
-                salesLocations,
-                setSalesLocations
-              )
-            )}
+            .map((item, key) => (
+              <SalesLocationItem
+                key={key}
+                fundationId={fundation.id}
+                salesLocation={item}
+                salesLocations={salesLocations}
+              />
+            ))}
         </ListGroup>
       </Card>
     ) : (
