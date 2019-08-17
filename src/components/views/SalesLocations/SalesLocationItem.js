@@ -5,22 +5,26 @@ import {
   putSalesLocations
 } from "../../../api/gill/resources";
 
-export default function SalesLocationItem(
-  fundationId,
-  salesLocation,
-  salesLocations,
-  setSalesLocations
-) {
+export default function SalesLocationItem(props) {
+  const { fundationId, salesLocation, salesLocations } = props;
+  const [isLoading, setLoading] = React.useState(false);
   const handleClick = e => {
+    setLoading(true);
     putSalesLocations(
       fundationId,
       e.target.dataset.slid,
       e.target.dataset.name,
       e.target.dataset.enabled
-    ).then(datas => {
-      salesLocations[salesLocations.findIndex(x => x.id === datas.data.id)] =
-        datas.data;
-    });
+    )
+      .then(datas => {
+        salesLocations[salesLocations.findIndex(x => x.id === datas.data.id)] =
+          datas.data;
+        setLoading(false);
+      })
+      .catch(e => {
+        console.error(e);
+        setLoading(false);
+      });
   };
 
   return (
@@ -30,13 +34,24 @@ export default function SalesLocationItem(
           <Col>{salesLocation.name}</Col>
           <Col>
             <Button
-              variant={salesLocation.enabled ? "danger" : "success"}
+              variant={
+                isLoading
+                  ? "primary"
+                  : salesLocation.enabled
+                  ? "danger"
+                  : "success"
+              }
               data-slid={salesLocation.id}
               data-enabled={!salesLocation.enabled}
               data-name={salesLocation.name}
               onClick={handleClick}
+              disabled={isLoading}
             >
-              {salesLocation.enabled ? "Disable" : "Enable"}
+              {isLoading
+                ? "Loading"
+                : salesLocation.enabled
+                ? "Disable"
+                : "Enable"}
             </Button>
           </Col>
         </Row>
