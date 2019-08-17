@@ -24,21 +24,14 @@ import "moment/locale/fr";
 export default function SalesLocationList(props) {
   const { fundation } = props;
   const [isLocationsLoading, setLocationsLoading] = React.useState(true);
-  const [isBlockedLoading, setBlockedLoading] = React.useState(true);
-  const [blocked, setBlocked] = React.useState(null);
   const [salesLocations, setSalesLocations] = React.useState(null);
   const [valueFilter, setValueFilter] = React.useState("");
 
   React.useEffect(() => {
-    if (salesLocations && blocked) return;
-    Promise.all([
-      getSalesLocations(fundation.id),
-      getAllBlocked(fundation.id)
-    ]).then(datas => {
-      setSalesLocations(datas[0].data);
+    if (salesLocations) return;
+    getSalesLocations(fundation.id).then(datas => {
+      setSalesLocations(datas.data);
       setLocationsLoading(false);
-      setBlocked(datas[1].data);
-      setBlockedLoading(false);
     });
   });
 
