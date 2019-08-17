@@ -10,7 +10,12 @@ export default function BlockedItem(props) {
     setLoading(true);
     remove(blockedPeople.blo_id, fundationId)
       .then(datas => {
-        blockedPeoples.splice(blockedPeoples.findIndex(item => item.blo_id === blockedPeople.blo_id), 1)
+        blockedPeoples.splice(
+          blockedPeoples.findIndex(
+            item => item.blo_id === blockedPeople.blo_id
+          ),
+          1
+        );
         setLoading(false);
       })
       .catch(e => {
