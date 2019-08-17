@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
 import FundationModel from "../../../models/FundationModel";
-import BlockedList from "./BlockedList";
+import BlockedList from "../blockedPeoples/BlockedList";
 import SalesLocationList from "../SalesLocations/SalesLocationList";
 import {
   Spinner,
@@ -67,7 +67,7 @@ class FundationDetails extends Component {
           </Row>
           <Row>
             <CardGroup>
-              {/*<BlockedList fundationId={fundation.id} />*/}
+              <BlockedList fundationId={fundation.id} />
               <SalesLocationList fundation={fundation} />
             </CardGroup>
           </Row>
