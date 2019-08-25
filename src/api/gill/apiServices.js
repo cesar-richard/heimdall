@@ -51,6 +51,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     response.data.error ? response.data.error.type : "unknown error";
     const errorObject = {
       config: response.config,
+      rawData: response.data,
       status: response.status,
       message:
         "Gill said : " + message
