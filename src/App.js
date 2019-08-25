@@ -14,6 +14,7 @@ import Logout from "./components/views/public/Logout";
 import Forbiden from "./components/views/public/Forbiden";
 import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
+import Transferts from "./components/views/tranferts/transferts";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
@@ -37,14 +38,21 @@ class App extends Component {
             path='/'
             exact
             render={props =>
-              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
+              !isLoggedIn ? this.renderLogin(props) : <FundationList />
             }
           />
           <Route
             path='/fundations/'
             exact
             render={props =>
-              !isLoggedIn ? this.renderLogin(props) : this.renderLabel(props)
+              !isLoggedIn ? this.renderLogin(props) : <FundationList />
+            }
+          />
+          <Route
+            path='/transferts/'
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : <Transferts />
             }
           />
           <Route
@@ -62,12 +70,6 @@ class App extends Component {
           />
         </Switch>
       </Router>
-    );
-  }
-
-  renderLabel() {
-    return (
-      <FundationList />
     );
   }
 
