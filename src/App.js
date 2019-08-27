@@ -88,7 +88,7 @@ class App extends Component {
     );
     return (
       <React.Fragment>
-        <MyNavbar />
+        <MyNavbar isLoggedIn={isLoggedIn} />
         <div className='App'>
           {this.renderMain()}
           <ToastContainer />
