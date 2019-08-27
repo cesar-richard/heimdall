@@ -17,6 +17,7 @@ import FundationDetails from "./components/views/Fundations/FundationDetails";
 import Transferts from "./components/views/tranferts/transferts";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
+import MyNavbar from "./components/views/navbar";
 import "./App.css";
 
 class App extends Component {
@@ -87,6 +88,7 @@ class App extends Component {
     );
     return (
       <React.Fragment>
+        <MyNavbar />
         <div className='App'>
           {this.renderMain()}
           <ToastContainer />
