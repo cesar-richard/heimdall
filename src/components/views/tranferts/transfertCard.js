@@ -11,44 +11,50 @@ export default function TransfertCard(props) {
     <Card border='primary'>
       <Card.Header>Transfert</Card.Header>
       <ListGroup variant='flush'>
-        <ListGroup.Item>
-          Source credit : <b>{walletSource.credit / 100.0}</b>
-        </ListGroup.Item>
-        <ListGroup.Item>
-          Destination credit : <b>{walletDestination.credit / 100.0}</b>
-        </ListGroup.Item>
-        <ListGroup.Item>
-          <Button
-            variant='success'
-            disabled={isLoading}
-            onClick={() => {
-              setLoading(true);
-              transfer({
-                wallet_src: walletSource.id,
-                wallet_dst: walletDestination.id,
-                amount: walletSource.credit,
-                message: "Maintenance SiMDE (Heimdal)"
-              })
-                .then(data => {
-                  setLoading(false);
-                  return transfertCallback();
-                })
-                .catch(err => {
-                  setLoading(false);
-                  toast.error(err.rawData.error.message);
-                });
-            }}
-          >
-            Transfert
-            {isLoading ? (
-              <Spinner animation='border' role='status' size='sm'>
-                <span className='sr-only'>Loading...</span>
-              </Spinner>
-            ) : (
-              ""
-            )}
-          </Button>
-        </ListGroup.Item>
+        {walletDestination.id === walletSource.id ? (
+          <ListGroup.Item variant='danger'>Wallets must be different</ListGroup.Item>
+        ) : (
+          <>
+            <ListGroup.Item>
+              Source credit : <b>{walletSource.credit / 100.0}</b>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Destination credit : <b>{walletDestination.credit / 100.0}</b>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                variant='success'
+                disabled={isLoading}
+                onClick={() => {
+                  setLoading(true);
+                  transfer({
+                    wallet_src: walletSource.id,
+                    wallet_dst: walletDestination.id,
+                    amount: walletSource.credit,
+                    message: "Maintenance SiMDE (Heimdal)"
+                  })
+                    .then(data => {
+                      setLoading(false);
+                      return transfertCallback();
+                    })
+                    .catch(err => {
+                      setLoading(false);
+                      toast.error(err.rawData.error.message);
+                    });
+                }}
+              >
+                Transfert
+                {isLoading ? (
+                  <Spinner animation='border' role='status' size='sm'>
+                    <span className='sr-only'>Loading...</span>
+                  </Spinner>
+                ) : (
+                  <></>
+                )}
+              </Button>
+            </ListGroup.Item>
+          </>
+        )}
       </ListGroup>
     </Card>
   );
