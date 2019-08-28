@@ -1,7 +1,7 @@
 {
-  "name": "heimdal",
-  "version": "1.4.0",
-  "author": "Cesar Richard <cesar.richard2@gmail.com",
+  "name": "Heimdal",
+  "version": "1.5.0",
+  "author": "Cesar Richard <licorne@utc.fr>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
   "dependencies": {
