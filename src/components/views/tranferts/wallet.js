@@ -51,14 +51,12 @@ export default function Wallet(props) {
         <Card.Subtitle>{wallet.username}</Card.Subtitle>
       </Card.Body>
       <ListGroup variant='flush'>
-        <ListGroup.Item>W{wallet.id}</ListGroup.Item>
+        <ListGroup.Item variant={walletInfos?!walletInfos.is_credit_consistent?'danger':false:false}>W{wallet.id}</ListGroup.Item>
         <ListGroup.Item>U{wallet.user_id}</ListGroup.Item>
         <ListGroup.Item>{wallet.email}</ListGroup.Item>
         <ListGroup.Item>{wallet.wallet_name}</ListGroup.Item>
         <ListGroup.Item>{wallet.tag}</ListGroup.Item>
-        <ListGroup.Item variant={walletInfos?!walletInfos.is_credit_consistent?'danger':false:false}>
-          <Balances walletId={wallet.id} />
-        </ListGroup.Item>
+        <Balances walletId={wallet.id} />
       </ListGroup>
     </Card>
   ) : (
