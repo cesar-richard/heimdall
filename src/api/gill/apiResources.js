@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
-import { Router } from 'react-router-dom';
+import { Router } from "react-router-dom";
 
 const request = (endPoint, method, params, headers = {}) => {
   let config = {
@@ -22,7 +22,7 @@ const request = (endPoint, method, params, headers = {}) => {
         : store.getState().session.access_token.sessionid;
   } catch (e) {
     store.dispatch(clearSession());
-    Router.push('/');
+    Router.push("/");
   }
 
   config[method === "get" ? "params" : "data"] = params;
@@ -39,9 +39,15 @@ const request = (endPoint, method, params, headers = {}) => {
 
   return axios(config).catch(err => {
     let { response } = err;
-    if (response && response.status === 401) {
+    console.log(err.message);
+    if (
+      response &&
+      (response.status === 401 ||
+        (response.status === 403 &&
+          response.data.error.message === "User must be logged"))
+    ) {
       store.dispatch(clearSession());
-      Router.redirect('/');
+      Router.redirect("/");
     }
 
     response = response || {};
