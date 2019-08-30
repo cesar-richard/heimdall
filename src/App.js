@@ -18,8 +18,15 @@ import Transferts from "./components/views/tranferts/transferts";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
+import Homepage from "./components/views/homepage";
 import "./App.css";
 import packagejson from "../package.json";
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBuilding, faKey, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faBuilding, faKey, faHandHoldingUsd);
+
 
 class App extends Component {
   renderLogin(props) {
@@ -39,7 +46,7 @@ class App extends Component {
             path='/'
             exact
             render={props =>
-              !isLoggedIn ? this.renderLogin(props) : <FundationList />
+              !isLoggedIn ? this.renderLogin(props) : <Homepage />
             }
           />
           <Route
