@@ -36,9 +36,6 @@ export default function Homepage(props) {
           <p>Fundations</p>
         </blockquote>
       </Card>
-      <Card>
-        <WalletAutocomplete />
-      </Card>
     </CardGroup>
   );
 }
