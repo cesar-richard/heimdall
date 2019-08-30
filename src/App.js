@@ -17,7 +17,9 @@ import FundationDetails from "./components/views/Fundations/FundationDetails";
 import Transferts from "./components/views/tranferts/transferts";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
+import MyNavbar from "./components/views/navbar";
 import "./App.css";
+import packagejson from "../package.json";
 
 class App extends Component {
   renderLogin(props) {
@@ -30,7 +32,6 @@ class App extends Component {
   renderMain() {
     const { session } = this.props;
     const isLoggedIn = session && session.access_token;
-
     return (
       <Router>
         <Switch>
@@ -76,30 +77,22 @@ class App extends Component {
   render() {
     const { session } = this.props;
     const isLoggedIn = session && session.access_token;
-    const logOutBlock = isLoggedIn ? (
-      <div>
-        <a title='Logout' href='/logout'>
-          Logout
-        </a>
-      </div>
-    ) : (
-      <></>
-    );
+    const username = isLoggedIn ? session.access_token.username:null;
     return (
       <React.Fragment>
+        <MyNavbar isLoggedIn={isLoggedIn} username={username} />
         <div className='App'>
           {this.renderMain()}
           <ToastContainer />
           <footer className='text-center'>
-            {logOutBlock}
             <span>
               I used to be a engineer like you, then I took an arrow in the
               knee...
             </span>
             <br />
-            <span>&copy;2019 - C.Richard</span>
+            <span>&copy;{new Date().getFullYear()} - C.Richard</span>
             <br />
-            <span>Version 1.4.0</span>
+            <span>Version {packagejson.version}</span>
           </footer>
         </div>
       </React.Fragment>
