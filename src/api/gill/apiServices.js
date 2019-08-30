@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
-import { Router } from 'react-router-dom';
+import { Router } from "react-router-dom";
 
 const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
   let config = {
@@ -22,7 +22,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
         : store.getState().session.access_token.sessionid;
   } catch (e) {
     store.dispatch(clearSession());
-    Router.push('/');
+    Router.push("/");
   }
 
   config[method === "get" ? "params" : "data"] = params;
@@ -39,21 +39,29 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
 
   return axios(config).catch(err => {
     let { response } = err;
-    if (response && response.status === 401) {
+    if (
+      response &&
+      (response.status === 401 ||
+        (response.status === 403 &&
+          response.data.error.message === "User must be logged"))
+    ) {
       store.dispatch(clearSession());
-      Router.push('/');
+      Router.redirect("/");
     }
 
     response = response || {};
 
     console.error(response.data.error);
-    let message = response.data.message ? response.data.message :
-    response.data.error ? response.data.error.type : "unknown error";
+    let message = response.data.message
+      ? response.data.message
+      : response.data.error
+      ? response.data.error.type
+      : "unknown error";
     const errorObject = {
       config: response.config,
+      rawData: response.data,
       status: response.status,
-      message:
-        "Gill said : " + message
+      message: "Gill said : " + message
     };
 
     throw errorObject;
