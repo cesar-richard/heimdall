@@ -1,13 +1,15 @@
 import openSocket from "socket.io-client";
 const socket = openSocket("http://localhost:3001");
 export function subscribeNfc({
-  onDetected = () => {},
+  onCard = () => {},
   onOff = () => {},
   onError = () => {},
+  onStart = () => {},
   onEnd = () => {}
 }) {
-  socket.on("card", card => onDetected(null, card));
-  socket.on("off", onOff => onOff(null, card));
-  socket.on("error", err => onError(null, err));
-  socket.on("end", err => onEnd(null, {}));
+  socket.on("card", card => onCard(card));
+  socket.on("off", card => onOff(card));
+  socket.on("error", err => onError(err));
+  socket.on("start", reader => onStart(reader));
+  socket.on("end", reader => onEnd(reader));
 }
