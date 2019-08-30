@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Switch from "react-bootstrap-switch";
 import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
+import packagejson from "../../../../package.json";
 
 class Login extends Component {
   constructor(props) {
@@ -263,7 +264,7 @@ class Login extends Component {
                       className='panel-heading text-center'
                       id='login-page-container'
                     >
-                      <h1>Heimdal</h1>
+                      <h1>{packagejson.name}</h1>
                       <div />
                     </div>
                     <div className='panel-body'>
