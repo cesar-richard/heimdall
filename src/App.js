@@ -22,11 +22,15 @@ import Homepage from "./components/views/homepage";
 import "./App.css";
 import packagejson from "../package.json";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBuilding, faKey, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faBuilding,
+  faSuitcase,
+  faKey,
+  faHandHoldingUsd
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faBuilding, faKey, faHandHoldingUsd);
-
+library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd);
 
 class App extends Component {
   renderLogin(props) {
@@ -84,7 +88,7 @@ class App extends Component {
   render() {
     const { session } = this.props;
     const isLoggedIn = session && session.access_token;
-    const username = isLoggedIn ? session.access_token.username:null;
+    const username = isLoggedIn ? session.access_token.username : null;
     return (
       <React.Fragment>
         <MyNavbar isLoggedIn={isLoggedIn} username={username} />
