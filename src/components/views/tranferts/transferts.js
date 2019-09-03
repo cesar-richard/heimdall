@@ -20,10 +20,8 @@ export default function Transferts(props) {
   const READER_SOURCE = "source";
   const READER_DESTINATION = "destination";
   const [readerState, setReaderState] = React.useState("warning");
-  const [sourceCard, setSourceCard] = React.useState({ uid: "6EBE7F97" });
-  const [destinationCard, setDestinationCard] = React.useState({
-    uid: "6EBE7F97"
-  });
+  const [sourceCard, setSourceCard] = React.useState(null);
+  const [destinationCard, setDestinationCard] = React.useState(null);
   const [handledCard, setHandledCard] = React.useState(READER_SOURCE);
   const [walletSource, setWalletSource] = React.useState(null);
   const [walletDestination, setWalletDestination] = React.useState(null);
