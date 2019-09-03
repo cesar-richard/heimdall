@@ -11,10 +11,11 @@ import {
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HomepageNavItem from "../HomepageNavItem";
+import { toast } from "react-toastify";
 
 export default function Homepage(props) {
   const [loading, setLoading] = React.useState(false);
-  const logger = React.useCallback(m => console.log(m), []);
+  const goTo = React.useCallback(m => window.location.assign(m), []);
 
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
@@ -26,17 +27,17 @@ export default function Homepage(props) {
         <Col style={{ padding: 0 }}>
           <CardGroup>
             <HomepageNavItem
-              cb={() => logger("Transferts")}
+              cb={() => goTo("/transferts")}
               label='Transferts'
               icon='hand-holding-usd'
             />
             <HomepageNavItem
-              cb={() => logger("Fundations")}
+              cb={() => goTo("/fundations")}
               label='Fundations'
               icon='building'
             />
             <HomepageNavItem
-              cb={() => logger("Dora Live")}
+              cb={() => toast("Not implemented yet !")}
               label='Dora Live'
               icon='suitcase'
             />
