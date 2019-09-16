@@ -37,9 +37,9 @@ export default function Homepage(props) {
               icon='building'
             />
             <HomepageNavItem
-              cb={() => toast("Not implemented yet !")}
-              label='Dora Live'
-              icon='suitcase'
+              cb={() => goTo("/users")}
+              label='Users'
+              icon='user'
             />
           </CardGroup>
         </Col>

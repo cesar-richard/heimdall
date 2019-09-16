@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, ListGroup, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { walletAutocomplete } from "../../../api/gill/GESUSERS";
-import { find } from "../../../api/gill/wallets";
-import Balances from "./balances";
+import { walletAutocomplete } from "../../api/gill/GESUSERS";
+import { find } from "../../api/gill/wallets";
+import Balances from "./tranferts/balances";
 
 export default function Wallet(props) {
   const [loading, setLoading] = React.useState(true);
@@ -51,7 +51,17 @@ export default function Wallet(props) {
         <Card.Subtitle>{wallet.username}</Card.Subtitle>
       </Card.Body>
       <ListGroup variant='flush'>
-        <ListGroup.Item variant={walletInfos?!walletInfos.is_credit_consistent?'danger':false:false}>W{wallet.id}</ListGroup.Item>
+        <ListGroup.Item
+          variant={
+            walletInfos
+              ? !walletInfos.is_credit_consistent
+                ? "danger"
+                : false
+              : false
+          }
+        >
+          W{wallet.id}
+        </ListGroup.Item>
         <ListGroup.Item>U{wallet.user_id}</ListGroup.Item>
         <ListGroup.Item>{wallet.email}</ListGroup.Item>
         <ListGroup.Item>{wallet.wallet_name}</ListGroup.Item>
