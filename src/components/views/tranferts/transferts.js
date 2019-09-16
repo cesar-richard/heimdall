@@ -13,7 +13,7 @@ import {
 import { subscribeNfc } from "../../../api/scarlet";
 import { toast } from "react-toastify";
 import Switch from "react-bootstrap-switch";
-import Wallet from "./wallet";
+import Wallet from "../wallet";
 import TransfertCard from "./transfertCard";
 
 export default function Transferts(props) {
