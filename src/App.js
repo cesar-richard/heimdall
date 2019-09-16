@@ -19,6 +19,7 @@ import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
+import UserDashboard from "./components/views/users/userDashboard";
 import "./App.css";
 import packagejson from "../package.json";
 
@@ -27,10 +28,11 @@ import {
   faBuilding,
   faSuitcase,
   faKey,
-  faHandHoldingUsd
+  faHandHoldingUsd,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd);
+library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd, faUser);
 
 class App extends Component {
   renderLogin(props) {
@@ -58,6 +60,13 @@ class App extends Component {
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : <FundationList />
+            }
+          />
+          <Route
+            path='/users/'
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : <UserDashboard />
             }
           />
           <Route

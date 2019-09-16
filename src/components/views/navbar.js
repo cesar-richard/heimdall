@@ -17,6 +17,7 @@ export default function MyNavbar(props) {
           >
             <Nav className='mr-auto'>
               <Nav.Link href='/fundations'>Fundations</Nav.Link>
+              <Nav.Link href='/users'>Users</Nav.Link>
               <Nav.Link href='/transferts'>Transferts</Nav.Link>
               <Nav.Link href='/logout'>Logout</Nav.Link>
             </Nav>
