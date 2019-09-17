@@ -20,6 +20,9 @@ export default function DataRow(props) {
 
   React.useEffect(() => {
     setLoading(true);
+    if(wallet){
+      props.updateWalletList(wallet.id,"remove");
+    }
     if (queryString !== "") {
       walletAutocomplete({ queryString, limit: 2 })
         .then(data => {
@@ -31,6 +34,7 @@ export default function DataRow(props) {
             setError("More than one wallet found");
           } else {
             setWallet(data.data[0]);
+            props.updateWalletList(data.data[0].id,"add");
             setError(null);
           }
           setLoading(false);
@@ -39,17 +43,25 @@ export default function DataRow(props) {
           setLoading(false);
           setError(`Error with gill: ${err}`);
         });
-    }else{
+    } else {
       setWallet(null);
       setError(null);
       setLoading(false);
     }
-  },[queryString]);
+  }, [queryString]);
 
   return (
     <tr>
       {props.children}
-      <td style={wallet?{backgroundColor: '#18BC9C', color: '#FFFFFF', padding: 0}:error?{backgroundColor: '#E74C3C', color: '#FFFFFF', padding: 0}:{}}>
+      <td
+        style={
+          wallet
+            ? { backgroundColor: "#18BC9C", color: "#FFFFFF" }
+            : error
+            ? { backgroundColor: "#E74C3C", color: "#FFFFFF" }
+            : {}
+        }
+      >
         {loading ? (
           <Spinner animation='border' role='status' size='sm'>
             <span className='sr-only'>Loading...</span>
@@ -59,7 +71,7 @@ export default function DataRow(props) {
         ) : wallet ? (
           `${wallet.name} (W${wallet.id})`
         ) : (
-          <></>
+          "Empty string"
         )}
       </td>
     </tr>
