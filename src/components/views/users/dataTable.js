@@ -6,18 +6,23 @@ import { Alert, Table } from "react-bootstrap";
 import DataRow from "./dataRow";
 
 export default function DataTable(props) {
-
   const initialTable = [];
   for (var i = 0; i < 25; i++) {
-    initialTable.push(
-      [
-        { value: "" },
-        { value: "" },
-        { value: "" }
-      ]);
+    initialTable.push([{ value: "" }, { value: "" }, { value: "" }]);
   }
 
   const [dataGrid, setDataGrid] = React.useState(initialTable);
+  const [walletList, setWalletList] = React.useState([]);
+
+  const updateWalletList = (wallet, method) => {
+    if (method === "add" && !walletList.includes(wallet)) {
+      walletList.push(wallet);
+      setWalletList(walletList);
+    }
+    if (method === "remove" && walletList.includes(wallet)) {
+      setWalletList(walletList.splice(walletList.indexOf(wallet), 1));
+    }
+  };
   return (
     <ReactDataSheet
       data={dataGrid}
@@ -35,7 +40,14 @@ export default function DataTable(props) {
           <tbody>{props.children}</tbody>
         </Table>
       )}
-      rowRenderer={props => <DataRow {...props} />}
+      rowRenderer={props => (
+        <DataRow
+          {...props}
+          updateWalletList={(wallet, method) =>
+            updateWalletList(wallet, method)
+          }
+        />
+      )}
       onCellsChanged={(changes, additions) => {
         changes.forEach(({ cell, row, col, value }) => {
           dataGrid[row][col] = { ...dataGrid[row][col], value };

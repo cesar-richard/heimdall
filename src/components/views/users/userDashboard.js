@@ -1,25 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "./dataTable";
-import { Col, Form } from "react-bootstrap";
-import { getCurrencies, getWalletGroups } from "../../../api/gill/resources";
+import { Button, Col, Form } from "react-bootstrap";
+import WalletGroupSelector from "./walletGroupSelector";
+import CurrencySelector from "./currencySelector";
 
 export default function UserDashboard(props) {
-  const [action, setAction] = React.useState('addWalletsToGroup');
-  const [groups, setGroups] = React.useState(null);
-  const [currencies, setCurrencies] = React.useState(null);
-  React.useEffect(() => {getWalletGroups().then(data => setGroups(data.data))});
-  React.useEffect(() => {getCurrencies().then(data => setCurrencies(data.data))});
+  const [action, setAction] = React.useState("addWalletsToGroup");
+  const [group, setGroup] = React.useState(null);
+  const [currency, setCurrency] = React.useState(null);
   return (
     <>
       <Form>
         <Form.Row>
-          <Col>
+          <Col sm={5}>
             <Form.Group controlId='action'>
-              <Form.Label>Action</Form.Label>
               <Form.Control
                 as='select'
-                onChange={synthEvent => setAction(synthEvent.target.value)}
+                onChange={synthEvent => {
+                  setAction(synthEvent.target.value);
+                }}
                 defaultValue='addWalletsToGroup'
                 required
               >
@@ -33,25 +33,32 @@ export default function UserDashboard(props) {
               </Form.Control>
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group controlId='exampleForm.ControlSelect1'>
-              <Form.Label>Currency</Form.Label>
-              <Form.Control
-                as='select'
-                onChange={() => console.log(groups,currencies,action)}
-                required
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
+          <Col sm={5}>
+            {action === "setCurrencyForWallet" ? (
+              <Form.Group controlId='exampleForm.ControlSelect1'>
+                <CurrencySelector
+                  value={currency ? currency : ""}
+                  onChange={synth => setCurrency(synth.target.value)}
+                />
+              </Form.Group>
+            ) : action === "addWalletsToGroup" ? (
+              <Form.Group controlId='exampleForm.ControlSelect1'>
+                <WalletGroupSelector
+                  value={group ? group : ""}
+                  onChange={synth => setGroup(synth.target.value)}
+                />
+              </Form.Group>
+            ) : (
+              <span>Not yet implemented</span>
+            )}
+          </Col>
+          <Col sm={2}>
+            <Button variant='primary' type='submit'>
+              Submit
+            </Button>
           </Col>
         </Form.Row>
       </Form>
-
       <DataTable />
     </>
   );
