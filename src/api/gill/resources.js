@@ -7,6 +7,14 @@ export const getFundations = () => {
   });
 };
 
+export const getWalletGroups = () => {
+  return GET("walletgroups", { limit: 500 });
+};
+
+export const getCurrencies = (group) => {
+  return GET("currencies", { group });
+};
+
 export const getSalesLocations = fundationId => {
   return GET("saleslocations", { fundation: fundationId });
 };
