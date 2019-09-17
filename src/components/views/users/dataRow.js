@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReactDataSheet from "react-datasheet";
 import "react-datasheet/lib/react-datasheet.css";
-import { Alert } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { walletAutocomplete } from "../../../api/gill/GESUSERS";
 import { find } from "../../../api/gill/wallets";
 import { toast } from "react-toastify";
@@ -49,13 +49,15 @@ export default function DataRow(props) {
   return (
     <tr>
       {props.children}
-      <td>
+      <td style={wallet?{backgroundColor: '#18BC9C', color: '#FFFFFF', padding: 0}:error?{backgroundColor: '#E74C3C', color: '#FFFFFF', padding: 0}:{}}>
         {loading ? (
-          "SPINNER"
+          <Spinner animation='border' role='status' size='sm'>
+            <span className='sr-only'>Loading...</span>
+          </Spinner>
         ) : error ? (
-          <Alert variant={"danger"}>{error}</Alert>
+          `${error}`
         ) : wallet ? (
-          <Alert variant={"success"}>{wallet.name} (W{wallet.id})</Alert>
+          `${wallet.name} (W${wallet.id})`
         ) : (
           <></>
         )}

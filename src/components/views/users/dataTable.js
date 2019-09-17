@@ -6,41 +6,18 @@ import { Alert, Table } from "react-bootstrap";
 import DataRow from "./dataRow";
 
 export default function DataTable(props) {
-  const RenderRow = React.memo(props => {
-    rows[props.row] = <DataRow {...props} />;
-    return rows[props.row];
-  });
 
   const initialTable = [];
-  initialTable.push(
-    [
-      { hint: "Login", value: "" },
-      { hint: "Nom", value: "" },
-      { hint: "Prenom", value: "" }
-    ],
-    [
-      { hint: "Login", value: "" },
-      { hint: "Nom", value: "" },
-      { hint: "Prenom", value: "" }
-    ],
-    [
-      { hint: "Login", value: "" },
-      { hint: "Nom", value: "" },
-      { hint: "Prenom", value: "" }
-    ],
-    [
-      { hint: "Login", value: "" },
-      { hint: "Nom", value: "" },
-      { hint: "Prenom", value: "" }
-    ],
-    [
-      { hint: "Login", value: "" },
-      { hint: "Nom", value: "" },
-      { hint: "Prenom", value: "" }
-    ]
-  );
+  for (var i = 0; i < 25; i++) {
+    initialTable.push(
+      [
+        { value: "" },
+        { value: "" },
+        { value: "" }
+      ]);
+  }
+
   const [dataGrid, setDataGrid] = React.useState(initialTable);
-  let rows = [];
   return (
     <ReactDataSheet
       data={dataGrid}
@@ -58,7 +35,7 @@ export default function DataTable(props) {
           <tbody>{props.children}</tbody>
         </Table>
       )}
-      rowRenderer={props => <RenderRow {...props} />}
+      rowRenderer={props => <DataRow {...props} />}
       onCellsChanged={(changes, additions) => {
         changes.forEach(({ cell, row, col, value }) => {
           dataGrid[row][col] = { ...dataGrid[row][col], value };
