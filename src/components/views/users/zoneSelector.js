@@ -1,23 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form, Spinner } from "react-bootstrap";
-import { getWalletGroups } from "../../../api/gill/resources";
+import { getZones } from "../../../api/gill/resources";
 
-export default function WalletGroupSelector(props) {
-  const [walletGroups, setWalletGroups] = React.useState([]);
+export default function ZoneSelector(props) {
+  const [zones, setZones] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
-    getWalletGroups({}).then(data => {
-      setWalletGroups(data.data);
+    getZones({}).then(data => {
+      setZones(data.data);
       setLoading(false);
     });
-  },[]);
+},[]);
 
   let options = [];
-  walletGroups.map(walletGroup =>
+  zones.map(zone =>
     options.push(
-      <option key={walletGroup.id} value={walletGroup.id}>
-        {walletGroup.name}
+      <option key={zone.id} value={zone.id}>
+        {zone.name}
       </option>
     )
   );
@@ -33,4 +33,4 @@ export default function WalletGroupSelector(props) {
   );
 }
 
-WalletGroupSelector.propTypes = {};
+ZoneSelector.propTypes = {};

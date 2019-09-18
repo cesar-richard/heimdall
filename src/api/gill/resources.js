@@ -7,11 +7,11 @@ export const getFundations = () => {
   });
 };
 
-export const getWalletGroups = () => {
-  return GET("walletgroups", { limit: 500 });
+export const getWalletGroups = ({ limit = 500, ordering = "name,id" }) => {
+  return GET("walletgroups", { limit, ordering });
 };
 
-export const getCurrencies = (group) => {
+export const getCurrencies = group => {
   return GET("currencies", { group });
 };
 
@@ -19,11 +19,20 @@ export const getSalesLocations = fundationId => {
   return GET("saleslocations", { fundation: fundationId });
 };
 
-export const putSalesLocations = (fundationId, salesLocationId, name, enabled) => {
+export const putSalesLocations = (
+  fundationId,
+  salesLocationId,
+  name,
+  enabled
+) => {
   return PUT("saleslocations/" + salesLocationId, {
     id: salesLocationId,
     fun_id: fundationId,
     enabled,
     name
   });
+};
+
+export const getZones = ({ periods, ordering = "name,id" }) => {
+  return GET("zones", { periods });
 };

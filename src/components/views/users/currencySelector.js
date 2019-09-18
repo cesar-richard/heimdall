@@ -11,7 +11,7 @@ export default function CurrencySelector(props) {
       setCurrencies(data.data);
       setLoading(false);
     });
-  });
+  },[]);
 
   let options = [];
   currencies.map(currency =>

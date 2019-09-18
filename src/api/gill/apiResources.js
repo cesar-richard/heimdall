@@ -47,7 +47,7 @@ const request = (endPoint, method, params, headers = {}) => {
           response.data.error.message === "User must be logged"))
     ) {
       store.dispatch(clearSession());
-      window.location.apply("/");
+      window.location.assign("/");
     }
 
     response = response || {};
