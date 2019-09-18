@@ -1,4 +1,4 @@
-import { GET } from "./apiResources";
+import { GET, POST } from "./apiResources";
 
 export const search = ({
   queryString,
@@ -20,8 +20,25 @@ export const search = ({
   });
 };
 
-export const find = ({
-  walletId
-}) => {
+export const find = ({ walletId }) => {
   return GET(`wallets/${walletId}`);
+};
+
+export const batchRefill = ({
+  walletIds,
+  quantity,
+  currency,
+  kind = "set",
+  refillKind = "Gratuités"
+}) => {
+  return POST(`wallets/batch_refill?id__in:${walletIds.join()}`, {
+    action_set: [
+      {
+        currency,
+        quantity,
+        kind,
+        refill_kind: refillKind
+      }
+    ]
+  });
 };

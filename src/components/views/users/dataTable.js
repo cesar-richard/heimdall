@@ -6,23 +6,18 @@ import { Alert, Table } from "react-bootstrap";
 import DataRow from "./dataRow";
 
 export default function DataTable(props) {
+  const {addWallet, removeWallet} = props;
   const initialTable = [];
   for (var i = 0; i < 25; i++) {
-    initialTable.push([{ value: "" }, { value: "" }, { value: "" }]);
+    initialTable.push([
+      { value: "" },
+      { value: "" },
+      { value: "" },
+      { value: "" }
+    ]);
   }
 
   const [dataGrid, setDataGrid] = React.useState(initialTable);
-  const [walletList, setWalletList] = React.useState([]);
-
-  const updateWalletList = (wallet, method) => {
-    if (method === "add" && !walletList.includes(wallet)) {
-      walletList.push(wallet);
-      setWalletList(walletList);
-    }
-    if (method === "remove" && walletList.includes(wallet)) {
-      setWalletList(walletList.splice(walletList.indexOf(wallet), 1));
-    }
-  };
   return (
     <ReactDataSheet
       data={dataGrid}
@@ -31,6 +26,7 @@ export default function DataTable(props) {
         <Table className={props.className} striped bordered hover>
           <thead>
             <tr>
+              <th>Wallet ID</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Username</th>
@@ -43,9 +39,8 @@ export default function DataTable(props) {
       rowRenderer={props => (
         <DataRow
           {...props}
-          updateWalletList={(wallet, method) =>
-            updateWalletList(wallet, method)
-          }
+          addWallet={wallet => addWallet(wallet)}
+          removeWallet={wallet => removeWallet(wallet)}
         />
       )}
       onCellsChanged={(changes, additions) => {
@@ -56,7 +51,7 @@ export default function DataTable(props) {
           additions.forEach(({ row, col, value }) => {
             dataGrid[row] = dataGrid[row]
               ? dataGrid[row]
-              : [{ value: "" }, { value: "" }, { value: "" }];
+              : [{ value: "" }, { value: "" }, { value: "" }, { value: "" }];
             dataGrid[row][col] = { ...dataGrid[row][col], row, col, value };
           });
         }

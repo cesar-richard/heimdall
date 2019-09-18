@@ -11,22 +11,41 @@ export default function DataRow(props) {
   const [loading, setLoading] = React.useState(true);
   const [wallet, setWallet] = React.useState(null);
   const [error, setError] = React.useState(null);
-  const [cells, setCells] = React.useState(null);
+  const { cells, addWallet, removeWallet } = props;
 
   let queryString = "";
-  props.cells.map(
-    cell => (queryString = queryString.concat(" ", cell.value).trim())
-  );
-
+  const walletId = cells[0].value;
+  cells
+    .slice(1)
+    .map(cell => (queryString = queryString.concat(" ", cell.value).trim()));
   React.useEffect(() => {
     setLoading(true);
-    if(wallet){
-      props.updateWalletList(wallet.id,"remove");
-    }
-    if (queryString !== "") {
+    if (walletId !== "") {
+      find({ walletId })
+        .then(data => {
+          if(wallet){
+            removeWallet(wallet.id);
+          }
+          setWallet(data.data);
+          addWallet(data.data.id);
+          setError(null);
+          setLoading(false);
+        })
+        .catch(err => {
+          setLoading(false);
+          if(wallet){
+            removeWallet(wallet.id);
+          }
+          setWallet(null);
+          setError(`Error with gill: ${err.toString()}`);
+        });
+    } else if (queryString !== "") {
       walletAutocomplete({ queryString, limit: 2 })
         .then(data => {
           if (data.data.length === 0) {
+            if(wallet){
+              removeWallet(wallet.id);
+            }
             setWallet(null);
             setError("No wallet found");
           } else if (data.data.length > 1) {
@@ -34,7 +53,7 @@ export default function DataRow(props) {
             setError("More than one wallet found");
           } else {
             setWallet(data.data[0]);
-            props.updateWalletList(data.data[0].id,"add");
+            addWallet(data.data[0].id);
             setError(null);
           }
           setLoading(false);
@@ -44,11 +63,14 @@ export default function DataRow(props) {
           setError(`Error with gill: ${err}`);
         });
     } else {
+      if(wallet){
+        removeWallet(wallet.id);
+      }
       setWallet(null);
       setError(null);
       setLoading(false);
     }
-  }, [queryString]);
+  }, [queryString, walletId]);
 
   return (
     <tr>
@@ -69,7 +91,7 @@ export default function DataRow(props) {
         ) : error ? (
           `${error}`
         ) : wallet ? (
-          `${wallet.name} (W${wallet.id})`
+          `${wallet.user ? wallet.user.username : wallet.name}(W${wallet.id})`
         ) : (
           "Empty string"
         )}
