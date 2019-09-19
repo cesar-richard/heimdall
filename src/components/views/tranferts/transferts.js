@@ -10,7 +10,7 @@ import {
   Col,
   Spinner
 } from "react-bootstrap";
-import { subscribeNfc } from "../../../api/scarlet";
+import { initializeSocket, subscribeNfc } from "../../../api/scarlet";
 import { toast } from "react-toastify";
 import Switch from "react-bootstrap-switch";
 import Wallet from "../wallet";
@@ -36,22 +36,21 @@ export default function Transferts(props) {
     }
   }, [handledCard]);
 
-  React.useEffect(
-    () =>
-      subscribeNfc({
-        onCard: card => {
-          setReaderState("success");
-          onCardHandler.current(card);
-        },
-        onError: error => {
-          toast.error(error);
-          setReaderState("danger");
-        },
-        onStart: () => setReaderState("success"),
-        onEnd: () => setReaderState("dark")
-      }),
-    []
-  );
+  React.useEffect(() => {
+    initializeSocket();
+    subscribeNfc({
+      onCard: card => {
+        setReaderState("success");
+        onCardHandler.current(card);
+      },
+      onError: error => {
+        toast.error(error);
+        setReaderState("danger");
+      },
+      onStart: () => setReaderState("success"),
+      onEnd: () => setReaderState("dark")
+    });
+  }, []);
   return (
     <Container>
       <Row>

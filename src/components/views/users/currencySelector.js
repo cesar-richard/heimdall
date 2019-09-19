@@ -11,16 +11,19 @@ export default function CurrencySelector(props) {
       setCurrencies(data.data);
       setLoading(false);
     });
-  },[]);
+  }, []);
 
   let options = [];
-  currencies.map(currency =>
-    options.push(
-      <option key={currency.id} value={currency.id}>
-        {currency.name}
-      </option>
-    )
-  );
+  currencies.map(currency => {
+    // TODO: find a way to only fetch secondary currencies...
+    if (currency.id !== 1) {
+      options.push(
+        <option key={currency.id} value={currency.id}>
+          {currency.name}
+        </option>
+      );
+    }
+  });
 
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
