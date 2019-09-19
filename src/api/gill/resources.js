@@ -1,4 +1,4 @@
-import { GET, PUT } from "./apiResources";
+import { GET, PUT, POST } from "./apiResources";
 
 export const getFundations = () => {
   return GET("fundations", { ordering: "name" }).then(ret => {
@@ -35,4 +35,10 @@ export const putSalesLocations = (
 
 export const getZones = ({ periods, ordering = "name,id" }) => {
   return GET("zones", { periods });
+};
+
+export const addWalletToWalletgroup = ({ walletGroupId, walletId }) => {
+  return POST(`walletgroups/${walletGroupId}/members`, {
+    wallet_id: walletId
+  });
 };

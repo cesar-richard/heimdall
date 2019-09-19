@@ -23,7 +23,7 @@ export default function DataRow(props) {
     if (walletId !== "") {
       find({ walletId })
         .then(data => {
-          if(wallet){
+          if (wallet) {
             removeWallet(wallet.id);
           }
           setWallet(data.data);
@@ -33,7 +33,7 @@ export default function DataRow(props) {
         })
         .catch(err => {
           setLoading(false);
-          if(wallet){
+          if (wallet) {
             removeWallet(wallet.id);
           }
           setWallet(null);
@@ -43,7 +43,7 @@ export default function DataRow(props) {
       walletAutocomplete({ queryString, limit: 2 })
         .then(data => {
           if (data.data.length === 0) {
-            if(wallet){
+            if (wallet) {
               removeWallet(wallet.id);
             }
             setWallet(null);
@@ -63,14 +63,14 @@ export default function DataRow(props) {
           setError(`Error with gill: ${err}`);
         });
     } else {
-      if(wallet){
+      if (wallet) {
         removeWallet(wallet.id);
       }
       setWallet(null);
       setError(null);
       setLoading(false);
     }
-  }, [queryString, walletId]);
+  }, [queryString, walletId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <tr>
