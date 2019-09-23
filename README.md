@@ -1,5 +1,7 @@
 # Heimdal
 
+## Introduction
+
 Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Hot Loader](https://github.com/gaearon/react-hot-loader) for rapid application development (HMR).
 
 
@@ -11,7 +13,7 @@ Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.
   <a href="https://facebook.github.io/jest/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/jest-padded-90.png" /></a>
   <a href="https://yarnpkg.com/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/yarn-padded-90.png" /></a>
 
-
+## Environements
 
 Deployed on:
 
@@ -19,3 +21,6 @@ Prod https://heimdal-utc.herokuapp.com/
 
 Staging https://heimdal-utc-staging.herokuapp.com/
 
+## Contributors
+- [cesar-richard](https://github.com/cesar-richard)
+- [vinz51](https://github.com/vinz51)
