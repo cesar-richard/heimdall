@@ -1,0 +1,12 @@
+name: Annotated ESLint
+
+on: [push]
+
+jobs:
+  annotatedESLint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Annotated ESLint
+      uses: rkusa/eslint-action@1.0.0
+      with:
+      - ESLINT_CMD: yarn lint
