@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: node modules install
-      run: |
-        yarn
+      run: yarn
     - name: Annotated ESLint
       uses: rkusa/eslint-action@1.0.0
       with:
