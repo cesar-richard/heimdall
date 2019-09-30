@@ -41,6 +41,11 @@ export default function Homepage(props) {
               label='Users'
               icon='user'
             />
+            <HomepageNavItem
+              cb={() => goTo("/dashboard")}
+              label='Dashboard'
+              icon='traffic-light'
+            />
           </CardGroup>
         </Col>
       </Row>

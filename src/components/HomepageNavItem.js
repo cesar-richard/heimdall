@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function HomepageNavItem(props) {
   return (
-    <Col md={4} style={{ padding: 0 }}>
+    <Col md={6} style={{ padding: 0 }}>
       <Card
         bg='primary'
         text='white'
