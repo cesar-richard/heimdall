@@ -8,13 +8,6 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-window.heimdalConfig = {
-  GILL_BASE_API_URL: process.env.GILL_BASE_API_URL,
-  SYSTEM_ID: process.env.SYSTEM_ID,
-  NEMOPAY_VERSION: process.env.NEMOPAY_VERSION,
-  GILL_APP_KEY: process.env.GILL_APP_KEY
-};
-
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading='Chargement ...' persistor={persistor}>
