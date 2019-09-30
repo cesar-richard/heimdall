@@ -3,7 +3,7 @@ import { Button, Col, Form, ProgressBar, Spinner } from "react-bootstrap";
 import WalletGroupSelector from "./walletGroupSelector";
 import CurrencySelector from "./currencySelector";
 import ZoneSelector from "./zoneSelector";
-import { batchRefill } from "../../../api/gill/wallets";
+import { batchAccess, batchRefill } from "../../../api/gill/wallets";
 import { addWalletToWalletgroup } from "../../../api/gill/resources";
 import PromisePool from "es6-promise-pool";
 import PropTypes from "prop-types";
@@ -19,47 +19,59 @@ export default function ActionForm({ walletList }) {
   const [processState, setProcessState] = React.useState(0);
   let count = 0;
 
-  const CONCURENCY_LIMIT = 1;
+  const CONCURENCY_LIMIT = 10;
   let walletsToProcess = [];
   const promiseProducer = function() {
     if (walletsToProcess.length === 0) {
       return null;
     }
     const wallet = walletsToProcess.shift();
-    return addWalletToWalletgroup({
-      walletGroupId: group,
-      walletId: wallet
-    }).then(() =>
-      setProcessState(Math.floor((++count / walletList.length) * 100))
-    );
+    switch (action) {
+      case "addZoneAccessToWallet":
+        return batchAccess({
+          walletIds: [wallet],
+          quantity: zoneQuantity,
+          kind: "delete",
+          zones: [zone]
+        }).then(() =>
+          setProcessState(Math.floor((++count / walletList.length) * 100))
+        );
+      case "addWalletsToGroup":
+        return addWalletToWalletgroup({
+          walletGroupId: group,
+          walletId: [wallet]
+        }).then(() =>
+          setProcessState(Math.floor((++count / walletList.length) * 100))
+        );
+      case "setCurrencyForWallet":
+        return batchRefill({
+          walletIds: [wallet],
+          quantity: currencyQuantity * 100,
+          currency
+        })
+        .then(() =>
+          setProcessState(Math.floor((++count / walletList.length) * 100))
+        );
+      default:
+    }
   };
+
   const pool = new PromisePool(promiseProducer, CONCURENCY_LIMIT);
 
   return (
     <Form
       onSubmit={synthEvent => {
         synthEvent.preventDefault();
-        if (action === "setCurrencyForWallet") {
-          batchRefill({
-            walletIds: walletList,
-            quantity: currencyQuantity * 100,
-            currency
+        walletsToProcess = [];
+        walletList.map(w => walletsToProcess.push(w));
+        count = 0;
+        setIsProcessing(true);
+        pool
+          .start()
+          .then(() => {
+            setIsProcessing(false);
           })
-            .then(data => console.log(data.data))
-            .catch(err => console.error(err));
-        }
-        if (action === "addWalletsToGroup") {
-          walletsToProcess = [];
-          walletList.map(w => walletsToProcess.push(w));
-          count = 0;
-          setIsProcessing(true);
-          pool
-            .start()
-            .then(() => {
-              setIsProcessing(false);
-            })
-            .catch(console.error);
-        }
+          .catch(console.error);
       }}
     >
       <Form.Row>
@@ -103,7 +115,6 @@ export default function ActionForm({ walletList }) {
                   onChange={synthEvent => {
                     setCurrencyQuantity(synthEvent.target.value);
                   }}
-                  defaultValue={0}
                   value={currencyQuantity}
                   disabled={isProcessing}
                   required
@@ -163,7 +174,15 @@ export default function ActionForm({ walletList }) {
           </Button>
         </Col>
         <Col>
-          {isProcessing?<ProgressBar animated now={processState} label={`${processState}%`} />:<></>}
+          {isProcessing ? (
+            <ProgressBar
+              animated
+              now={processState}
+              label={`${processState}%`}
+            />
+          ) : (
+            <></>
+          )}
         </Col>
       </Form.Row>
     </Form>

@@ -13,7 +13,11 @@ export default function CurrencySelector(props) {
     });
   }, []);
 
-  let options = [];
+  let options = [
+    <option key={0} value={null}>
+      Choose a currency
+    </option>
+  ];
   currencies.map(currency => {
     // TODO: find a way to only fetch secondary currencies...
     if (currency.id !== 1) {

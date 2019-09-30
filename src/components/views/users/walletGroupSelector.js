@@ -13,7 +13,11 @@ export default function WalletGroupSelector(props) {
     });
   },[]);
 
-  let options = [];
+  let options = [
+    <option key={0} value={null}>
+      Choose a wallet group
+    </option>
+  ];
   walletGroups.map(walletGroup =>
     options.push(
       <option key={walletGroup.id} value={walletGroup.id}>

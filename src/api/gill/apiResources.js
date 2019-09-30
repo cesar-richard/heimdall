@@ -3,14 +3,23 @@ import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
 import { Router } from "react-router-dom";
 
+const { heimdalConfig } = window;
+
+axios.defaults.baseURL = heimdalConfig.GILL_BASE_API_URL;
+
 const request = (endPoint, method, params, headers = {}) => {
   let config = {
     method: method.toLowerCase(),
-    url: "https://api.nemopay.net/resources/" + endPoint,
+    url: `/resources/${endPoint}`,
     headers: {
       ...headers,
       "Content-Type": "application/json",
-      "Nemopay-Version": "2017-12-15"
+      "Nemopay-Version": heimdalConfig.NEMOPAY_VERSION
+    },
+    params: {
+      system_id: heimdalConfig.SYSTEM_ID,
+      event: heimdalConfig.EVENT_ID,
+      app_key: heimdalConfig.GILL_APP_KEY
     }
   };
 
@@ -25,12 +34,9 @@ const request = (endPoint, method, params, headers = {}) => {
     Router.push("/");
   }
 
-  config[method === "get" ? "params" : "data"] = params;
+  config[method === "get" ? "params" : "data"] = method === "get" ? {...config.params,...params} : params;
   config.params = {
     ...config.params,
-    system_id: 80405,
-    event: 1,
-    app_key: "0a93e8e18e6ed78fa50c4d74e949801b"
   };
 
   if (token) {
