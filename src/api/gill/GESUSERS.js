@@ -1,10 +1,17 @@
 import { POST } from "./apiServices";
+const { heimdalConfig } = window;
 
 export const walletAutocomplete = ({
-  queryString
+  queryString,
+  user__merged_into=False,
+  weez_removed=False,
+  event=heimdalConfig.EVENT_ID
 }) => {
   return POST("GESUSERS/walletAutocomplete", {
-    queryString
+    queryString,
+    user__merged_into,
+    weez_removed,
+    event
   });
 };
 

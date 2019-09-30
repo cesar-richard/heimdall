@@ -13,7 +13,11 @@ export default function ZoneSelector(props) {
     });
 },[]);
 
-  let options = [];
+  let options = [
+    <option key={0} value={null}>
+      Choose a zone
+    </option>
+  ];
   zones.map(zone =>
     options.push(
       <option key={zone.id} value={zone.id}>

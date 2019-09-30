@@ -1,8 +1,9 @@
 import { GET, POST } from "./apiResources";
+const { heimdalConfig } = window;
 
 export const search = ({
   queryString,
-  event = 1,
+  event = heimdalConfig.EVENT_ID,
   limit = 25,
   offset = 0,
   ordering = "id",
@@ -24,12 +25,32 @@ export const find = ({ walletId }) => {
   return GET(`wallets/${walletId}`);
 };
 
+export const batchAccess = ({
+  walletIds,
+  quantity,
+  zones,
+  event = heimdalConfig.EVENT_ID,
+  kind = "set",
+  periods = [4]
+}) => {
+  return POST(`wallets/batch_access?id__in:${walletIds.join()}`, {
+    action_set: [
+      {
+        zone_set: zones,
+        quantity,
+        kind,
+        period_set: periods
+      }
+    ]
+  });
+};
+
 export const batchRefill = ({
   walletIds,
   quantity,
   currency,
   kind = "set",
-  refillKind = "Gratuités"
+  refillKind = "Heimdal"
 }) => {
   return POST(`wallets/batch_refill?id__in:${walletIds.join()}`, {
     action_set: [

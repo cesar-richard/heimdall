@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ReactDataSheet from "react-datasheet";
 import "react-datasheet/lib/react-datasheet.css";
 import { Spinner } from "react-bootstrap";
-import { walletAutocomplete } from "../../../api/gill/GESUSERS";
+import { search } from "../../../api/gill/wallets";
 import { find } from "../../../api/gill/wallets";
 import { toast } from "react-toastify";
 
@@ -40,7 +40,7 @@ export default function DataRow(props) {
           setError(`Error with gill: ${err.toString()}`);
         });
     } else if (queryString !== "") {
-      walletAutocomplete({ queryString, limit: 2 })
+      search({ queryString, limit: 2 })
         .then(data => {
           if (data.data.length === 0) {
             if (wallet) {
