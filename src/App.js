@@ -34,6 +34,14 @@ import {
   faTrafficLight
 } from "@fortawesome/free-solid-svg-icons";
 
+
+window.heimdalConfig = {
+  GILL_BASE_API_URL: process.env.GILL_BASE_API_URL,
+  SYSTEM_ID: process.env.SYSTEM_ID,
+  NEMOPAY_VERSION: process.env.NEMOPAY_VERSION,
+  GILL_APP_KEY: process.env.GILL_APP_KEY
+};
+
 library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd, faUser, faTrafficLight);
 
 class App extends Component {
