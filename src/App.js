@@ -15,6 +15,7 @@ import Forbiden from "./components/views/public/Forbiden";
 import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
 import Transferts from "./components/views/tranferts/transferts";
+import Dashboard from "./components/views/dashboard/dashboard";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
@@ -29,10 +30,11 @@ import {
   faSuitcase,
   faKey,
   faHandHoldingUsd,
-  faUser
+  faUser,
+  faTrafficLight
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd, faUser);
+library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd, faUser, faTrafficLight);
 
 class App extends Component {
   renderLogin(props) {
@@ -80,6 +82,13 @@ class App extends Component {
             path='/fundations/:fundationId'
             exact
             component={FundationDetails}
+          />
+          <Route
+            path='/dashboard/'
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : <Dashboard />
+            }
           />
           <Route path='/403' exact component={Forbiden} />
           <Route path='/logout' exact component={Logout} />
