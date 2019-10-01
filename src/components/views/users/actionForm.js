@@ -39,7 +39,7 @@ export default function ActionForm({ walletList }) {
       case "addWalletsToGroup":
         return addWalletToWalletgroup({
           walletGroupId: group,
-          walletId: [wallet]
+          walletId: wallet
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
