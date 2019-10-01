@@ -55,7 +55,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       Router.redirect("/");
     }
 
-    response = response || {};
+    response = response || {data: {}};
 
     console.error(response.data.error);
     let message = response.data.message
