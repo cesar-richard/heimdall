@@ -33,7 +33,7 @@ export const batchAccess = ({
   kind = "set",
   periods = [4]
 }) => {
-  return POST(`wallets/batch_access?id__in:${walletIds.join()}`, {
+  return POST(`wallets/batch_access?id__in=${walletIds.join()}`, {
     action_set: [
       {
         zone_set: zones,
@@ -52,7 +52,7 @@ export const batchRefill = ({
   kind = "set",
   refillKind = "Heimdal"
 }) => {
-  return POST(`wallets/batch_refill?id__in:${walletIds.join()}`, {
+  return POST(`wallets/batch_refill?id__in=${walletIds.join()}`, {
     action_set: [
       {
         currency,
