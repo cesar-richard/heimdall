@@ -42,3 +42,11 @@ export const addWalletToWalletgroup = ({ walletGroupId, walletId }) => {
     wallet_id: walletId
   });
 };
+
+export const getZoneAccesses = ({ wallet, period, zone, limit=5000 }) => {
+  return GET("zoneaccesses", { wallet, period, zone, limit });
+};
+
+export const getPeriods = ({ event=1 }) => {
+  return GET("periods", { event });
+};

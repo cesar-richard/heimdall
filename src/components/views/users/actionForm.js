@@ -3,6 +3,7 @@ import { Button, Col, Form, ProgressBar, Spinner } from "react-bootstrap";
 import WalletGroupSelector from "./walletGroupSelector";
 import CurrencySelector from "./currencySelector";
 import ZoneSelector from "./zoneSelector";
+import PeriodSelector from "./periodSelector";
 import { batchAccess, batchRefill } from "../../../api/gill/wallets";
 import { addWalletToWalletgroup } from "../../../api/gill/resources";
 import PromisePool from "es6-promise-pool";
@@ -15,8 +16,10 @@ export default function ActionForm({ walletList }) {
   const [currencyQuantity, setCurrencyQuantity] = React.useState(0);
   const [zoneQuantity, setZoneQuantity] = React.useState(0);
   const [zone, setZone] = React.useState(null);
+  const [period, setPeriod] = React.useState(null);
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [processState, setProcessState] = React.useState(0);
+  const [method, setMethod] = React.useState("set");
   let count = 0;
 
   const CONCURENCY_LIMIT = 10;
@@ -31,8 +34,9 @@ export default function ActionForm({ walletList }) {
         return batchAccess({
           walletIds: [wallet],
           quantity: zoneQuantity,
-          kind: "delete",
-          zones: [zone]
+          kind: method,
+          zones: [zone],
+          periods: [period]
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -48,8 +52,7 @@ export default function ActionForm({ walletList }) {
           walletIds: [wallet],
           quantity: currencyQuantity * 100,
           currency
-        })
-        .then(() =>
+        }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
       default:
@@ -75,7 +78,7 @@ export default function ActionForm({ walletList }) {
       }}
     >
       <Form.Row>
-        <Col sm={3}>
+        <Col sm={2}>
           <Form.Group controlId='action'>
             <Form.Control
               as='select'
@@ -99,7 +102,7 @@ export default function ActionForm({ walletList }) {
 
         {action === "setCurrencyForWallet" ? (
           <>
-            <Col sm={3}>
+            <Col sm={2}>
               <Form.Group controlId='selectCurrency' disabled={isProcessing}>
                 <CurrencySelector
                   value={currency ? currency : ""}
@@ -123,7 +126,7 @@ export default function ActionForm({ walletList }) {
             </Col>
           </>
         ) : action === "addWalletsToGroup" ? (
-          <Col sm={3}>
+          <Col sm={2}>
             <Form.Group controlId='selectGroup'>
               <WalletGroupSelector
                 value={group ? group : ""}
@@ -134,13 +137,40 @@ export default function ActionForm({ walletList }) {
           </Col>
         ) : (
           <>
-            <Col sm={4}>
+            <Col sm={2}>
               <Form.Group controlId='selectZone'>
                 <ZoneSelector
                   value={zone ? zone : ""}
                   onChange={synth => setZone(synth.target.value)}
                   disabled={isProcessing}
                 />
+              </Form.Group>
+            </Col>
+            <Col sm={2}>
+              <Form.Group controlId='selectPeriod'>
+                <PeriodSelector
+                  value={period ? period : ""}
+                  onChange={synth => setPeriod(synth.target.value)}
+                  disabled={isProcessing}
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={2}>
+              <Form.Group controlId='method'>
+                <Form.Control
+                  as='select'
+                  onChange={synthEvent => {
+                    setMethod(synthEvent.target.value);
+                  }}
+                  defaultValue='set'
+                  disabled={isProcessing}
+                  required
+                >
+                  <option value='set'>Set</option>
+                  <option value='add'>Add</option>
+                  <option value='dec'>Remove</option>
+                  <option value='delete'>Delete</option>
+                </Form.Control>
               </Form.Group>
             </Col>
             <Col sm={1}>
