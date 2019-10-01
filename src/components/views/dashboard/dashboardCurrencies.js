@@ -21,7 +21,7 @@ export default function DashboardCurrencies(props) {
   let rows = [];
   totalCredits.map(el =>
     rows.push(
-      <tr>
+      <tr key={el.currency_id}>
         <td>{el.currency_id}</td>
         <td>{el.currency__group__name}</td>
         <td>{el.currency__name}</td>
@@ -38,9 +38,9 @@ export default function DashboardCurrencies(props) {
       <thead>
         <tr>
           <th>#</th>
+          <th>Currency group</th>
           <th>Name</th>
           <th>Credits</th>
-          <th>Currency group</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
