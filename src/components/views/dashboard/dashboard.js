@@ -10,17 +10,13 @@ export default function Dashboard(props) {
       <Card>
         <Card.Body>
           <Card.Title>Currencies</Card.Title>
-          <Card.Text>
-            <DashboardCurrencies />
-          </Card.Text>
+          <DashboardCurrencies />
         </Card.Body>
       </Card>
       <Card>
         <Card.Body>
           <Card.Title>Zone accesses</Card.Title>
-          <Card.Text>
-            <DashboardZoneAccesses />
-          </Card.Text>
+          <DashboardZoneAccesses />
         </Card.Body>
       </Card>
     </CardDeck>
