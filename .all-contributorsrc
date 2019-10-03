@@ -22,6 +22,18 @@
         "review",
         "security",
         "tool"
+        ]
+      },
+      {
+      "login": "vinz51",
+      "name": "Vincent",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10948086?v=4",
+      "profile": "http://vincentbenoit.com/",
+      "contributions": [
+        "review",
+        "test",
+        "security",
+        "userTesting"
       ]
     }
   ],
