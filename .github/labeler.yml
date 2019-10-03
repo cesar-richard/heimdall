@@ -1,0 +1,26 @@
+api:
+  - ./src/api/**/*
+
+gill:
+  - ./src/api/gill/**/*
+
+component:
+  - ./src/component/**/*
+
+model:
+  - ./src/models/*
+
+redux:
+  - ./src/actions/**/*
+  - ./src/reducer/**/*
+  - ./src/store/**/*
+
+tests:
+  - ./tests/**/*
+
+structure:
+  - ./*
+  - ./public/**/*
+  - ./config/**/*
+  - ./public/**/*
+  - ./scripts/**/*
