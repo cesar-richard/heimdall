@@ -12,4 +12,4 @@ jobs:
     - name: Annotated ESLint
       uses: rkusa/eslint-action@1.0.0
       with:
-        ESLINT_CMD: yarn lint
+        INPUT_ESLINT_CMD: yarn lint
