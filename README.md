@@ -1,4 +1,5 @@
 # Heimdal
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## Introduction
 
@@ -23,4 +24,13 @@ Staging https://heimdal-utc-staging.herokuapp.com/
 
 ## Contributors
 - [cesar-richard](https://github.com/cesar-richard)
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="http://vincentbenoit.com/"><img src="https://avatars1.githubusercontent.com/u/10948086?v=4" width="100px;" alt="Vincent"/><br /><sub><b>Vincent</b></sub></a><br /><a href="#review-vinz51" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/cesar-richard/heimdal/commits?author=vinz51" title="Tests">⚠️</a> <a href="#security-vinz51" title="Security">🛡️</a> <a href="#userTesting-vinz51" title="User Testing">📓</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 - [vinz51](https://github.com/vinz51)
