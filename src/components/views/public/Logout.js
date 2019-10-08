@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearSession } from "../../../actions/sessionActions";
 import { Redirect } from "react-router-dom";
@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Logout.propTypes = {
-  clearSession: PropTypes.function,
-}
+  clearSession: PropTypes.function
+};
 
 export default connect(
   mapStateToProps,

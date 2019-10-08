@@ -6,7 +6,7 @@ import { Alert, Table } from "react-bootstrap";
 import DataRow from "./dataRow";
 
 export default function DataTable(props) {
-  const {addWallet, removeWallet} = props;
+  const { addWallet, removeWallet } = props;
   const initialTable = [];
   for (var i = 0; i < 25; i++) {
     initialTable.push([

@@ -19,7 +19,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       system_id: heimdalConfig.SYSTEM_ID,
       event: heimdalConfig.EVENT_ID,
       app_key: heimdalConfig.GILL_APP_KEY,
-     ...forcedParams,
+      ...forcedParams
     }
   };
 

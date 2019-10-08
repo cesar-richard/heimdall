@@ -34,8 +34,14 @@ import {
   faTrafficLight
 } from "@fortawesome/free-solid-svg-icons";
 
-
-library.add(faBuilding, faSuitcase, faKey, faHandHoldingUsd, faUser, faTrafficLight);
+library.add(
+  faBuilding,
+  faSuitcase,
+  faKey,
+  faHandHoldingUsd,
+  faUser,
+  faTrafficLight
+);
 
 class App extends Component {
   renderLogin(props) {

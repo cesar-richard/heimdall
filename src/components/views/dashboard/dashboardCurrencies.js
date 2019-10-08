@@ -9,15 +9,17 @@ export default function DashboardCurrencies(props) {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     setLoading(true);
-    getTotalCreditByCurrency().then(data => {
-      setTotalCredits(data.data);
-      setLoading(false);
-      setInterval(
-        () =>
-          getTotalCreditByCurrency().then(data => setTotalCredits(data.data)),
-        5000
-      );
-    }).catch(data => toast.error(data));
+    getTotalCreditByCurrency()
+      .then(data => {
+        setTotalCredits(data.data);
+        setLoading(false);
+        setInterval(
+          () =>
+            getTotalCreditByCurrency().then(data => setTotalCredits(data.data)),
+          5000
+        );
+      })
+      .catch(data => toast.error(data));
   }, []);
   let rows = [];
   totalCredits.map(el =>
