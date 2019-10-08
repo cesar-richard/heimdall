@@ -2,8 +2,7 @@ import axios from "axios";
 import { store } from "../../store";
 import { clearSession } from "../../actions/sessionActions";
 import { Router } from "react-router-dom";
-
-const { heimdalConfig } = window;
+import heimdalConfig from "../../config";
 
 axios.defaults.baseURL = heimdalConfig.GILL_BASE_API_URL;
 
@@ -17,7 +16,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": heimdalConfig.NEMOPAY_VERSION
     },
     params: {
-      system_id: heimdalConfig.SYSTEM_ID
+      system_id: heimdalConfig.SYSTEM_ID,
+      event: heimdalConfig.EVENT_ID,
+      app_key: heimdalConfig.GILL_APP_KEY,
+     ...forcedParams,
     }
   };
 
@@ -29,15 +31,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
         : store.getState().session.access_token.sessionid;
   } catch (e) {
     store.dispatch(clearSession());
-    Router.push("/");
+    window.location.href = "/";
   }
 
   config[method === "get" ? "params" : "data"] = params;
-  config.params = {
-    ...config.params,
-    ...forcedParams,
-    app_key: heimdalConfig.GILL_APP_KEY
-  };
 
   if (token) {
     config.params.sessionid = token;
@@ -52,10 +49,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
           response.data.error.message === "User must be logged"))
     ) {
       store.dispatch(clearSession());
-      Router.redirect("/");
+      window.location.assign("/");
     }
 
-    response = response || {data: {}};
+    response = response || { data: {} };
 
     console.error(response.data.error);
     let message = response.data.message
@@ -67,29 +64,29 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       config: response.config,
       rawData: response.data,
       status: response.status,
-      message: "Gill said : " + message
+      message
     };
 
     throw errorObject;
   });
 };
 
-export function GET(endPoint, params, headers, forcedParams) {
+export function GET(endPoint, params, headers, forcedParams = {}) {
   return request(endPoint, "get", params, headers, forcedParams);
 }
 
-export function POST(endPoint, params, headers, forcedParams) {
+export function POST(endPoint, params, headers, forcedParams = {}) {
   return request(endPoint, "post", params, headers, forcedParams);
 }
 
-export function PUT(endPoint, params, headers, forcedParams) {
+export function PUT(endPoint, params, headers, forcedParams = {}) {
   return request(endPoint, "put", params, headers, forcedParams);
 }
 
-export function PATCH(endPoint, params, headers, forcedParams) {
+export function PATCH(endPoint, params, headers, forcedParams = {}) {
   return request(endPoint, "patch", params, headers, forcedParams);
 }
 
-export function DELETE(endPoint, params, headers, forcedParams) {
+export function DELETE(endPoint, params, headers, forcedParams = {}) {
   return request(endPoint, "delete", params, headers, forcedParams);
 }
