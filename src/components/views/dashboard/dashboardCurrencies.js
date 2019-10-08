@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getTotalCreditByCurrency } from "../../../api/gill/TRESO";
 import { Table, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 export default function DashboardCurrencies(props) {
   const [totalCredits, setTotalCredits] = React.useState([]);
@@ -16,7 +17,7 @@ export default function DashboardCurrencies(props) {
           getTotalCreditByCurrency().then(data => setTotalCredits(data.data)),
         5000
       );
-    });
+    }).catch(data => toast.error(data));
   }, []);
   let rows = [];
   totalCredits.map(el =>

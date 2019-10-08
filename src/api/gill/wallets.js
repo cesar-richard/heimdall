@@ -1,5 +1,5 @@
 import { GET, POST } from "./apiResources";
-const { heimdalConfig } = window;
+import heimdalConfig from "../../config";
 
 export const search = ({
   queryString,
