@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getZoneAccesses, getZones } from "../../../api/gill/resources";
 import { Table, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 export default function DashboardZoneAccesses(props) {
   const [zoneAccesses, setZoneAccesses] = React.useState([]);
@@ -39,8 +40,8 @@ export default function DashboardZoneAccesses(props) {
           ),
         1000
       );*/
-      });
-    });
+      }).catch(data => toast.error(data));
+    }).catch(data => toast.error(data));
   }, []);
   let rows = [];
   zoneAccesses.map(el =>

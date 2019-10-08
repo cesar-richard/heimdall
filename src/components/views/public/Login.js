@@ -293,8 +293,7 @@ class Login extends Component {
 
 Login.propTypes = {
   isLoading: PropTypes.function,
-  setLoading: PropTypes.function,
-  createSession: PropTypes.function
+  setLoading: PropTypes.function
 };
 
 const mapStateToProps = state => ({

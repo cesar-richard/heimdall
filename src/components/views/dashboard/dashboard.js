@@ -1,25 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, CardDeck } from "react-bootstrap";
+import { Card, CardColumns } from "react-bootstrap";
 import DashboardCurrencies from "./dashboardCurrencies";
 import DashboardZoneAccesses from "./dashboardZoneAccesses";
 
 export default function Dashboard(props) {
   return (
-    <CardDeck>
+    <CardColumns>
       <Card>
-        <Card.Body>
-          <Card.Title>Currencies</Card.Title>
-          <DashboardCurrencies />
-        </Card.Body>
+        <Card.Header>Currencies</Card.Header>
+        <DashboardCurrencies />
       </Card>
       <Card>
-        <Card.Body>
-          <Card.Title>Zone accesses</Card.Title>
-          <DashboardZoneAccesses />
-        </Card.Body>
+        <Card.Header>Zone accesses</Card.Header>
+        <DashboardZoneAccesses />
       </Card>
-    </CardDeck>
+    </CardColumns>
   );
 }
 Dashboard.propTypes = {};

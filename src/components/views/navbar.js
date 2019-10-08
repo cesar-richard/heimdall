@@ -19,6 +19,7 @@ export default function MyNavbar(props) {
               <Nav.Link href='/fundations'>Fundations</Nav.Link>
               <Nav.Link href='/users'>Users</Nav.Link>
               <Nav.Link href='/transferts'>Transferts</Nav.Link>
+              <Nav.Link href='/dashboard'>Dashboard</Nav.Link>
               <Nav.Link href='/logout'>Logout</Nav.Link>
             </Nav>
             <Navbar.Text>

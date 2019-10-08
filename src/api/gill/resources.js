@@ -27,7 +27,7 @@ export const putSalesLocations = (
 ) => {
   return PUT("saleslocations/" + salesLocationId, {
     id: salesLocationId,
-    fun_id: fundationId,
+    fundation: fundationId,
     enabled,
     name
   });
