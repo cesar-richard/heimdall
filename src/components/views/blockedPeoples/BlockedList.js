@@ -62,7 +62,14 @@ export default function BlockedList(props) {
       {
         <ListGroup>
           {blocked.map((item, key) => {
-            return <BlockedItem key={key} fundationId={fundationId} blockedPeople={item} blockedPeoples={blocked} />
+            return (
+              <BlockedItem
+                key={key}
+                fundationId={fundationId}
+                blockedPeople={item}
+                blockedPeoples={blocked}
+              />
+            );
           })}
         </ListGroup>
       }
