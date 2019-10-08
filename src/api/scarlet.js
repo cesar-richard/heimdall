@@ -1,7 +1,7 @@
 import openSocket from "socket.io-client";
 let socket = {};
 
-export function initializeSocket(){
+export function initializeSocket() {
   socket = openSocket("http://localhost:3001");
 }
 
