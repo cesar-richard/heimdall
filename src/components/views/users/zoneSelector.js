@@ -11,7 +11,7 @@ export default function ZoneSelector(props) {
       setZones(data.data);
       setLoading(false);
     });
-},[]);
+  }, []);
 
   let options = [
     <option key={0} value={null}>

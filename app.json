@@ -1,7 +1,5 @@
 {
-  "addons": [
-
-  ],
+  "addons": [],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
@@ -25,7 +23,6 @@
     }
   },
   "name": "Heimdal",
-  "scripts": {
-  },
+  "scripts": {},
   "stack": "heroku-18"
 }

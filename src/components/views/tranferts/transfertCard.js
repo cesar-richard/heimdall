@@ -12,7 +12,9 @@ export default function TransfertCard(props) {
       <Card.Header>Transfert</Card.Header>
       <ListGroup variant='flush'>
         {walletDestination.id === walletSource.id ? (
-          <ListGroup.Item variant='danger'>Wallets must be different</ListGroup.Item>
+          <ListGroup.Item variant='danger'>
+            Wallets must be different
+          </ListGroup.Item>
         ) : (
           <>
             <ListGroup.Item>

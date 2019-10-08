@@ -56,8 +56,7 @@ class Fundation extends Component {
       const blockedCount = this.props.blocked.hasBeenFetched[
         this.props.fundation.id
       ]
-        ? Object.values(this.props.blocked.data[this.props.fundation.id])
-            .length
+        ? Object.values(this.props.blocked.data[this.props.fundation.id]).length
         : -1;
       let salesLocationsCount = -1;
       let activeSalesLocationsCount = -1;
@@ -84,14 +83,19 @@ class Fundation extends Component {
               <Col>
                 {this.props.blocked.hasBeenFetched[this.props.fundation.id] ? (
                   blockedCount + " blocked"
-                ) : this.props.blocked.hasErrored[this.props.fundation.id]?
-                    this.props.blocked.hasErrored[this.props.fundation.id].status==403?
-                      this.props.blocked.hasErrored[this.props.fundation.id].message: "Error"
-                  : (
-                    <Spinner animation='border' role='status' size='sm'>
-                      <span className='sr-only'>Loading...</span>
-                    </Spinner>
-                  )}
+                ) : this.props.blocked.hasErrored[this.props.fundation.id] ? (
+                  this.props.blocked.hasErrored[this.props.fundation.id]
+                    .status == 403 ? (
+                    this.props.blocked.hasErrored[this.props.fundation.id]
+                      .message
+                  ) : (
+                    "Error"
+                  )
+                ) : (
+                  <Spinner animation='border' role='status' size='sm'>
+                    <span className='sr-only'>Loading...</span>
+                  </Spinner>
+                )}
               </Col>
               <Col>
                 {this.props.salesLocations.hasBeenFetched[
@@ -139,7 +143,7 @@ Fundation.propTypes = {
   fetchSalesLocation: PropTypes.func,
   fundation: PropTypes.instanceOf(FundationModel).isRequired,
   blocked: PropTypes.arrayOf(PropTypes.instanceOf(BlockedModel)),
-  salesLocations: PropTypes.arrayOf(PropTypes.instanceOf(SalesLocationModel)),
+  salesLocations: PropTypes.arrayOf(PropTypes.instanceOf(SalesLocationModel))
 };
 
 export default connect(

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
 import { Spinner, ListGroup } from "react-bootstrap";
 import Fundation from "./Fundation";
-import FundationModel from '../../../models/FundationModel';
+import FundationModel from "../../../models/FundationModel";
 import "moment/locale/fr";
 
 class FundationList extends Component {
@@ -64,8 +64,7 @@ FundationList.propTypes = {
 
 FundationList.defaultProps = {
   isLoading: false
-}
-
+};
 
 export default connect(
   mapStateToProps,

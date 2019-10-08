@@ -40,8 +40,14 @@ export default function Balances(props) {
           return (
             <tr key={balance.id}>
               <td>{balance.currency.name}</td>
-              <td>{balance.credit / 100.0}{balance.currency.group.symbol}</td>
-              <td>{balance.card_credit / 100.0}{balance.currency.group.symbol}</td>
+              <td>
+                {balance.credit / 100.0}
+                {balance.currency.group.symbol}
+              </td>
+              <td>
+                {balance.card_credit / 100.0}
+                {balance.currency.group.symbol}
+              </td>
             </tr>
           );
         })}

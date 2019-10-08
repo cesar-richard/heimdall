@@ -29,19 +29,25 @@ export default function DashboardZoneAccesses(props) {
 
   React.useEffect(() => {
     setLoadingZoneAccesses(true);
-    getZones({}).then(dataZones => {
-      getZoneAccesses({}).then(data => {
-        setZoneAccesses(computeTotalZoneAccesses(data.data, dataZones.data));
-        setLoadingZoneAccesses(false);
-        /*setInterval(
+    getZones({})
+      .then(dataZones => {
+        getZoneAccesses({})
+          .then(data => {
+            setZoneAccesses(
+              computeTotalZoneAccesses(data.data, dataZones.data)
+            );
+            setLoadingZoneAccesses(false);
+            /*setInterval(
         () =>
           getZoneAccesses({}).then(data =>
             setZoneAccesses(computeTotalZoneAccesses(data.data))
           ),
         1000
       );*/
-      }).catch(data => toast.error(data));
-    }).catch(data => toast.error(data));
+          })
+          .catch(data => toast.error(data));
+      })
+      .catch(data => toast.error(data));
   }, []);
   let rows = [];
   zoneAccesses.map(el =>
