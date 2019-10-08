@@ -14,6 +14,18 @@ Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.
 <a href="https://facebook.github.io/jest/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/jest-padded-90.png" /></a>
 <a href="https://yarnpkg.com/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/yarn-padded-90.png" /></a>
 
+## Setup
+
+Create a `.env` file at project's root containing these variables :
+
+```
+GILL_BASE_API_URL=https://api.nemopay.net
+SYSTEM_ID=YOUR_SYSTEM_ID
+NEMOPAY_VERSION=2019-06-26
+GILL_APP_KEY=YOUR_GILL_API_KEY
+EVENT_ID=YOUR_DEFAULT_EVENT_NUMBER
+```
+
 ## Environements
 
 Deployed on:
