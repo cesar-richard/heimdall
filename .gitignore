@@ -25,3 +25,5 @@ yarn-error.log*
 /public/config.js
 
 smashtest/
+
+.env
