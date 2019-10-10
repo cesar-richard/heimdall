@@ -49,10 +49,12 @@ export default function DataTable(props) {
         });
         if (additions) {
           additions.forEach(({ row, col, value }) => {
-            dataGrid[row] = dataGrid[row]
-              ? dataGrid[row]
-              : [{ value: "" }, { value: "" }, { value: "" }, { value: "" }];
-            dataGrid[row][col] = { ...dataGrid[row][col], row, col, value };
+            if (col < 4) {
+              dataGrid[row] = dataGrid[row]
+                ? dataGrid[row]
+                : [{ value: "" }, { value: "" }, { value: "" }, { value: "" }];
+              dataGrid[row][col] = { ...dataGrid[row][col], row, col, value };
+            }
           });
         }
         setDataGrid(dataGrid);
