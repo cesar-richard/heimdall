@@ -84,6 +84,7 @@
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
+    "serve": "^11.2.0",
     "socket.io-client": "^2.2.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
@@ -95,7 +96,8 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node node_modules/serve/bin/serve.js -s build",
+    "dev": "node scripts/start.js",
     "lint": "./node_modules/.bin/eslint ./src/**/*.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
