@@ -21,7 +21,7 @@ Create a `.env` file at project's root containing these variables :
 ```
 GILL_BASE_API_URL=https://api.nemopay.net
 SYSTEM_ID=YOUR_SYSTEM_ID
-NEMOPAY_VERSION=***REMOVED***
+NEMOPAY_VERSION=2019-06-26
 GILL_APP_KEY=YOUR_GILL_API_KEY
 EVENT_ID=YOUR_DEFAULT_EVENT_NUMBER
 ```

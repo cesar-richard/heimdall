@@ -23,7 +23,7 @@ const getClientEnvironment = require("./env");
 const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require("dotenv-webpack");
 
 const postcssNormalize = require("postcss-normalize");
 
@@ -606,7 +606,15 @@ module.exports = function(webpackEnv) {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined
         }),
-        new Dotenv()
+      new Dotenv(),
+      new webpack.EnvironmentPlugin([
+        "NODE_ENV",
+        "GILL_BASE_API_URL",
+        "SYSTEM_ID",
+        "NEMOPAY_VERSION",
+        "GILL_APP_KEY",
+        "EVENT_ID"
+      ])
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
