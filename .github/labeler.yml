@@ -28,7 +28,7 @@ structure:
   - scripts/**/*
 
 doc:
-  - ./*.md
+  - ./**.md
 
 bug:
   - ./**
