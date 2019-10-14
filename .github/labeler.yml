@@ -30,5 +30,5 @@ structure:
 doc:
   - ./*.md
 
-cesar:
+bug:
   - ./**
