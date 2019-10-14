@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export default function DashboardZoneAccesses(props) {
   const [zoneAccesses, setZoneAccesses] = React.useState([]);
   const [loadingZoneAccesses, setLoadingZoneAccesses] = React.useState(true);
-  const computeTotalZoneAccesses = (accesses, zones) => {
+  const computeTotalZoneAccesses = (accesses, zones = []) => {
     let tmp = [];
     accesses.map(el => {
       if (!tmp[el.zone]) {
@@ -37,13 +37,17 @@ export default function DashboardZoneAccesses(props) {
               computeTotalZoneAccesses(data.data, dataZones.data)
             );
             setLoadingZoneAccesses(false);
-            /*setInterval(
-        () =>
-          getZoneAccesses({}).then(data =>
-            setZoneAccesses(computeTotalZoneAccesses(data.data))
-          ),
-        1000
-      );*/
+            setInterval(
+              () =>
+                getZones({}).then(dataZones =>
+                  getZoneAccesses().then(data =>
+                    setZoneAccesses(
+                      computeTotalZoneAccesses(data.data, dataZones.data)
+                    )
+                  )
+                ),
+              5000
+            );
           })
           .catch(data => toast.error(data));
       })
