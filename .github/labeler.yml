@@ -1,6 +1,6 @@
 doc:
-  - ./**/*.md
-
+  - ./README*
+  
 api:
   - src/api/**/*
 
@@ -22,9 +22,9 @@ tests:
   - tests/**/*
 
 structure:
-  - ./*
   - public/**/*
   - config/**/*
   - public/**/*
   - scripts/**/*
+  - src/*
 
