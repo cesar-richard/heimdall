@@ -1,5 +1,4 @@
 doc:
-  - README.md
   - ./**.md
   
 api:
