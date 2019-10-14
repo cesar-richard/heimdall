@@ -22,13 +22,11 @@ structure:
   - ./*
   - public/**/*
   - src/**/*
-  - src/*
-  - src/**
   - public/**/*
   - scripts/**/*
 
 doc:
-  - ./**.md
+  - ./**/*.md
 
 bug:
   - ./**
