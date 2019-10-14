@@ -1,6 +1,6 @@
 doc:
   - README.md
-  - */**.md
+  - ./**.md
   
 api:
   - src/api/**/*
