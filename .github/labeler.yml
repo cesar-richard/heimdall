@@ -24,3 +24,6 @@ structure:
   - ./config/**/*
   - ./public/**/*
   - ./scripts/**/*
+
+doc:
+  - ./**.md
