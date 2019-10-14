@@ -11,7 +11,7 @@ component:
   - src/component/**/*
 
 model:
-  - src/models/*
+  - src/models/**/*
 
 redux:
   - src/actions/**/*
@@ -24,7 +24,7 @@ tests:
 structure:
   - ./*
   - public/**/*
-  - src/**/*
+  - config/**/*
   - public/**/*
   - scripts/**/*
 
