@@ -1,29 +1,22 @@
-api:
-  - ./src/api/**/*
+doc: '**/*.md'
+  
+api: src/api/**/*
 
-gill:
-  - ./src/api/gill/**/*
+gill: src/api/gill/**/*
 
-component:
-  - ./src/component/**/*
+component: src/component/**/*
 
-model:
-  - ./src/models/*
+model: src/models/**/*
 
 redux:
-  - ./src/actions/**/*
-  - ./src/reducer/**/*
-  - ./src/store/**/*
+  - src/actions/**/*
+  - src/reducer/**/*
+  - src/store/**/*
 
-tests:
-  - ./tests/**/*
+tests: tests/**/*
 
 structure:
-  - ./*
-  - ./public/**/*
-  - ./config/**/*
-  - ./public/**/*
-  - ./scripts/**/*
-
-doc:
-  - ./**.md
+  - config/**/*
+  - public/**/*
+  - scripts/**/*
+  - src/*
