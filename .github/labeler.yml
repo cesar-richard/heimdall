@@ -1,5 +1,5 @@
 doc:
-  - ***/*.md
+  - *.md
   
 api:
   - src/api/**/*
