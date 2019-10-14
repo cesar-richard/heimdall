@@ -1,5 +1,6 @@
 doc:
   - ./**.md
+  - ./**/*.md
   
 api:
   - src/api/**/*
@@ -25,5 +26,4 @@ structure:
   - config/**/*
   - public/**/*
   - scripts/**/*
-  - src/config.js
-
+  - src/*.js
