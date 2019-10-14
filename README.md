@@ -3,6 +3,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ## Introduction
+Heimdal is a cross organizer support helper for Payutc, and globally every Weezevent's event organizer.
+
 
 Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Hot Loader](https://github.com/gaearon/react-hot-loader) for rapid application development (HMR).
 
