@@ -23,6 +23,7 @@ import Homepage from "./components/views/homepage";
 import UserDashboard from "./components/views/users/userDashboard";
 import "./App.css";
 import packagejson from "../package.json";
+import heimdalConfig from "./config";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
