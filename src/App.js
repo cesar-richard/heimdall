@@ -54,8 +54,11 @@ class App extends Component {
   }
   renderMain() {
     const { session } = this.props;
-    const isLoggedIn = session && session.access_token && (session.system_id === heimdalConfig.SYSTEM_ID);
-    if(session && !isLoggedIn) {
+    const isLoggedIn =
+      session &&
+      session.access_token &&
+      session.system_id === heimdalConfig.SYSTEM_ID;
+    if (session && !isLoggedIn) {
       clearSession();
     }
     return (

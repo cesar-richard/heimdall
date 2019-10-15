@@ -43,7 +43,12 @@ export const addWalletToWalletgroup = ({ walletGroupId, walletId }) => {
   });
 };
 
-export const getZoneAccesses = ({ wallet, period, zone, limit = 5000 } = {}) => {
+export const getZoneAccesses = ({
+  wallet,
+  period,
+  zone,
+  limit = 5000
+} = {}) => {
   return GET("zoneaccesses", { wallet, period, zone, limit });
 };
 
