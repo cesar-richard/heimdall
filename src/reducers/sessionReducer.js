@@ -1,4 +1,4 @@
-import heimdalConfig from "../../config";
+import heimdalConfig from "../config";
 
 export default (state = { loading: false }, action) => {
   const { payload } = action;
