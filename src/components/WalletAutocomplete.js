@@ -20,7 +20,8 @@ export default function WalletAutocomplete(props) {
     });
   };
 
-  const getSuggestionValue = suggestion => suggestion.id;
+  const getSuggestionValue = suggestion =>
+    `${suggestion.name} W${suggestion.id}`;
 
   const renderSuggestion = suggestion => (
     <Container>
