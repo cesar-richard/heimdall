@@ -4,7 +4,7 @@ import Autosuggest from "react-autosuggest";
 import { walletAutocomplete } from "../api/gill/GESUSERS";
 
 export default function WalletAutocomplete(props) {
-  const [value, setValue] = React.useState("");
+  const [current, setCurrent] = React.useState("");
   const [suggestions, setSuggestions] = React.useState([""]);
 
   const getSuggestions = value => {
@@ -35,10 +35,14 @@ export default function WalletAutocomplete(props) {
   );
 
   const inputProps = {
-    value,
+    value: current,
     onChange: (event, { newValue }) => {
-      setValue(newValue);
+      setCurrent(newValue.toString());
     }
+  };
+
+  var shouldRenderSuggestions = function shouldRenderSuggestions(value) {
+    return typeof value === "string" ? value.trim().length > 3 : false;
   };
 
   return (
@@ -55,7 +59,7 @@ export default function WalletAutocomplete(props) {
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
-          id='basic-example'
+          shouldRenderSuggestions={shouldRenderSuggestions}
         />
       </div>
     </div>
