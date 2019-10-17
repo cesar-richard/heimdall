@@ -29,10 +29,14 @@ export default function Wallet(props) {
             setWalletInfos(null);
           } else {
             setCurrentWallet(data.data[0]);
-            find({ walletId: data.data[0].id }).then(data2 => {
-              setWalletCb(data2.data);
-              setWalletInfos(data2.data);
-            });
+            find({ walletId: data.data[0].id })
+              .then(data2 => {
+                setWalletCb(data2.data);
+                setWalletInfos(data2.data);
+              })
+              .catch(err => {
+                toast.error(`Error: ${err}`);
+              });
           }
           setLoading(false);
         })
@@ -42,10 +46,14 @@ export default function Wallet(props) {
         });
     } else if (wallet) {
       setCurrentWallet(wallet);
-      find({ walletId: wallet.id }).then(data2 => {
-        setWalletCb(data2.data);
-        setWalletInfos(data2.data);
-      });
+      find({ walletId: wallet.id })
+        .then(data2 => {
+          setWalletCb(data2.data);
+          setWalletInfos(data2.data);
+        })
+        .catch(err => {
+          toast.error(`Error: ${err}`);
+        });
       setLoading(false);
     } else {
       setCurrentWallet(null);
