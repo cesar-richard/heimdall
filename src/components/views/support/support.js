@@ -17,14 +17,15 @@ import WalletAutocomplete from "../../WalletAutocomplete";
 
 export default function Support(props) {
   const [readerState, setReaderState] = React.useState("warning");
-  const [sourceCard, setSourceCard] = React.useState(null);
+  const [card, setCard] = React.useState(null);
+  const [wallet, setWallet] = React.useState(null);
 
   React.useEffect(() => {
     initializeSocket();
     subscribeNfc({
       onCard: card => {
         setReaderState("success");
-        setSourceCard(card);
+        setCard(card);
       },
       onError: error => {
         toast.error(error);
@@ -38,7 +39,17 @@ export default function Support(props) {
     <Container>
       <Row>
         <Alert variant={readerState}>Lecteur NFC</Alert>
-        <WalletAutocomplete />
+        <WalletAutocomplete
+          value={wallet}
+          onSuggestionSelected={sug => setWallet(sug.suggestion)}
+        />
+      </Row>
+      <Row>
+        {card || wallet ? (
+          <Wallet wallet={wallet} uid={card} setWalletCb={console.log} />
+        ) : (
+          <></>
+        )}
       </Row>
     </Container>
   );

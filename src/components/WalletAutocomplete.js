@@ -72,6 +72,6 @@ export default function WalletAutocomplete(props) {
 }
 
 WalletAutocomplete.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.object,
   onSuggestionSelected: PropTypes.func.isRequired
 };
