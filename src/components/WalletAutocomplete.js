@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Container, Link, Row } from "react-bootstrap";
 import Autosuggest from "react-autosuggest";
 import { walletAutocomplete } from "../api/gill/GESUSERS";
 
 export default function WalletAutocomplete(props) {
-  const [current, setCurrent] = React.useState("");
+  const [current, setCurrent] = React.useState(props.value);
   const [suggestions, setSuggestions] = React.useState([""]);
 
   const getSuggestions = value => {
@@ -38,6 +39,7 @@ export default function WalletAutocomplete(props) {
     value: current,
     onChange: (event, { newValue }) => {
       setCurrent(newValue.toString());
+      props.onChange(newValue.toString());
     }
   };
 
@@ -65,3 +67,8 @@ export default function WalletAutocomplete(props) {
     </div>
   );
 }
+
+WalletAutocomplete.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
+};
