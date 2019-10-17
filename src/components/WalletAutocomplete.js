@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-bootstrap";
+import { Container, Link, Row } from "react-bootstrap";
 import Autosuggest from "react-autosuggest";
 import { walletAutocomplete } from "../api/gill/GESUSERS";
 
@@ -22,9 +22,16 @@ export default function WalletAutocomplete(props) {
   const getSuggestionValue = suggestion => suggestion.id;
 
   const renderSuggestion = suggestion => (
-    <span>
-      {suggestion.name} W{suggestion.id}
-    </span>
+    <Container>
+      <Row>
+        {suggestion.name} W{suggestion.id}
+      </Row>
+      <Row>{suggestion.username}</Row>
+      <Row>
+        {suggestion.tag ? `Tag: ${suggestion.tag}` : ""}
+        {suggestion.barcode ? `Barcode: ${suggestion.barcode}` : ""}
+      </Row>
+    </Container>
   );
 
   const inputProps = {
