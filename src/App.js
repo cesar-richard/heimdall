@@ -33,7 +33,8 @@ import {
   faKey,
   faHandHoldingUsd,
   faUser,
-  faTrafficLight
+  faTrafficLight,
+  faAmbulance
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -42,7 +43,8 @@ library.add(
   faKey,
   faHandHoldingUsd,
   faUser,
-  faTrafficLight
+  faTrafficLight,
+  faAmbulance
 );
 
 class App extends Component {
