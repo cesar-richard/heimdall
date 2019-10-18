@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {
   Alert,
   Button,
-  Card,
   Container,
   ListGroup,
   Row,
@@ -11,6 +10,7 @@ import {
   Spinner
 } from "react-bootstrap";
 import { initializeSocket, subscribeNfc } from "../../../api/scarlet";
+import { createPairing } from "../../../api/gill/GESUSERS";
 import { toast } from "react-toastify";
 import Wallet from "../wallet";
 import WalletAutocomplete from "../../WalletAutocomplete";
@@ -46,7 +46,27 @@ export default function Support(props) {
       </Row>
       <Row>
         {card || wallet ? (
-          <Wallet wallet={wallet} uid={card} setWalletCb={console.log} />
+          <>
+            <Col>
+              <Wallet wallet={wallet} uid={card} setWalletCb={console.log} />
+            </Col>
+            <Col>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <Button
+                    variant='primary'
+                    onClick={() =>
+                      createPairing({ wallet: wallet.id }).then(() =>
+                        toast("Done")
+                      )
+                    }
+                  >
+                    Reassocier
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Col>
+          </>
         ) : (
           <></>
         )}
