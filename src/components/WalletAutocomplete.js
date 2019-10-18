@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { Link } from "react-bootstrap";
+import React from "react";
+import PropTypes from "prop-types";
+import { Container, Link, Row } from "react-bootstrap";
 import Autosuggest from "react-autosuggest";
 import { walletAutocomplete } from "../api/gill/GESUSERS";
 
 export default function WalletAutocomplete(props) {
-  const [value, setValue] = React.useState("");
+  const [current, setCurrent] = React.useState(props.value || "");
   const [suggestions, setSuggestions] = React.useState([""]);
 
   const getSuggestions = value => {
@@ -19,19 +20,31 @@ export default function WalletAutocomplete(props) {
     });
   };
 
-  const getSuggestionValue = suggestion => suggestion.id;
+  const getSuggestionValue = suggestion =>
+    `${suggestion.name} W${suggestion.id}`;
 
   const renderSuggestion = suggestion => (
-    <span>
-      {suggestion.name} W{suggestion.id}
-    </span>
+    <Container>
+      <Row>
+        {suggestion.name} W{suggestion.id}
+      </Row>
+      <Row>{suggestion.username}</Row>
+      <Row>
+        {suggestion.tag ? `Tag: ${suggestion.tag}` : ""}
+        {suggestion.barcode ? `Barcode: ${suggestion.barcode}` : ""}
+      </Row>
+    </Container>
   );
 
   const inputProps = {
-    value,
+    value: current,
     onChange: (event, { newValue }) => {
-      setValue(newValue);
+      setCurrent(newValue.toString());
     }
+  };
+
+  var shouldRenderSuggestions = function shouldRenderSuggestions(value) {
+    return typeof value === "string" ? value.trim().length > 3 : false;
   };
 
   return (
@@ -48,9 +61,17 @@ export default function WalletAutocomplete(props) {
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
-          id='basic-example'
+          shouldRenderSuggestions={shouldRenderSuggestions}
+          onSuggestionSelected={(event, datas) =>
+            props.onSuggestionSelected(datas)
+          }
         />
       </div>
     </div>
   );
 }
+
+WalletAutocomplete.propTypes = {
+  value: PropTypes.object,
+  onSuggestionSelected: PropTypes.func.isRequired
+};

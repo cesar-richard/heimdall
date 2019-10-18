@@ -8,47 +8,69 @@ import Balances from "./tranferts/balances";
 
 export default function Wallet(props) {
   const [loading, setLoading] = React.useState(true);
-  const [wallet, setWallet] = React.useState(null);
+  const [currentWallet, setCurrentWallet] = React.useState(null);
   const [walletInfos, setWalletInfos] = React.useState(null);
-  const { uid, setWalletCb } = props;
+  const { uid, setWalletCb, wallet } = props;
 
   React.useEffect(() => {
     setLoading(true);
-    walletAutocomplete({ queryString: uid, limit: 2 })
-      .then(data => {
-        if (data.data.length === 0) {
-          toast.error(`No wallet found for ${uid}`);
-          setWallet(null);
-          setWalletCb(null);
-          setWalletInfos(null);
-        } else if (data.data.length > 1) {
-          toast.error(`More than one wallet found for ${uid}`);
-          setWallet(null);
-          setWalletCb(null);
-          setWalletInfos(null);
-        } else {
-          setWallet(data.data[0]);
-          find({ walletId: data.data[0].id }).then(data2 => {
-            setWalletCb(data2.data);
-            setWalletInfos(data2.data);
-          });
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        setLoading(false);
-        toast.error(`Error with gill: ${err}`);
-      });
-  }, [uid, setWalletCb]);
+    if (uid) {
+      walletAutocomplete({ queryString: uid, limit: 2 })
+        .then(data => {
+          if (data.data.length === 0) {
+            toast.error(`No wallet found for ${uid}`);
+            setCurrentWallet(null);
+            setWalletCb(null);
+            setWalletInfos(null);
+          } else if (data.data.length > 1) {
+            toast.error(`More than one wallet found for ${uid}`);
+            setCurrentWallet(null);
+            setWalletCb(null);
+            setWalletInfos(null);
+          } else {
+            setCurrentWallet(data.data[0]);
+            find({ walletId: data.data[0].id })
+              .then(data2 => {
+                setWalletCb(data2.data);
+                setWalletInfos(data2.data);
+              })
+              .catch(err => {
+                toast.error(`Error: ${err}`);
+              });
+          }
+          setLoading(false);
+        })
+        .catch(err => {
+          setLoading(false);
+          toast.error(`Error with gill: ${err}`);
+        });
+    } else if (wallet) {
+      setCurrentWallet(wallet);
+      find({ walletId: wallet.id })
+        .then(data2 => {
+          setWalletCb(data2.data);
+          setWalletInfos(data2.data);
+        })
+        .catch(err => {
+          toast.error(`Error: ${err}`);
+        });
+      setLoading(false);
+    } else {
+      setCurrentWallet(null);
+      setWalletCb(null);
+      setWalletInfos(null);
+      setLoading(false);
+    }
+  }, [wallet, uid, setWalletCb]);
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
       <span className='sr-only'>Loading...</span>
     </Spinner>
-  ) : wallet ? (
+  ) : currentWallet ? (
     <Card>
       <Card.Body>
-        <Card.Title>{wallet.name}</Card.Title>
-        <Card.Subtitle>{wallet.username}</Card.Subtitle>
+        <Card.Title>{currentWallet.name}</Card.Title>
+        <Card.Subtitle>{currentWallet.username}</Card.Subtitle>
       </Card.Body>
       <ListGroup variant='flush'>
         <ListGroup.Item
@@ -60,13 +82,13 @@ export default function Wallet(props) {
               : false
           }
         >
-          W{wallet.id}
+          W{currentWallet.id}
         </ListGroup.Item>
-        <ListGroup.Item>U{wallet.user_id}</ListGroup.Item>
-        <ListGroup.Item>{wallet.email}</ListGroup.Item>
-        <ListGroup.Item>{wallet.wallet_name}</ListGroup.Item>
-        <ListGroup.Item>{wallet.tag}</ListGroup.Item>
-        <Balances walletId={wallet.id} />
+        <ListGroup.Item>U{currentWallet.user_id}</ListGroup.Item>
+        <ListGroup.Item>{currentWallet.email}</ListGroup.Item>
+        <ListGroup.Item>{currentWallet.wallet_name}</ListGroup.Item>
+        <ListGroup.Item>{currentWallet.tag}</ListGroup.Item>
+        <Balances walletId={currentWallet.id} />
       </ListGroup>
     </Card>
   ) : (
@@ -75,6 +97,7 @@ export default function Wallet(props) {
 }
 
 Wallet.propTypes = {
-  uid: PropTypes.string.isRequired,
+  uid: PropTypes.string,
+  wallet: PropTypes.object,
   setWalletCb: PropTypes.func.isRequired
 };

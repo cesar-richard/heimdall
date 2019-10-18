@@ -29,3 +29,11 @@ export const transfer = ({ wallet_src, wallet_dst, amount, message }) => {
     message
   });
 };
+
+export const createPairing = ({ wallet, uid = null, short_tag = null }) => {
+  return POST("GESUSERS/createPairing", {
+    wallet,
+    uid,
+    short_tag
+  });
+};

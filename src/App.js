@@ -21,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
 import UserDashboard from "./components/views/users/userDashboard";
+import Support from "./components/views/support/support";
 import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
@@ -32,7 +33,8 @@ import {
   faKey,
   faHandHoldingUsd,
   faUser,
-  faTrafficLight
+  faTrafficLight,
+  faAmbulance
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -41,7 +43,8 @@ library.add(
   faKey,
   faHandHoldingUsd,
   faUser,
-  faTrafficLight
+  faTrafficLight,
+  faAmbulance
 );
 
 class App extends Component {
@@ -102,6 +105,13 @@ class App extends Component {
             exact
             render={props =>
               !isLoggedIn ? this.renderLogin(props) : <Dashboard />
+            }
+          />
+          <Route
+            path='/support/'
+            exact
+            render={props =>
+              !isLoggedIn ? this.renderLogin(props) : <Support />
             }
           />
           <Route path='/403' exact component={Forbiden} />
