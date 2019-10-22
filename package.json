@@ -1,6 +1,6 @@
 {
   "name": "Heimdall",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "Cesar Richard <licorne@utc.fr>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
@@ -14,6 +14,8 @@
     "@progress/kendo-drawing": "^1.5.12",
     "@progress/kendo-react-gauges": "^3.2.2",
     "@progress/kendo-react-intl": "^3.2.2",
+    "@sentry/browser": "^5.7.1",
+    "@sentry/cli": "^1.48.0",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
@@ -100,7 +102,7 @@
     "dev": "node scripts/start.js",
     "lint": "./node_modules/.bin/eslint ./src/**/*.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js --colors"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -168,5 +170,7 @@
       "react-app"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@sentry/webpack-plugin": "^1.9.1"
+  }
 }

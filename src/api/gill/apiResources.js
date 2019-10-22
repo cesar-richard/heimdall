@@ -46,11 +46,12 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
 
   return axios(config).catch(err => {
     let { response } = err;
-    console.log(err.message);
+    //console.log(err.message);
     if (
       response &&
       (response.status === 401 ||
         (response.status === 403 &&
+          response.data.error &&
           response.data.error.message === "User must be logged"))
     ) {
       store.dispatch(clearSession());

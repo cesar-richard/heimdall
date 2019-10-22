@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as Sentry from "@sentry/browser";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearSession } from "./actions/sessionActions";
@@ -36,6 +37,18 @@ import {
   faTrafficLight,
   faAmbulance
 } from "@fortawesome/free-solid-svg-icons";
+
+Sentry.init({
+  dsn: heimdalConfig.SENTRY_DSN,
+  environment: process.env.NODE_ENV,
+  release: `${packagejson.name}@${packagejson.version}`
+});
+
+Sentry.configureScope(function(scope) {
+  scope.setTag("SYSTEM_ID", heimdalConfig.SYSTEM_ID);
+  scope.setTag("NEMOPAY_VERSION", heimdalConfig.NEMOPAY_VERSION);
+  scope.setTag("EVENT_ID", heimdalConfig.EVENT_ID);
+});
 
 library.add(
   faBuilding,
@@ -145,14 +158,15 @@ class App extends Component {
             <br />
             <span>&copy;{new Date().getFullYear()} - C.Richard</span>
             <br />
-            <span>Version {packagejson.version}</span>
+            <span>
+              {packagejson.name}@{packagejson.version}
+            </span>
           </footer>
         </div>
       </React.Fragment>
     );
   }
 }
-
 const mapStateToProps = state => ({
   session: state.session
 });

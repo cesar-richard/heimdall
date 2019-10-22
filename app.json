@@ -15,6 +15,18 @@
     },
     "SYSTEM_ID": {
       "required": true
+    },
+    "EVENT_ID": {
+      "required": true
+    },
+    "SENTRY_AUTH_TOKEN": {
+      "required": true
+    },
+    "SENTRY_PROJECT": {
+      "required": true
+    },
+    "SENTRY_ORG": {
+      "required": true
     }
   },
   "formation": {

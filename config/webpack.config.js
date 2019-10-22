@@ -24,6 +24,8 @@ const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const Dotenv = require("dotenv-webpack");
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
+const packagejson = require("../package.json");
 
 const postcssNormalize = require("postcss-normalize");
 
@@ -270,7 +272,8 @@ module.exports = function(webpackEnv) {
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-        "react-native": "react-native-web"
+        "react-native": "react-native-web",
+        "@": path.resolve(__dirname, "src/")
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -613,8 +616,14 @@ module.exports = function(webpackEnv) {
         "SYSTEM_ID",
         "NEMOPAY_VERSION",
         "GILL_APP_KEY",
-        "EVENT_ID"
-      ])
+        "EVENT_ID",
+        "SENTRY_DSN"
+      ]),
+      new SentryWebpackPlugin({
+        include: ".",
+        ignore: ["node_modules", "webpack.config.js", "build"],
+        release: `${packagejson.name}@${packagejson.version}`
+      })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
