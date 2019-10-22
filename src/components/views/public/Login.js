@@ -291,10 +291,7 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  isLoading: PropTypes.function,
-  setLoading: PropTypes.function
-};
+Login.propTypes = {};
 
 const mapStateToProps = state => ({
   isLoading: () => state.connect.isLoading

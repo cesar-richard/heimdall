@@ -102,7 +102,7 @@
     "dev": "node scripts/start.js",
     "lint": "./node_modules/.bin/eslint ./src/**/*.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js --colors"
   },
   "eslintConfig": {
     "extends": "react-app"
