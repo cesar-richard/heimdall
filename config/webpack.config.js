@@ -617,7 +617,10 @@ module.exports = function(webpackEnv) {
         "NEMOPAY_VERSION",
         "GILL_APP_KEY",
         "EVENT_ID",
-        "SENTRY_DSN"
+        "SENTRY_DSN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_AUTH_TOKEN"
       ]),
       new SentryWebpackPlugin({
         include: ".",
