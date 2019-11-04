@@ -1,8 +1,12 @@
 import openSocket from "socket.io-client";
+import { getConfig } from "./gill/OFFLINE";
 let socket = {};
 
 export function initializeSocket() {
   socket = openSocket("http://localhost:3001");
+  getConfig().then(config => {
+    socket.emit("systemConfig", config.data);
+  });
 }
 
 export function subscribeNfc({
@@ -17,4 +21,7 @@ export function subscribeNfc({
   socket.on("error", err => onError(err));
   socket.on("start", reader => onStart(reader));
   socket.on("end", reader => onEnd(reader));
+  socket.on("getGillConfig", () => getConfig().then(config => {
+    socket.emit("systemConfig", config.data);
+  }))
 }
