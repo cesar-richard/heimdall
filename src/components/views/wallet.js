@@ -10,20 +10,20 @@ export default function Wallet(props) {
   const [loading, setLoading] = React.useState(true);
   const [currentWallet, setCurrentWallet] = React.useState(null);
   const [walletInfos, setWalletInfos] = React.useState(null);
-  const { uid, setWalletCb, wallet } = props;
+  const { card, setWalletCb, wallet } = props;
 
   React.useEffect(() => {
     setLoading(true);
-    if (uid) {
-      walletAutocomplete({ queryString: uid, limit: 2 })
+    if (card) {
+      walletAutocomplete({ queryString: card.uid, limit: 2 })
         .then(data => {
           if (data.data.length === 0) {
-            toast.error(`No wallet found for ${uid}`);
+            toast.error(`No wallet found for ${card.uid}`);
             setCurrentWallet(null);
             setWalletCb(null);
             setWalletInfos(null);
           } else if (data.data.length > 1) {
-            toast.error(`More than one wallet found for ${uid}`);
+            toast.error(`More than one wallet found for ${card.uid}`);
             setCurrentWallet(null);
             setWalletCb(null);
             setWalletInfos(null);
@@ -61,7 +61,7 @@ export default function Wallet(props) {
       setWalletInfos(null);
       setLoading(false);
     }
-  }, [wallet, uid, setWalletCb]);
+  }, [wallet, card, setWalletCb]);
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
       <span className='sr-only'>Loading...</span>
@@ -97,7 +97,7 @@ export default function Wallet(props) {
 }
 
 Wallet.propTypes = {
-  uid: PropTypes.string,
+  card: PropTypes.object,
   wallet: PropTypes.object,
   setWalletCb: PropTypes.func.isRequired
 };

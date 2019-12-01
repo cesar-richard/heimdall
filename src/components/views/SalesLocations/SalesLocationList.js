@@ -29,11 +29,16 @@ export default function SalesLocationList(props) {
 
   React.useEffect(() => {
     if (salesLocations) return;
+    if (fundation.id === 0) {
+      setSalesLocations([]);
+      setLocationsLoading(false);
+      return;
+    }
     getSalesLocations(fundation.id).then(datas => {
       setSalesLocations(datas.data);
       setLocationsLoading(false);
     });
-  });
+  }, [salesLocations, fundation.id]);
 
   if (isLocationsLoading) {
     return (

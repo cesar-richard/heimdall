@@ -21,7 +21,22 @@ export function subscribeNfc({
   socket.on("error", err => onError(err));
   socket.on("start", reader => onStart(reader));
   socket.on("end", reader => onEnd(reader));
-  socket.on("getGillConfig", () => getConfig().then(config => {
-    socket.emit("systemConfig", config.data);
-  }))
+  socket.on("getGillConfig", () =>
+    getConfig().then(config => {
+      socket.emit("systemConfig", config.data);
+    })
+  );
+}
+
+export function setMode(mode) {
+  return new Promise((res, rej) => {
+    switch (mode) {
+      case "erease":
+        return res(socket.emit("ereaseWallet"));
+        break;
+      default:
+        return rej(`Mode ${mode} not implemented.`);
+        break;
+    }
+  });
 }

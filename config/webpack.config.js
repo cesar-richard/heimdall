@@ -622,11 +622,14 @@ module.exports = function(webpackEnv) {
         "SENTRY_PROJECT",
         "SENTRY_AUTH_TOKEN"
       ]),
-      new SentryWebpackPlugin({
+      process.env.NODE_ENV!=="development"?new SentryWebpackPlugin({
         include: ".",
         ignore: ["node_modules", "webpack.config.js", "build"],
-        release: `${packagejson.name}@${packagejson.version}`
-      })
+        release: `${packagejson.name}@${packagejson.version}`,
+        setCommits: {
+          auto: true
+        }
+      }):null
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

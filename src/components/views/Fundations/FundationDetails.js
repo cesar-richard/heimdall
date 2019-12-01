@@ -13,7 +13,6 @@ import {
   Col,
   CardGroup
 } from "react-bootstrap";
-import { ArcGauge } from "@progress/kendo-react-gauges";
 import Moment from "react-moment";
 import "moment/locale/fr";
 
@@ -70,9 +69,6 @@ class FundationDetails extends Component {
               <BlockedList fundationId={fundation.id} />
               <SalesLocationList fundation={fundation} />
             </CardGroup>
-          </Row>
-          <Row>
-            <ArcGauge {...arcOptions} arcCenterRender={arcCenterRenderer} />
           </Row>
         </Container>
       );

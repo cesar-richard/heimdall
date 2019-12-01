@@ -9,7 +9,7 @@ import {
   Col,
   Spinner
 } from "react-bootstrap";
-import { initializeSocket, subscribeNfc } from "../../../api/scarlet";
+import { initializeSocket, subscribeNfc, setMode } from "../../../api/scarlet";
 import { createPairing } from "../../../api/gill/GESUSERS";
 import { toast } from "react-toastify";
 import Wallet from "../wallet";
@@ -25,6 +25,7 @@ export default function Support(props) {
     subscribeNfc({
       onCard: card => {
         setReaderState("success");
+        setWallet(null);
         setCard(card);
       },
       onError: error => {
@@ -41,14 +42,19 @@ export default function Support(props) {
         <Alert variant={readerState}>Lecteur NFC</Alert>
         <WalletAutocomplete
           value={wallet}
-          onSuggestionSelected={sug => setWallet(sug.suggestion)}
+          onSuggestionSelected={
+            sug => {
+              setCard(null);
+              setWallet(sug.suggestion);
+            }
+          }
         />
       </Row>
       <Row>
         {card || wallet ? (
           <>
             <Col>
-              <Wallet wallet={wallet} uid={card} setWalletCb={console.log} />
+              <Wallet wallet={wallet} card={card} setWalletCb={console.log} />
             </Col>
             <Col>
               <ListGroup variant='flush'>
@@ -62,6 +68,20 @@ export default function Support(props) {
                     }
                   >
                     Reassocier
+                  </Button>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button
+                    variant='danger'
+                    onClick={() =>
+                      setMode("erease").then(() =>
+                        toast("Done")
+                      ).catch((err) => {
+                        toast.error(err);
+                      })
+                    }
+                  >
+                    Effacer
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
