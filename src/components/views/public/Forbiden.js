@@ -14,7 +14,7 @@ class Forbiden extends Component {
         }}
       >
         <Row>
-          <img src='/img/forbiden.png' />
+          <img src='/img/forbiden.png' style={{ width: "100%" }} />
         </Row>
       </Container>
     );
