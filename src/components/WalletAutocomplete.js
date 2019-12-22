@@ -69,8 +69,7 @@ export default function WalletAutocomplete(props) {
           inputProps={inputProps}
           shouldRenderSuggestions={shouldRenderSuggestions}
           onSuggestionSelected={(event, datas) =>
-            props.onSuggestionSelected(datas)
-          }
+            props.onSuggestionSelected(datas)}
         />
       </div>
     </div>
