@@ -10,7 +10,9 @@ import "moment/locale/fr";
 class FundationList extends Component {
   componentDidMount() {
     if (!sessionStorage.hasOwnProperty("fundations")) {
-      this.props.fetchFundations();
+      this.props.fetchFundations({
+        system_id: this.props.match.params.system_id
+      });
     }
   }
 
@@ -53,7 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFundations: () => dispatch(getFundations())
+  fetchFundations: ({ system_id }) => dispatch(getFundations({ system_id }))
 });
 
 FundationList.propTypes = {

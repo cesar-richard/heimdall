@@ -1,10 +1,12 @@
 import { GET, PUT, POST } from "./apiResources";
 
-export const getFundations = () => {
-  return GET("fundations", { ordering: "name" }).then(ret => {
-    ret.data.push({ id: 0, name: "System", removed: false });
-    return ret;
-  });
+export const getFundations = ({ system_id }) => {
+  return GET("fundations", { ordering: "name" }, {}, { system_id }).then(
+    ret => {
+      ret.data.push({ id: 0, name: "System", removed: false });
+      return ret;
+    }
+  );
 };
 
 export const getWalletGroups = ({

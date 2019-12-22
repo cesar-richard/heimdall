@@ -31,7 +31,7 @@ export default function Wallet(props) {
             setWalletInfos(null);
           } else {
             setCurrentWallet(data.data[0]);
-            find({ walletId: data.data[0].id })
+            find({ walletId: data.data[0].id, system_id })
               .then(data2 => {
                 setWalletCb(data2.data);
                 setWalletInfos(data2.data);
@@ -48,7 +48,7 @@ export default function Wallet(props) {
         });
     } else if (wallet) {
       setCurrentWallet(wallet);
-      find({ walletId: wallet.id })
+      find({ walletId: wallet.id, system_id })
         .then(data2 => {
           setWalletCb(data2.data);
           setWalletInfos(data2.data);

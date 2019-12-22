@@ -23,7 +23,7 @@ export default function Support(props) {
   const { system_id } = useParams();
 
   React.useEffect(() => {
-    initializeSocket();
+    initializeSocket({ system_id });
     subscribeNfc({
       onCard: card => {
         setReaderState("success");
@@ -37,7 +37,7 @@ export default function Support(props) {
       onStart: () => setReaderState("success"),
       onEnd: () => setReaderState("dark")
     });
-  }, []);
+  }, [system_id]);
   return (
     <Container>
       <Row>
