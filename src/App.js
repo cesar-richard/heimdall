@@ -21,8 +21,8 @@ import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
-import { init as initApm } from '@elastic/apm-rum'
-import { ApmRoute } from '@elastic/apm-rum-react';
+import { init as initApm } from "@elastic/apm-rum";
+import { ApmRoute } from "@elastic/apm-rum-react";
 import UserDashboard from "./components/views/users/userDashboard";
 import Support from "./components/views/support/support";
 import "./App.css";
@@ -47,14 +47,13 @@ Sentry.init({
 });
 
 Sentry.configureScope(function(scope) {
-  scope.setTag("SYSTEM_ID", heimdalConfig.SYSTEM_ID);
   scope.setTag("NEMOPAY_VERSION", heimdalConfig.NEMOPAY_VERSION);
   scope.setTag("EVENT_ID", heimdalConfig.EVENT_ID);
 });
 
 const apm = initApm({
   serviceName: packagejson.name,
-  serverUrl: 'http://apm.crichard.fr',
+  serverUrl: "http://apm.crichard.fr",
   serviceVersion: packagejson.version,
   environment: process.env.NODE_ENV
 });
@@ -70,80 +69,61 @@ library.add(
 );
 
 class App extends Component {
-  renderLogin(props) {
-    return (
-      <header className='App-header'>
-        <Login {...props} />
-      </header>
-    );
-  }
   renderMain() {
     const { session } = this.props;
-    const isLoggedIn =
-      session &&
-      session.access_token &&
-      session.system_id === heimdalConfig.SYSTEM_ID;
+    const isLoggedIn = session && session.access_token;
     if (session && !isLoggedIn) {
+      console.log("clear");
       clearSession();
     }
     return (
       <Router>
         <Switch>
+          <ApmRoute path='/:system_id/login' exact component={Login} />
           <ApmRoute
-            path='/'
+            path='/:system_id'
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <Homepage />
-            }
+            session={session}
+            component={Homepage}
           />
           <ApmRoute
-            path='/fundations/'
+            session={session}
+            path='/:system_id/fundations'
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <FundationList />
-            }
+            component={FundationList}
           />
           <ApmRoute
-            path='/users/'
+            session={session}
+            path='/:system_id/users'
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <UserDashboard />
-            }
+            component={UserDashboard}
           />
           <ApmRoute
-            path='/transferts/'
+            session={session}
+            path='/:system_id/transferts'
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <Transferts />
-            }
+            component={Transferts}
           />
           <ApmRoute
-            path='/fundations/:fundationId'
+            session={session}
+            path='/:system_id/fundations/:fundationId'
             exact
             component={FundationDetails}
           />
           <ApmRoute
-            path='/dashboard/'
+            session={session}
+            path='/:system_id/dashboard'
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <Dashboard />
-            }
+            component={Dashboard}
           />
           <ApmRoute
-            path='/support/'
+            path='/:system_id/support'
+            session={session}
             exact
-            component={props =>
-              !isLoggedIn ? this.renderLogin(props) : <Support />
-            }
+            component={Support}
           />
-          <ApmRoute path='/403' exact component={Forbiden} />
-          <ApmRoute path='/logout' exact component={Logout} />
-          <ApmRoute
-            path='/'
-            component={() => {
-              return <Redirect to='/' />;
-            }}
-          />
+          <ApmRoute path='/403' session={session} exact component={Forbiden} />
+          <ApmRoute path='/logout' session={session} exact component={Logout} />
         </Switch>
       </Router>
     );
@@ -153,7 +133,7 @@ class App extends Component {
     const { session } = this.props;
     const isLoggedIn = session && session.access_token;
     const username = isLoggedIn ? session.access_token.username : null;
-    apm.setUserContext({username});
+    apm.setUserContext({ username });
     return (
       <React.Fragment>
         <MyNavbar isLoggedIn={isLoggedIn} username={username} />

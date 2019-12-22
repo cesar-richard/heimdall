@@ -2,9 +2,9 @@ import openSocket from "socket.io-client";
 import { getConfig } from "./gill/OFFLINE";
 let socket = {};
 
-export function initializeSocket() {
+export function initializeSocket({ system_id }) {
   socket = openSocket("http://localhost:3001");
-  getConfig().then(config => {
+  getConfig({ system_id }).then(config => {
     socket.emit("systemConfig", config.data);
   });
 }

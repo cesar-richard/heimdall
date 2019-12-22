@@ -6,6 +6,7 @@ import ZoneSelector from "./zoneSelector";
 import PeriodSelector from "./periodSelector";
 import { batchAccess, batchRefill } from "../../../api/gill/wallets";
 import { addWalletToWalletgroup } from "../../../api/gill/resources";
+import { useParams } from "react-router-dom";
 import PromisePool from "es6-promise-pool";
 import PropTypes from "prop-types";
 
@@ -20,6 +21,7 @@ export default function ActionForm({ walletList }) {
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [processState, setProcessState] = React.useState(0);
   const [method, setMethod] = React.useState("set");
+  const { system_id } = useParams();
   let count = 0;
 
   const CONCURENCY_LIMIT = 10;
@@ -36,14 +38,16 @@ export default function ActionForm({ walletList }) {
           quantity: zoneQuantity,
           kind: method,
           zones: [zone],
-          periods: [period]
+          periods: [period],
+          system_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
       case "addWalletsToGroup":
         return addWalletToWalletgroup({
           walletGroupId: group,
-          walletId: wallet
+          walletId: wallet,
+          system_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -51,7 +55,8 @@ export default function ActionForm({ walletList }) {
         return batchRefill({
           walletIds: [wallet],
           quantity: currencyQuantity * 100,
-          currency
+          currency,
+          system_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );

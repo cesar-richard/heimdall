@@ -1,5 +1,10 @@
 import { POST } from "./apiServices";
 
-export const getAllMyRightsEvents = sessionid => {
-  return POST("USERRIGHT/getAllMyRightsEvents", {}, {}, { sessionid });
+export const getAllMyRightsEvents = (system_id, sessionid) => {
+  return POST(
+    "USERRIGHT/getAllMyRightsEvents",
+    {},
+    {},
+    { system_id, sessionid }
+  );
 };

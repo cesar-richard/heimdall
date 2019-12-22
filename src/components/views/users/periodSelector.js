@@ -2,16 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Spinner } from "react-bootstrap";
 import { getPeriods } from "../../../api/gill/resources";
+import { useParams } from "react-router-dom";
 
 export default function PeriodSelector(props) {
   const [periods, setPeriods] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const { system_id } = useParams();
+
   React.useEffect(() => {
-    getPeriods({}).then(data => {
+    getPeriods({ system_id }).then(data => {
       setPeriods(data.data);
       setLoading(false);
     });
-  }, []);
+  }, [system_id]);
 
   let options = [
     <option key={0} value={null}>

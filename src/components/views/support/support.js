@@ -14,11 +14,13 @@ import { createPairing } from "../../../api/gill/GESUSERS";
 import { toast } from "react-toastify";
 import Wallet from "../wallet";
 import WalletAutocomplete from "../../WalletAutocomplete";
+import { useParams } from "react-router-dom";
 
 export default function Support(props) {
   const [readerState, setReaderState] = React.useState("warning");
   const [card, setCard] = React.useState(null);
   const [wallet, setWallet] = React.useState(null);
+  const { system_id } = useParams();
 
   React.useEffect(() => {
     initializeSocket();
@@ -42,12 +44,10 @@ export default function Support(props) {
         <Alert variant={readerState}>Lecteur NFC</Alert>
         <WalletAutocomplete
           value={wallet}
-          onSuggestionSelected={
-            sug => {
-              setCard(null);
-              setWallet(sug.suggestion);
-            }
-          }
+          onSuggestionSelected={sug => {
+            setCard(null);
+            setWallet(sug.suggestion);
+          }}
         />
       </Row>
       <Row>
@@ -62,7 +62,7 @@ export default function Support(props) {
                   <Button
                     variant='primary'
                     onClick={() =>
-                      createPairing({ wallet: wallet.id }).then(() =>
+                      createPairing({ wallet: wallet.id, system_id }).then(() =>
                         toast("Done")
                       )
                     }
@@ -74,11 +74,11 @@ export default function Support(props) {
                   <Button
                     variant='danger'
                     onClick={() =>
-                      setMode("erease").then(() =>
-                        toast("Done")
-                      ).catch((err) => {
-                        toast.error(err);
-                      })
+                      setMode("erease")
+                        .then(() => toast("Done"))
+                        .catch(err => {
+                          toast.error(err);
+                        })
                     }
                   >
                     Effacer

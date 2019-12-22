@@ -16,7 +16,6 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": heimdalConfig.NEMOPAY_VERSION
     },
     params: {
-      system_id: heimdalConfig.SYSTEM_ID,
       event: heimdalConfig.EVENT_ID,
       app_key: heimdalConfig.GILL_APP_KEY,
       ...forcedParams
@@ -31,7 +30,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
         : store.getState().session.access_token.sessionid;
   } catch (e) {
     store.dispatch(clearSession());
-    window.location.href = "/";
+    window.location.href = "/bite";
   }
 
   config[method === "get" ? "params" : "data"] =

@@ -2,16 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Spinner } from "react-bootstrap";
 import { getCurrencies } from "../../../api/gill/resources";
+import { useParams } from "react-router-dom";
 
 export default function CurrencySelector(props) {
   const [currencies, setCurrencies] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const { system_id } = useParams();
+
   React.useEffect(() => {
-    getCurrencies().then(data => {
+    getCurrencies({ system_id }).then(data => {
       setCurrencies(data.data);
       setLoading(false);
     });
-  }, []);
+  }, [system_id]);
 
   let options = [
     <option key={0} value={null}>

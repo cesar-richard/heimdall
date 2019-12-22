@@ -18,15 +18,18 @@ import {
   FormControl,
   Alert
 } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import "moment/locale/fr";
 
 export default function BlockedList(props) {
   const { fundationId } = props;
   const [blocked, setBlocked] = React.useState(null);
   const [isLoading, setLoading] = React.useState(true);
+  const { system_id } = useParams();
+
   React.useEffect(() => {
     if (blocked) return;
-    getAllBlocked(fundationId).then(datas => {
+    getAllBlocked({ fundationId, system_id }).then(datas => {
       setBlocked(Object.values(datas.data).map(item => new BlockedModel(item)));
       setLoading(false);
     });

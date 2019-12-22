@@ -7,34 +7,44 @@ export const getFundations = () => {
   });
 };
 
-export const getWalletGroups = ({ limit = 500, ordering = "name,id" }) => {
-  return GET("walletgroups", { limit, ordering });
+export const getWalletGroups = ({
+  limit = 500,
+  ordering = "name,id",
+  system_id
+}) => {
+  return GET("walletgroups", { limit, ordering }, {}, { system_id });
 };
 
-export const getCurrencies = group => {
-  return GET("currencies", { group });
+export const getCurrencies = ({ group, system_id }) => {
+  return GET("currencies", { group }, {}, { system_id });
 };
 
-export const getSalesLocations = fundationId => {
-  return GET("saleslocations", { fundation: fundationId });
+export const getSalesLocations = ({ fundationId, system_id }) => {
+  return GET("saleslocations", { fundation: fundationId }, {}, { system_id });
 };
 
-export const putSalesLocations = (
+export const putSalesLocations = ({
   fundationId,
   salesLocationId,
   name,
-  enabled
-) => {
-  return PUT("saleslocations/" + salesLocationId, {
-    id: salesLocationId,
-    fundation: fundationId,
-    enabled,
-    name
-  });
+  enabled,
+  system_id
+}) => {
+  return PUT(
+    "saleslocations/" + salesLocationId,
+    {
+      id: salesLocationId,
+      fundation: fundationId,
+      enabled,
+      name
+    },
+    {},
+    { system_id }
+  );
 };
 
-export const getZones = ({ periods, ordering = "name,id" }) => {
-  return GET("zones", { periods });
+export const getZones = ({ periods, ordering = "name,id", system_id }) => {
+  return GET("zones", { periods }, {}, { system_id });
 };
 
 export const addWalletToWalletgroup = ({ walletGroupId, walletId }) => {
@@ -47,11 +57,17 @@ export const getZoneAccesses = ({
   wallet,
   period,
   zone,
-  limit = 5000
+  limit = 5000,
+  system_id
 } = {}) => {
-  return GET("zoneaccesses", { wallet, period, zone, limit });
+  return GET(
+    "zoneaccesses",
+    { wallet, period, zone, limit },
+    {},
+    { system_id }
+  );
 };
 
-export const getPeriods = ({ event = 1 }) => {
-  return GET("periods", { event });
+export const getPeriods = ({ event = 1, system_id }) => {
+  return GET("periods", { event }, {}, { system_id });
 };

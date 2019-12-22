@@ -11,7 +11,7 @@ class Logout extends Component {
 
   render() {
     sessionStorage.clear();
-    return <Redirect to='/' />;
+    return <Redirect to={`/${this.props.match.params.system_id}/login`} />;
   }
 }
 

@@ -1,17 +1,17 @@
 import { POST } from "./apiServices";
 
-export const getConfig = () => {
-  return POST("OFFLINE/getConfig");
+export const getConfig = ({ system_id }) => {
+  return POST("OFFLINE/getConfig", {}, {}, { system_id });
 };
 
-export const getCounterSchemas = () => {
-  return POST("OFFLINE/getCounterSchemas");
+export const getCounterSchemas = ({ system_id }) => {
+  return POST("OFFLINE/getCounterSchemas", {}, {}, { system_id });
 };
 
-export const getWalletConfigs = () => {
-  return POST("OFFLINE/getWalletConfigs");
+export const getWalletConfigs = ({ system_id }) => {
+  return POST("OFFLINE/getWalletConfigs", {}, {}, { system_id });
 };
 
-export const getWifiConfigs = () => {
-  return POST("OFFLINE/getWifiConfigs");
+export const getWifiConfigs = ({ system_id }) => {
+  return POST("OFFLINE/getWifiConfigs", {}, {}, { system_id });
 };

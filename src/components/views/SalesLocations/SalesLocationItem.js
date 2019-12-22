@@ -4,18 +4,21 @@ import {
   getSalesLocations,
   putSalesLocations
 } from "../../../api/gill/resources";
+import { useParams } from "react-router-dom";
 
 export default function SalesLocationItem(props) {
   const { fundationId, salesLocation, salesLocations } = props;
   const [isLoading, setLoading] = React.useState(false);
+  const { system_id } = useParams();
   const handleClick = e => {
     setLoading(true);
-    putSalesLocations(
+    putSalesLocations({
       fundationId,
-      e.target.dataset.slid,
-      e.target.dataset.name,
-      e.target.dataset.enabled
-    )
+      salesLocationId: e.target.dataset.slid,
+      name: e.target.dataset.name,
+      enabled: e.target.dataset.enabled,
+      system_id
+    })
       .then(datas => {
         salesLocations[salesLocations.findIndex(x => x.id === datas.data.id)] =
           datas.data;

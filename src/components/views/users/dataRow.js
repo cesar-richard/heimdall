@@ -6,12 +6,14 @@ import { Spinner } from "react-bootstrap";
 import { search } from "../../../api/gill/wallets";
 import { find } from "../../../api/gill/wallets";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function DataRow(props) {
   const [loading, setLoading] = React.useState(true);
   const [wallet, setWallet] = React.useState(null);
   const [error, setError] = React.useState(null);
   const { cells, addWallet, removeWallet } = props;
+  const { system_id } = useParams();
 
   let queryString = "";
   const walletId = cells[0].value;
@@ -21,7 +23,7 @@ export default function DataRow(props) {
   React.useEffect(() => {
     setLoading(true);
     if (walletId !== "") {
-      find({ walletId })
+      find({ walletId, system_id })
         .then(data => {
           if (wallet) {
             removeWallet(wallet.id);
@@ -40,7 +42,7 @@ export default function DataRow(props) {
           setError(`Error with gill: ${err.toString()}`);
         });
     } else if (queryString !== "") {
-      search({ queryString, limit: 2 })
+      search({ queryString, limit: 2, system_id })
         .then(data => {
           if (data.data.length === 0) {
             if (wallet) {

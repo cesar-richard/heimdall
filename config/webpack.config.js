@@ -613,7 +613,6 @@ module.exports = function(webpackEnv) {
       new webpack.EnvironmentPlugin([
         "NODE_ENV",
         "GILL_BASE_API_URL",
-        "SYSTEM_ID",
         "NEMOPAY_VERSION",
         "GILL_APP_KEY",
         "EVENT_ID",
@@ -622,14 +621,16 @@ module.exports = function(webpackEnv) {
         "SENTRY_PROJECT",
         "SENTRY_AUTH_TOKEN"
       ]),
-      process.env.NODE_ENV!=="development"?new SentryWebpackPlugin({
-        include: ".",
-        ignore: ["node_modules", "webpack.config.js", "build"],
-        release: `${packagejson.name}@${packagejson.version}`,
-        setCommits: {
-          auto: true
-        }
-      }):null
+      process.env.NODE_ENV !== "development"
+        ? new SentryWebpackPlugin({
+            include: ".",
+            ignore: ["node_modules", "webpack.config.js", "build"],
+            release: `${packagejson.name}@${packagejson.version}`,
+            setCommits: {
+              auto: true
+            }
+          })
+        : null
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
