@@ -13,7 +13,7 @@ export default function HomepageNavItem(props) {
         onClick={() => props.cb()}
       >
         <blockquote className='blockquote card-body'>
-          <FontAwesomeIcon icon={props.icon} size={"5x"} />
+          <FontAwesomeIcon icon={props.icon} size='5x' />
           <p>{props.label}</p>
         </blockquote>
       </Card>

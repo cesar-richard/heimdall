@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
-import { getFundations } from "../../../actions/fetch";
 import { getSalesLocations } from "../../../api/gill/resources";
 import { getAllBlocked } from "../../../api/gill/BLOCKED";
 import SalesLocationModel from "../../../models/SalesLocationModel";
@@ -23,24 +22,23 @@ import {
 import "moment/locale/fr";
 
 export default function SalesLocationList(props) {
-  const { fundation } = props;
+  const { fundationId } = props;
   const [isLocationsLoading, setLocationsLoading] = React.useState(true);
   const [salesLocations, setSalesLocations] = React.useState(null);
   const [valueFilter, setValueFilter] = React.useState("");
   const { system_id } = useParams();
 
   React.useEffect(() => {
-    if (salesLocations) return;
-    if (0 === fundation.id) {
+    if (0 === fundationId) {
       setSalesLocations([]);
       setLocationsLoading(false);
       return;
     }
-    getSalesLocations({ fundationId: fundation.id, system_id }).then(datas => {
+    getSalesLocations({ fundationId: fundationId, system_id }).then(datas => {
       setSalesLocations(datas.data);
       setLocationsLoading(false);
     });
-  }, [salesLocations, fundation.id, system_id]);
+  }, [salesLocations, fundationId, system_id]);
 
   if (isLocationsLoading) {
     return (
@@ -73,7 +71,7 @@ export default function SalesLocationList(props) {
             .map((item, key) => (
               <SalesLocationItem
                 key={key}
-                fundationId={fundation.id}
+                fundationId={fundationId}
                 salesLocation={item}
                 salesLocations={salesLocations}
               />
@@ -98,7 +96,3 @@ export default function SalesLocationList(props) {
     </Card>
   );
 }
-
-SalesLocationList.propTypes = {
-  fundation: PropTypes.object.isRequired
-};

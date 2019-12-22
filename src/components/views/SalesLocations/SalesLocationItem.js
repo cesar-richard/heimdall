@@ -7,7 +7,10 @@ import {
 import { useParams } from "react-router-dom";
 
 export default function SalesLocationItem(props) {
-  const { fundationId, salesLocation, salesLocations } = props;
+  const { fundationId, salesLocation } = props;
+  const [salesLocationData, setSalesLocationData] = React.useState(
+    salesLocation
+  );
   const [isLoading, setLoading] = React.useState(false);
   const { system_id } = useParams();
   const handleClick = e => {
@@ -20,13 +23,21 @@ export default function SalesLocationItem(props) {
       system_id
     })
       .then(datas => {
-        salesLocations[salesLocations.findIndex(x => x.id === datas.data.id)] =
-          datas.data;
-        setLoading(false);
+        setSalesLocationData(datas.data);
       })
-      .catch(setLoading(false));
+      .catch()
+      .finally(() => setLoading(false));
   };
-
+  let buttonText = isLoading
+    ? "Loading"
+    : salesLocation.enabled
+    ? "Disable"
+    : "Enable";
+  let buttonVariant = isLoading
+    ? "primary"
+    : salesLocation.enabled
+    ? "danger"
+    : "success";
   return (
     <ListGroup.Item key={salesLocation.id}>
       <Container>
@@ -34,24 +45,14 @@ export default function SalesLocationItem(props) {
           <Col>{salesLocation.name}</Col>
           <Col>
             <Button
-              variant={
-                isLoading
-                  ? "primary"
-                  : salesLocation.enabled
-                  ? "danger"
-                  : "success"
-              }
+              variant={buttonVariant}
               data-slid={salesLocation.id}
               data-enabled={!salesLocation.enabled}
               data-name={salesLocation.name}
               onClick={handleClick}
               disabled={isLoading}
             >
-              {isLoading
-                ? "Loading"
-                : salesLocation.enabled
-                ? "Disable"
-                : "Enable"}
+              {buttonText}
             </Button>
           </Col>
         </Row>

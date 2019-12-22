@@ -1,74 +1,47 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getFundations } from "../../../actions/fetch";
+import { getFundations } from "../../../api/gill/resources";
 import { ListGroup, Spinner } from "react-bootstrap";
 import Fundation from "./Fundation";
 import FundationModel from "../../../models/FundationModel";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "moment/locale/fr";
 
-class FundationList extends Component {
-  componentDidMount() {
-    if (!sessionStorage.hasOwnProperty("fundations")) {
-      this.props.fetchFundations({
-        system_id: this.props.match.params.system_id
-      });
-    }
+export default function FundationList(props) {
+  const [isLoading, setLoading] = React.useState(true);
+  const [fundations, setFundations] = React.useState([]);
+  const { system_id } = useParams();
+  React.useEffect(() => {
+    setLoading(true);
+    getFundations({ system_id })
+      .then(data => {
+        setFundations(data.data);
+        setLoading(false);
+      })
+      .catch(data => toast.error(data));
+  }, [system_id]);
+
+  let fundationList = [];
+  if (isLoading) {
+    return (
+      <Spinner animation='border' role='status' size='sm'>
+        <span className='sr-only'>Loading...</span>
+      </Spinner>
+    );
   }
 
-  render() {
-    let fundationList = [];
-    if (this.props.fundations.isLoading) {
-      return (
-        <Spinner animation='border' role='status' size='sm'>
-          <span className='sr-only'>Loading...</span>
-        </Spinner>
-      );
-    }
-
-    if (
-      this.props.fundations.hasBeenFetched ||
-      sessionStorage.hasOwnProperty("fundations")
-    ) {
-      let fundations = [];
-      if (sessionStorage.hasOwnProperty("fundations")) {
-        fundations = Object.values(JSON.parse(sessionStorage.fundations).data);
-      } else {
-        fundations = Object.values(this.props.fundations.data);
-        //sessionStorage.fundations = JSON.stringify(fundations);
-      }
-      fundationList = fundations.map((fundation, index) => (
-        <Fundation key={fundation.id} fundation={fundation} />
-      ));
-      return <ListGroup>{[fundationList]}</ListGroup>;
-    }
-    if (this.props.fundations.hasErrored) {
-      return "Error";
-    }
-    return "No datas";
+  if (0 !== fundations.length) {
+    fundationList = fundations.map((fundation, index) => (
+      <Fundation key={fundation.id} fundation={fundation} />
+    ));
+    return <ListGroup>{[fundationList]}</ListGroup>;
   }
+  return "Error";
 }
 
-const mapStateToProps = state => ({
-  isLoading: state.connect.loading,
-  fundations: state.fundations
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchFundations: ({ system_id }) => dispatch(getFundations({ system_id }))
-});
-
 FundationList.propTypes = {
-  fetchFundations: PropTypes.func.isRequired,
   fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
   isLoading: PropTypes.bool
 };
-
-FundationList.defaultProps = {
-  isLoading: false
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FundationList);
