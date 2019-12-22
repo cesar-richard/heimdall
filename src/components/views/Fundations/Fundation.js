@@ -20,6 +20,9 @@ export default function Fundation(props) {
     fundation: { id, name }
   } = props;
   React.useEffect(() => {
+    if (0 == id) {
+      return setLoadingSalesLoc(false);
+    }
     getSalesLocations({ fundationId: id, system_id })
       .then(data => {
         setSalesLocations(data.data);
