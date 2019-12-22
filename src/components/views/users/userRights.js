@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 import { Spinner, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
+import { useParams } from "react-router-dom";
 
 export default function UserRights(props) {
   const [loading, setLoading] = React.useState(true);
   const [balances, setBalances] = React.useState([]);
+  const { system_id } = useParams();
 
   React.useEffect(() => {
     setLoading(true);
-    getAllMyRightsEvents({ wallet_id: props.walletId })
+    getAllMyRightsEvents({ wallet_id: props.walletId, system_id })
       .then(data => {
         setBalances(data.data);
         setLoading(false);
@@ -20,7 +22,7 @@ export default function UserRights(props) {
         setLoading(false);
         toast.error(`Error with gill: ${err}`);
       });
-  }, [props.walletId]);
+  }, [props.walletId, system_id]);
 
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>

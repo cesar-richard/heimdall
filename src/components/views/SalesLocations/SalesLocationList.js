@@ -7,6 +7,7 @@ import { getSalesLocations } from "../../../api/gill/resources";
 import { getAllBlocked } from "../../../api/gill/BLOCKED";
 import SalesLocationModel from "../../../models/SalesLocationModel";
 import SalesLocationItem from "./SalesLocationItem";
+import { useParams } from "react-router-dom";
 import {
   Spinner,
   ListGroup,
@@ -26,6 +27,7 @@ export default function SalesLocationList(props) {
   const [isLocationsLoading, setLocationsLoading] = React.useState(true);
   const [salesLocations, setSalesLocations] = React.useState(null);
   const [valueFilter, setValueFilter] = React.useState("");
+  const { system_id } = useParams();
 
   React.useEffect(() => {
     if (salesLocations) return;
@@ -34,11 +36,11 @@ export default function SalesLocationList(props) {
       setLocationsLoading(false);
       return;
     }
-    getSalesLocations(fundation.id).then(datas => {
+    getSalesLocations({ fundationId: fundation.id, system_id }).then(datas => {
       setSalesLocations(datas.data);
       setLocationsLoading(false);
     });
-  }, [salesLocations, fundation.id]);
+  }, [salesLocations, fundation.id, system_id]);
 
   if (isLocationsLoading) {
     return (

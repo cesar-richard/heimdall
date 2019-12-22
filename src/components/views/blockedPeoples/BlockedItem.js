@@ -1,14 +1,17 @@
 import React from "react";
 import { ListGroup, Container, Row, Col, Button, Card } from "react-bootstrap";
 import { remove } from "../../../api/gill/BLOCKED";
+import { useParams } from "react-router-dom";
 import Moment from "react-moment";
 
 export default function BlockedItem(props) {
   const { fundationId, blockedPeople, blockedPeoples } = props;
   const [isLoading, setLoading] = React.useState(false);
+  const { system_id } = useParams();
+
   const handleClick = e => {
     setLoading(true);
-    remove(blockedPeople.blo_id, fundationId)
+    remove({ bloId: blockedPeople.blo_id, fundationId, system_id })
       .then(datas => {
         blockedPeoples.splice(
           blockedPeoples.findIndex(

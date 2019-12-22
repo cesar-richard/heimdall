@@ -5,17 +5,19 @@ import { toast } from "react-toastify";
 import { walletAutocomplete } from "../../api/gill/GESUSERS";
 import { find } from "../../api/gill/wallets";
 import Balances from "./tranferts/balances";
+import { useParams } from "react-router-dom";
 
 export default function Wallet(props) {
   const [loading, setLoading] = React.useState(true);
   const [currentWallet, setCurrentWallet] = React.useState(null);
   const [walletInfos, setWalletInfos] = React.useState(null);
   const { card, setWalletCb, wallet } = props;
+  const { system_id } = useParams();
 
   React.useEffect(() => {
     setLoading(true);
     if (card) {
-      walletAutocomplete({ queryString: card.uid, limit: 2 })
+      walletAutocomplete({ queryString: card.uid, limit: 2, system_id })
         .then(data => {
           if (data.data.length === 0) {
             toast.error(`No wallet found for ${card.uid}`);
@@ -61,7 +63,7 @@ export default function Wallet(props) {
       setWalletInfos(null);
       setLoading(false);
     }
-  }, [wallet, card, setWalletCb]);
+  }, [wallet, card, setWalletCb, system_id]);
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
       <span className='sr-only'>Loading...</span>

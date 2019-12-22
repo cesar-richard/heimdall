@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { Container, Link, Row } from "react-bootstrap";
 import Autosuggest from "react-autosuggest";
 import { walletAutocomplete } from "../api/gill/GESUSERS";
+import { useParams } from "react-router-dom";
 
 export default function WalletAutocomplete(props) {
   const [current, setCurrent] = React.useState(props.value || "");
   const [suggestions, setSuggestions] = React.useState([""]);
+  const { system_id } = useParams();
 
   const getSuggestions = value => {
     const escapedValue = value.trim();
@@ -15,7 +17,11 @@ export default function WalletAutocomplete(props) {
       return [];
     }
 
-    walletAutocomplete({ queryString: escapedValue, limit: 10 }).then(data => {
+    walletAutocomplete({
+      queryString: escapedValue,
+      limit: 10,
+      system_id
+    }).then(data => {
       setSuggestions(data.data);
     });
   };

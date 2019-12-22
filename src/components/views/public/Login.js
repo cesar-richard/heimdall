@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Switch from "react-bootstrap-switch";
 import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
 import packagejson from "../../../../package.json";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Login extends Component {
 
   componentDidMount() {
     if (!this.state.hasFetchedCas) {
-      getCasUrl().then(data => {
+      getCasUrl(this.props.match.params.system_id).then(data => {
         if (data.status === 200) {
           this.setState({ casUrl: data.data, hasFetchedCas: true });
         }
@@ -74,20 +75,21 @@ class Login extends Component {
             statusMessage: "Logging into gill ...",
             connectionSteps: 0
           });
-          login2(this.state.login, this.state.password).then(
-            data => callback(null, data.data),
-            callback
-          );
+          login2(
+            this.props.match.params.system_id,
+            this.state.login,
+            this.state.password
+          ).then(data => callback(null, data.data), callback);
         },
         (token, callback) => {
           this.setState({
             statusMessage: "Getting user's permissions ...",
             connectionSteps: 1
           });
-          getAllMyRightsEvents(token.sessionid).then(
-            data => callback(null, token, data.data),
-            callback
-          );
+          getAllMyRightsEvents(
+            this.props.match.params.system_id,
+            token.sessionid
+          ).then(data => callback(null, token, data.data), callback);
         },
         (token, callback) => {
           this.setState({
@@ -112,7 +114,7 @@ class Login extends Component {
     event.preventDefault();
     this.props.setLoading(true);
     let formData = {
-      service: "http://heimdal.crichard.fr/login",
+      service: `http://heimdal.crichard.fr/${this.props.match.params.system_id}`,
       username: this.state.login,
       password: this.state.password
     };
@@ -124,7 +126,10 @@ class Login extends Component {
             statusMessage: "Getting CAS url ...",
             connectionSteps: 0
           });
-          getCasUrl().then(data => callback(null, data), callback);
+          getCasUrl(this.props.match.params.system_id).then(
+            data => callback(null, data),
+            callback
+          );
         },
         (casUrl, callback) => {
           this.setState({
@@ -156,20 +161,21 @@ class Login extends Component {
             statusMessage: "Logging into gill ...",
             connectionSteps: 3
           });
-          loginCas2(st.data, formData.service).then(
-            data => callback(null, data.data),
-            callback
-          );
+          loginCas2(
+            this.props.match.params.system_id,
+            st.data,
+            formData.service
+          ).then(data => callback(null, data.data), callback);
         },
         (token, callback) => {
           this.setState({
             statusMessage: "Getting user's permissions ...",
             connectionSteps: 5
           });
-          getAllMyRightsEvents(token.sessionid).then(
-            data => callback(null, token, data.data),
-            callback
-          );
+          getAllMyRightsEvents(
+            this.props.match.params.system_id,
+            token.sessionid
+          ).then(data => callback(null, token, data.data), callback);
         },
         (token, callback) => {
           this.setState({
@@ -180,6 +186,7 @@ class Login extends Component {
           this.props.createSession({
             access_token: token
           });
+          window.location = `/${this.props.match.params.system_id}`;
         }
       ],
       (err, res) => {
@@ -252,41 +259,43 @@ class Login extends Component {
     );
 
     return (
-      <React.Fragment>
-        <Container>
-          <Row>
-            <Col />
-            <Col sm={3}>
-              <div className='text-center'>
-                <div className={`block-center mt-xl wd-xl login-body `}>
-                  <div className='panel panel-dark panel-flat'>
-                    <div
-                      className='panel-heading text-center'
-                      id='login-page-container'
-                    >
-                      <h1>{packagejson.name}</h1>
-                      <div />
+      <header className='App-header'>
+        <React.Fragment>
+          <Container>
+            <Row>
+              <Col />
+              <Col sm={3}>
+                <div className='text-center'>
+                  <div className={`block-center mt-xl wd-xl login-body `}>
+                    <div className='panel panel-dark panel-flat'>
+                      <div
+                        className='panel-heading text-center'
+                        id='login-page-container'
+                      >
+                        <h1>{packagejson.name}</h1>
+                        <div />
+                      </div>
+                      <div className='panel-body'>
+                        {this.state.hasFetchedCas ? (
+                          loginBody
+                        ) : (
+                          <Spinner animation='border' role='status' size='sm'>
+                            <span className='sr-only'>Loading...</span>
+                          </Spinner>
+                        )}
+                      </div>
+                      <br />
+                      {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
+                      <br />
                     </div>
-                    <div className='panel-body'>
-                      {this.state.hasFetchedCas ? (
-                        loginBody
-                      ) : (
-                        <Spinner animation='border' role='status' size='sm'>
-                          <span className='sr-only'>Loading...</span>
-                        </Spinner>
-                      )}
-                    </div>
-                    <br />
-                    {this.props.isLoading() ? <h6>{connectionSteps}</h6> : []}
-                    <br />
                   </div>
                 </div>
-              </div>
-            </Col>
-            <Col />
-          </Row>
-        </Container>
-      </React.Fragment>
+              </Col>
+              <Col />
+            </Row>
+          </Container>
+        </React.Fragment>
+      </header>
     );
   }
 }

@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router";
 import { Nav, Navbar } from "react-bootstrap";
 import packagejson from "../../../package.json";
 
 export default function MyNavbar(props) {
   const { isLoggedIn, username } = props;
+  const { system_id } = { system_id: 80405 }; //useParams();
   return (
     <Navbar collapseOnSelect expand='sm' bg='primary' variant='dark'>
-      <Navbar.Brand href='/'>{packagejson.name}</Navbar.Brand>
+      <Navbar.Brand href={`/${system_id}`}>{packagejson.name}</Navbar.Brand>
       {isLoggedIn ? (
         <>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
@@ -16,11 +18,11 @@ export default function MyNavbar(props) {
             className='justify-content-between'
           >
             <Nav className='mr-auto'>
-              <Nav.Link href='/fundations'>Fundations</Nav.Link>
-              <Nav.Link href='/users'>Users</Nav.Link>
-              <Nav.Link href='/transferts'>Transferts</Nav.Link>
-              <Nav.Link href='/dashboard'>Dashboard</Nav.Link>
-              <Nav.Link href='/support'>Support</Nav.Link>
+              <Nav.Link href={`/${system_id}/fundations`}>Fundations</Nav.Link>
+              <Nav.Link href={`/${system_id}/users`}>Users</Nav.Link>
+              <Nav.Link href={`/${system_id}/transferts`}>Transferts</Nav.Link>
+              <Nav.Link href={`/${system_id}/dashboard`}>Dashboard</Nav.Link>
+              <Nav.Link href={`/${system_id}/support`}>Support</Nav.Link>
               <Nav.Link href='/logout'>Logout</Nav.Link>
             </Nav>
             <Navbar.Text>

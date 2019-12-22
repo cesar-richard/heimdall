@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { getZoneAccesses, getZones } from "../../../api/gill/resources";
 import { Table, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function DashboardZoneAccesses(props) {
   const [zoneAccesses, setZoneAccesses] = React.useState([]);
   const [loadingZoneAccesses, setLoadingZoneAccesses] = React.useState(true);
+  const { system_id } = useParams();
   const computeTotalZoneAccesses = (accesses, zones = []) => {
     let tmp = [];
     accesses.map(el => {
@@ -29,9 +31,9 @@ export default function DashboardZoneAccesses(props) {
 
   React.useEffect(() => {
     setLoadingZoneAccesses(true);
-    getZones({})
+    getZones({ system_id })
       .then(dataZones => {
-        getZoneAccesses({})
+        getZoneAccesses({ system_id })
           .then(data => {
             setZoneAccesses(
               computeTotalZoneAccesses(data.data, dataZones.data)
@@ -39,8 +41,8 @@ export default function DashboardZoneAccesses(props) {
             setLoadingZoneAccesses(false);
             setInterval(
               () =>
-                getZones({}).then(dataZones =>
-                  getZoneAccesses().then(data =>
+                getZones({ system_id }).then(dataZones =>
+                  getZoneAccesses({ system_id }).then(data =>
                     setZoneAccesses(
                       computeTotalZoneAccesses(data.data, dataZones.data)
                     )
@@ -52,7 +54,7 @@ export default function DashboardZoneAccesses(props) {
           .catch(data => toast.error(data));
       })
       .catch(data => toast.error(data));
-  }, []);
+  }, [system_id]);
   let rows = [];
   zoneAccesses.map(el =>
     rows.push(

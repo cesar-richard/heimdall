@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import Switch from "react-bootstrap-switch";
 import Wallet from "../wallet";
 import TransfertCard from "./transfertCard";
+import { useParams } from "react-router-dom";
 
 export default function Transferts(props) {
   const READER_SOURCE = "source";
@@ -27,6 +28,7 @@ export default function Transferts(props) {
   const [walletDestination, setWalletDestination] = React.useState(null);
 
   const onCardHandler = React.useRef();
+  const { system_id } = useParams();
 
   React.useEffect(() => {
     if (handledCard === READER_SOURCE) {
@@ -37,7 +39,7 @@ export default function Transferts(props) {
   }, [handledCard]);
 
   React.useEffect(() => {
-    initializeSocket();
+    initializeSocket({ system_id });
     subscribeNfc({
       onCard: card => {
         setReaderState("success");
@@ -50,7 +52,7 @@ export default function Transferts(props) {
       onStart: () => setReaderState("success"),
       onEnd: () => setReaderState("dark")
     });
-  }, []);
+  }, [system_id]);
   return (
     <Container>
       <Row>
