@@ -260,13 +260,13 @@ class Login extends Component {
 
     return (
       <header className='App-header'>
-        <React.Fragment>
+        <React.Fragment key='Login'>
           <Container>
             <Row>
               <Col />
               <Col sm={3}>
                 <div className='text-center'>
-                  <div className={`block-center mt-xl wd-xl login-body `}>
+                  <div className='block-center mt-xl wd-xl login-body'>
                     <div className='panel panel-dark panel-flat'>
                       <div
                         className='panel-heading text-center'

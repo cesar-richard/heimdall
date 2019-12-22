@@ -17,6 +17,7 @@
   "extends": ["standard-jsx"],
 
   "rules": {
+    "react/jsx-curly-newline": "off",
     "sort-imports": [
       "warn",
       {
@@ -34,6 +35,7 @@
         "ignoreRefs": true
       }
     ],
+    "react/jsx-indent": "warn",
     "react/no-did-update-set-state": "error",
     "react/no-unknown-property": "error",
     "react/no-unused-prop-types": "error",

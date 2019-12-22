@@ -61,20 +61,18 @@ export default function BlockedList(props) {
       <Card.Header>
         <h4>Blocages</h4>
       </Card.Header>
-      {
-        <ListGroup>
-          {blocked.map((item, key) => {
-            return (
-              <BlockedItem
-                key={key}
-                fundationId={fundationId}
-                blockedPeople={item}
-                blockedPeoples={blocked}
-              />
-            );
-          })}
-        </ListGroup>
-      }
+      <ListGroup>
+        {blocked.map((item, key) => {
+          return (
+            <BlockedItem
+              key={key}
+              fundationId={fundationId}
+              blockedPeople={item}
+              blockedPeoples={blocked}
+            />
+          );
+        })}
+      </ListGroup>
       <Card.Footer>
         <Form inline>
           <FormControl type='text' placeholder='Login' className='mr-sm-2' />

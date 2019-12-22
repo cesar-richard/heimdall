@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import * as Sentry from "@sentry/browser";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -135,7 +135,7 @@ class App extends Component {
     const username = isLoggedIn ? session.access_token.username : null;
     apm.setUserContext({ username });
     return (
-      <React.Fragment>
+      <Fragment key='App'>
         <MyNavbar isLoggedIn={isLoggedIn} username={username} />
         <div className='App'>
           {this.renderMain()}
@@ -153,7 +153,7 @@ class App extends Component {
             </span>
           </footer>
         </div>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
