@@ -8,7 +8,7 @@ import DataRow from "./dataRow";
 export default function DataTable(props) {
   const { addWallet, removeWallet } = props;
   const initialTable = [];
-  for (var i = 0; i < 25; i++) {
+  for (var i = 0; 25 > i; i++) {
     initialTable.push([
       { value: "" },
       { value: "" },
@@ -49,7 +49,7 @@ export default function DataTable(props) {
         });
         if (additions) {
           additions.forEach(({ row, col, value }) => {
-            if (col < 4) {
+            if (4 > col) {
               dataGrid[row] = dataGrid[row]
                 ? dataGrid[row]
                 : [{ value: "" }, { value: "" }, { value: "" }, { value: "" }];

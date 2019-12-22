@@ -19,12 +19,12 @@ export default function Wallet(props) {
     if (card) {
       walletAutocomplete({ queryString: card.uid, limit: 2, system_id })
         .then(data => {
-          if (data.data.length === 0) {
+          if (0 === data.data.length) {
             toast.error(`No wallet found for ${card.uid}`);
             setCurrentWallet(null);
             setWalletCb(null);
             setWalletInfos(null);
-          } else if (data.data.length > 1) {
+          } else if (1 < data.data.length) {
             toast.error(`More than one wallet found for ${card.uid}`);
             setCurrentWallet(null);
             setWalletCb(null);

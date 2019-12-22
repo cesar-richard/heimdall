@@ -9,16 +9,16 @@ import SalesLocationModel from "../../../models/SalesLocationModel";
 import SalesLocationItem from "./SalesLocationItem";
 import { useParams } from "react-router-dom";
 import {
-  Spinner,
-  ListGroup,
-  Container,
-  Row,
-  Col,
+  Alert,
   Button,
   Card,
-  Alert,
+  Col,
+  Container,
   Form,
-  FormControl
+  FormControl,
+  ListGroup,
+  Row,
+  Spinner
 } from "react-bootstrap";
 import "moment/locale/fr";
 
@@ -31,7 +31,7 @@ export default function SalesLocationList(props) {
 
   React.useEffect(() => {
     if (salesLocations) return;
-    if (fundation.id === 0) {
+    if (0 === fundation.id) {
       setSalesLocations([]);
       setLocationsLoading(false);
       return;
@@ -53,7 +53,7 @@ export default function SalesLocationList(props) {
   }
 
   if (salesLocations) {
-    return salesLocations.length > 0 ? (
+    return 0 < salesLocations.length ? (
       <Card className='text-center'>
         <Card.Header>
           <h4>Points de vente</h4>

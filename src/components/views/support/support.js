@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {
   Alert,
   Button,
+  Col,
   Container,
   ListGroup,
   Row,
-  Col,
   Spinner
 } from "react-bootstrap";
-import { initializeSocket, subscribeNfc, setMode } from "../../../api/scarlet";
+import { initializeSocket, setMode, subscribeNfc } from "../../../api/scarlet";
 import { createPairing } from "../../../api/gill/GESUSERS";
 import { toast } from "react-toastify";
 import Wallet from "../wallet";

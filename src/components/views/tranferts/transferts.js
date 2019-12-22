@@ -4,10 +4,10 @@ import {
   Alert,
   Button,
   Card,
+  Col,
   Container,
   ListGroup,
   Row,
-  Col,
   Spinner
 } from "react-bootstrap";
 import { initializeSocket, subscribeNfc } from "../../../api/scarlet";

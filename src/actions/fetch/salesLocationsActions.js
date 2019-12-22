@@ -26,7 +26,7 @@ export const getSalesLocations = fundationId => {
   };
 
   return dispatch => {
-    if (fundationId === 0) {
+    if (0 === fundationId) {
       dispatch(itemsIsLoading(fundationId, false));
       dispatch(itemsFetchDataSuccess(fundationId, { data: {} }));
     } else {

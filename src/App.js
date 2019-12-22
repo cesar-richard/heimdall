@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { clearSession } from "./actions/sessionActions";
 import {
-  BrowserRouter as Router,
+  Redirect,
   Route,
+  BrowserRouter as Router,
   Switch,
-  withRouter,
-  Redirect
+  withRouter
 } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
@@ -17,7 +17,7 @@ import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
 import Transferts from "./components/views/tranferts/transferts";
 import Dashboard from "./components/views/dashboard/dashboard";
-import { Tab, Row, Col, Nav } from "react-bootstrap";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
@@ -31,13 +31,13 @@ import heimdalConfig from "./config";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faAmbulance,
   faBuilding,
-  faSuitcase,
-  faKey,
   faHandHoldingUsd,
-  faUser,
+  faKey,
+  faSuitcase,
   faTrafficLight,
-  faAmbulance
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 
 Sentry.init({

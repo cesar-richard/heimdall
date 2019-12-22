@@ -33,7 +33,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     window.location.href = "/";
   }
 
-  config[method === "get" ? "params" : "data"] = params;
+  config["get" === method ? "params" : "data"] = params;
 
   if (token) {
     config.params.sessionid = token;
@@ -44,10 +44,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     console.log(err);
     if (
       response ||
-      (response.status === 401 ||
-        (response.status === 403 &&
-          (response.data === "Session not valid for this system" ||
-            response.data.error.message === "User must be logged")))
+      (401 === response.status ||
+        (403 === response.status &&
+          ("Session not valid for this system" === response.data ||
+            "User must be logged" === response.data.error.message)))
     ) {
       store.dispatch(clearSession());
       window.location.assign("/");

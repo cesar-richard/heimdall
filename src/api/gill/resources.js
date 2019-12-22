@@ -1,4 +1,4 @@
-import { GET, PUT, POST } from "./apiResources";
+import { GET, POST, PUT } from "./apiResources";
 
 export const getFundations = ({ system_id }) => {
   return GET("fundations", { ordering: "name" }, {}, { system_id }).then(

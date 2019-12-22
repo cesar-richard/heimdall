@@ -30,7 +30,7 @@ export const getAllBlocked = fundationId => {
 
   return dispatch => {
     dispatch(itemsIsLoading(fundationId, true));
-    getAllBlockedApi(fundationId === 0 ? null : fundationId)
+    getAllBlockedApi(0 === fundationId ? null : fundationId)
       .then(data => dispatch(itemsFetchDataSuccess(fundationId, data)))
       .catch(err => dispatch(itemsHasErrored(fundationId, err)))
       .then(() => dispatch(itemsIsLoading(fundationId, false)));
@@ -63,7 +63,7 @@ export const unblock = (bloId, fundationId) => {
   };
 
   return dispatch => {
-    fundationId= fundationId === 0 ? null : fundationId;
+    fundationId= 0 === fundationId ? null : fundationId;
     unblockApi(bloId, fundationId).then(
       dispatch(getAllBlocked(fundationId))
     );

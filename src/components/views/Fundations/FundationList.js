@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFundations } from "../../../actions/fetch";
-import { Spinner, ListGroup } from "react-bootstrap";
+import { ListGroup, Spinner } from "react-bootstrap";
 import Fundation from "./Fundation";
 import FundationModel from "../../../models/FundationModel";
 import "moment/locale/fr";
