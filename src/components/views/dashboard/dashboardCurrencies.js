@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { getTotalCreditByCurrency } from "../../../api/gill/TRESO";
-import { Table, Spinner } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 

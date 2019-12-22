@@ -23,7 +23,7 @@ export default function CurrencySelector(props) {
   ];
   currencies.map(currency => {
     // TODO: find a way to only fetch secondary currencies...
-    if (currency.id !== 1) {
+    if (1 !== currency.id) {
       options.push(
         <option key={currency.id} value={currency.id}>
           {currency.name}

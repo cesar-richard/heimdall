@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import reducers from "../reducers";
 
 let middles = [thunk];
-if (process.env.NODE_ENV !== "production") {
+if ("production" !== process.env.NODE_ENV) {
   //middles.push(logger);
 }
 

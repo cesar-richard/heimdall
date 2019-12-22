@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import {
   getSalesLocations,
   putSalesLocations

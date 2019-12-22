@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { getZoneAccesses, getZones } from "../../../api/gill/resources";
-import { Table, Spinner } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
@@ -23,7 +23,7 @@ export default function DashboardZoneAccesses(props) {
         };
       }
       tmp[el.zone].quantity_unlimited += el.unlimited ? 1 : 0;
-      tmp[el.zone].quantity += el.count > 0 ? el.count : 0;
+      tmp[el.zone].quantity += 0 < el.count ? el.count : 0;
       tmp[el.zone].wallet_count += 1;
     });
     return tmp;
