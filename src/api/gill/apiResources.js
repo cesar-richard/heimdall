@@ -33,8 +33,8 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     window.location.href = "/bite";
   }
 
-  config[method === "get" ? "params" : "data"] =
-    method === "get" ? { ...config.params, ...params } : params;
+  config["get" === method ? "params" : "data"] =
+    "get" === method ? { ...config.params, ...params } : params;
   config.params = {
     ...config.params
   };
@@ -48,10 +48,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     //console.log(err.message);
     if (
       response &&
-      (response.status === 401 ||
-        (response.status === 403 &&
+      (401 === response.status ||
+        (403 === response.status &&
           response.data.error &&
-          response.data.error.message === "User must be logged"))
+          "User must be logged" === response.data.error.message))
     ) {
       store.dispatch(clearSession());
       window.location.assign("/");

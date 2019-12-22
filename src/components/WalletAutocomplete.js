@@ -13,7 +13,7 @@ export default function WalletAutocomplete(props) {
   const getSuggestions = value => {
     const escapedValue = value.trim();
 
-    if (escapedValue === "") {
+    if ("" === escapedValue) {
       return [];
     }
 
@@ -50,7 +50,7 @@ export default function WalletAutocomplete(props) {
   };
 
   var shouldRenderSuggestions = function shouldRenderSuggestions(value) {
-    return typeof value === "string" ? value.trim().length > 3 : false;
+    return "string" === typeof value ? 3 < value.trim().length : false;
   };
 
   return (

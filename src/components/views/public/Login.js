@@ -5,14 +5,14 @@ import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
 import { login2, loginCas2 } from "../../../api/gill/MYACCOUNT";
-import { getTicketGrantingTicket, getServiceTicket } from "../../../api/cas";
+import { getServiceTicket, getTicketGrantingTicket } from "../../../api/cas";
 import {
   Button,
+  Col,
+  Container,
   Form,
   ProgressBar,
-  Container,
   Row,
-  Col,
   Spinner
 } from "react-bootstrap";
 import { waterfall } from "async";
@@ -58,7 +58,7 @@ class Login extends Component {
   componentDidMount() {
     if (!this.state.hasFetchedCas) {
       getCasUrl(this.props.match.params.system_id).then(data => {
-        if (data.status === 200) {
+        if (200 === data.status) {
           this.setState({ casUrl: data.data, hasFetchedCas: true });
         }
       });
@@ -223,7 +223,7 @@ class Login extends Component {
             required
           />
         </Form.Group>
-        {this.state.casUrl !== "" ? (
+        {"" !== this.state.casUrl ? (
           <Form.Group controlId='formAccountType'>
             <Form.Label>CAS : </Form.Label>
             <Switch

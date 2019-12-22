@@ -27,7 +27,7 @@ export default function ActionForm({ walletList }) {
   const CONCURENCY_LIMIT = 10;
   let walletsToProcess = [];
   const promiseProducer = function() {
-    if (walletsToProcess.length === 0) {
+    if (0 === walletsToProcess.length) {
       return null;
     }
     const wallet = walletsToProcess.shift();
@@ -105,7 +105,7 @@ export default function ActionForm({ walletList }) {
           </Form.Group>
         </Col>
 
-        {action === "setCurrencyForWallet" ? (
+        {"setCurrencyForWallet" === action ? (
           <>
             <Col sm={2}>
               <Form.Group controlId='selectCurrency' disabled={isProcessing}>
@@ -130,7 +130,7 @@ export default function ActionForm({ walletList }) {
               </Form.Group>
             </Col>
           </>
-        ) : action === "addWalletsToGroup" ? (
+        ) : "addWalletsToGroup" === action ? (
           <Col sm={2}>
             <Form.Group controlId='selectGroup'>
               <WalletGroupSelector

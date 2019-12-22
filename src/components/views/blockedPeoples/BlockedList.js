@@ -7,16 +7,16 @@ import { getAllBlocked } from "../../../api/gill/BLOCKED";
 import BlockedModel from "../../../models/BlockedModel";
 import BlockedItem from "./BlockedItem";
 import {
-  Spinner,
-  ListGroup,
-  Container,
-  Row,
-  Col,
+  Alert,
   Button,
   Card,
+  Col,
+  Container,
   Form,
   FormControl,
-  Alert
+  ListGroup,
+  Row,
+  Spinner
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import "moment/locale/fr";
@@ -36,7 +36,7 @@ export default function BlockedList(props) {
   });
 
   if (blocked) {
-    blocked.length > 0 ? (
+    0 < blocked.length ? (
       <ListGroup>
         {blocked.map((item, key) => {
           <ListGroup.Item>{item.login}</ListGroup.Item>;

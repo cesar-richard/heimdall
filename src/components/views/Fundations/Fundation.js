@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllBlocked } from "../../../actions/fetch/blockedActions";
 import { getSalesLocations } from "../../../actions/fetch/salesLocationsActions";
-import { Col, Container, Row, ListGroup, Spinner } from "react-bootstrap";
+import { Col, Container, ListGroup, Row, Spinner } from "react-bootstrap";
 import FundationModel from "../../../models/FundationModel";
 import BlockedModel from "../../../models/BlockedModel";
 import SalesLocationModel from "../../../models/SalesLocationModel";
@@ -73,7 +73,7 @@ class Fundation extends Component {
       sessionStorage.blocked = JSON.stringify(this.props.blocked.data);
       return (
         <ListGroup.Item
-          variant={blockedCount > 0 ? "danger" : "info"}
+          variant={0 < blockedCount ? "danger" : "info"}
           action
           href={`/fundations/${this.props.fundation.id}`}
         >
@@ -84,8 +84,8 @@ class Fundation extends Component {
                 {this.props.blocked.hasBeenFetched[this.props.fundation.id] ? (
                   blockedCount + " blocked"
                 ) : this.props.blocked.hasErrored[this.props.fundation.id] ? (
-                  this.props.blocked.hasErrored[this.props.fundation.id]
-                    .status == 403 ? (
+                  403 == this.props.blocked.hasErrored[this.props.fundation.id]
+                    .status ? (
                     this.props.blocked.hasErrored[this.props.fundation.id]
                       .message
                   ) : (
@@ -102,7 +102,7 @@ class Fundation extends Component {
                   this.props.fundation.id
                 ] ? (
                   activeSalesLocationsCount === salesLocationsCount &&
-                  salesLocationsCount === 0 ? (
+                  0 === salesLocationsCount ? (
                     "No sales locations"
                   ) : (
                     activeSalesLocationsCount +

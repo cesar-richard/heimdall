@@ -22,7 +22,7 @@ export default function DataRow(props) {
     .map(cell => (queryString = queryString.concat(" ", cell.value).trim()));
   React.useEffect(() => {
     setLoading(true);
-    if (walletId !== "") {
+    if ("" !== walletId) {
       find({ walletId, system_id })
         .then(data => {
           if (wallet) {
@@ -41,16 +41,16 @@ export default function DataRow(props) {
           setWallet(null);
           setError(`Error with gill: ${err.toString()}`);
         });
-    } else if (queryString !== "") {
+    } else if ("" !== queryString) {
       search({ queryString, limit: 2, system_id })
         .then(data => {
-          if (data.data.length === 0) {
+          if (0 === data.data.length) {
             if (wallet) {
               removeWallet(wallet.id);
             }
             setWallet(null);
             setError("No wallet found");
-          } else if (data.data.length > 1) {
+          } else if (1 < data.data.length) {
             setWallet(null);
             setError("More than one wallet found");
           } else {

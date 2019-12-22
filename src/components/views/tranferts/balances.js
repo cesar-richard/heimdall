@@ -28,7 +28,7 @@ export default function Balances(props) {
     <Spinner animation='border' role='status' size='sm'>
       <span className='sr-only'>Loading...</span>
     </Spinner>
-  ) : balances.length > 0 ? (
+  ) : 0 < balances.length ? (
     <Table striped bordered hover>
       <thead>
         <tr>

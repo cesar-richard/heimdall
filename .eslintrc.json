@@ -6,7 +6,6 @@
     },
     "sourceType": "module"
   },
-
   "settings": {
     "react": {
       "version": "16.8"
@@ -18,6 +17,15 @@
   "extends": ["standard-jsx"],
 
   "rules": {
+    "sort-imports": [
+      "warn",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "sort-vars": "warn",
+    "yoda": ["error", "always"],
     "react/jsx-no-bind": [
       "error",
       {
