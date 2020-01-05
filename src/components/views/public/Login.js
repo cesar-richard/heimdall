@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
 import { login2, loginCas2 } from "../../../api/gill/MYACCOUNT";
@@ -304,7 +303,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createSession: auth => dispatch(createSession(auth)),
   setLoading: loading => dispatch(setLoading(loading))
 });
 
