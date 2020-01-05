@@ -5,7 +5,10 @@ import { Nav, Navbar } from "react-bootstrap";
 import packagejson from "../../../package.json";
 
 export default function MyNavbar(props) {
-  const { isLoggedIn, username } = props;
+  const isLoggedIn = localStorage.hasOwnProperty("accessToken");
+  const username = isLoggedIn
+    ? JSON.parse(localStorage.getItem("accessToken")).username
+    : null;
   const { system_id } = { system_id: 80405 }; //useParams();
   return (
     <Navbar collapseOnSelect expand='sm' bg='primary' variant='dark'>

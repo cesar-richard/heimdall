@@ -22,16 +22,9 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     }
   };
 
-  let token;
-  try {
-    token =
-      null === store.getState().session
-        ? null
-        : store.getState().session.access_token.sessionid;
-  } catch (e) {
-    store.dispatch(clearSession());
-    window.location.href = "/bite";
-  }
+  const token = localStorage.hasOwnProperty("accessToken")
+    ? JSON.parse(localStorage.getItem("accessToken")).sessionid
+    : null;
 
   config["get" === method ? "params" : "data"] =
     "get" === method ? { ...config.params, ...params } : params;
@@ -53,8 +46,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
           response.data.error &&
           "User must be logged" === response.data.error.message))
     ) {
-      store.dispatch(clearSession());
-      window.location.assign("/");
+      window.location.assign("/logout");
     }
 
     response = response || { data: {} };
