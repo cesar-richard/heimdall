@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import * as Sentry from "@sentry/browser";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clearSession } from "./actions/sessionActions";
 import {
   Redirect,
   Route,

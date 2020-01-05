@@ -1,6 +1,4 @@
 import axios from "axios";
-import { store } from "../../store";
-import { clearSession } from "../../actions/sessionActions";
 import { Router } from "react-router-dom";
 import heimdalConfig from "../../config";
 
