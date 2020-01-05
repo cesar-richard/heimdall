@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import * as Sentry from "@sentry/browser";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clearSession } from "./actions/sessionActions";
 import {
   Redirect,
   Route,
@@ -28,6 +27,7 @@ import Support from "./components/views/support/support";
 import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
+import useLocalStorage from "react-use-localstorage";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -69,76 +69,54 @@ library.add(
 );
 
 class App extends Component {
-  renderMain() {
-    const { session } = this.props;
-    const isLoggedIn = session && session.access_token;
-    if (session && !isLoggedIn) {
-      console.log("clear");
-      clearSession();
-    }
-    return (
-      <Router>
-        <Switch>
-          <ApmRoute path='/:system_id/login' exact component={Login} />
-          <ApmRoute
-            path='/:system_id'
-            exact
-            session={session}
-            component={Homepage}
-          />
-          <ApmRoute
-            session={session}
-            path='/:system_id/fundations'
-            exact
-            component={FundationList}
-          />
-          <ApmRoute
-            session={session}
-            path='/:system_id/users'
-            exact
-            component={UserDashboard}
-          />
-          <ApmRoute
-            session={session}
-            path='/:system_id/transferts'
-            exact
-            component={Transferts}
-          />
-          <ApmRoute
-            session={session}
-            path='/:system_id/fundations/:fundationId'
-            exact
-            component={FundationDetails}
-          />
-          <ApmRoute
-            session={session}
-            path='/:system_id/dashboard'
-            exact
-            component={Dashboard}
-          />
-          <ApmRoute
-            path='/:system_id/support'
-            session={session}
-            exact
-            component={Support}
-          />
-          <ApmRoute path='/403' session={session} exact component={Forbiden} />
-          <ApmRoute path='/logout' session={session} exact component={Logout} />
-        </Switch>
-      </Router>
-    );
-  }
-
   render() {
-    const { session } = this.props;
-    const isLoggedIn = session && session.access_token;
-    const username = isLoggedIn ? session.access_token.username : null;
+    const isLoggedIn = localStorage.hasOwnProperty("accessToken");
+    const username = isLoggedIn
+      ? JSON.parse(localStorage.getItem("accessToken")).username
+      : null;
     apm.setUserContext({ username });
     return (
       <Fragment key='App'>
-        <MyNavbar isLoggedIn={isLoggedIn} username={username} />
+        <MyNavbar />
         <div className='App'>
-          {this.renderMain()}
+          <Router>
+            <Switch>
+              <ApmRoute path='/403' exact component={Forbiden} />
+              <ApmRoute path='/logout' exact component={Logout} />
+              <ApmRoute path='/:system_id(\d+)/login' exact component={Login} />
+              <ApmRoute path='/:system_id(\d+)' exact component={Homepage} />
+              <ApmRoute
+                path='/:system_id/fundations'
+                exact
+                component={FundationList}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/users'
+                exact
+                component={UserDashboard}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/transferts'
+                exact
+                component={Transferts}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/fundations/:fundationId'
+                exact
+                component={FundationDetails}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/dashboard'
+                exact
+                component={Dashboard}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/support'
+                exact
+                component={Support}
+              />
+            </Switch>
+          </Router>
           <ToastContainer />
           <footer className='text-center'>
             <span>
@@ -157,23 +135,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  session: state.session
-});
 
-const mapDispatchToProps = dispatch => ({
-  clearSession: () => dispatch(clearSession())
-});
-
-App.propTypes = {
-  session: PropTypes.shape({
-    access_token: PropTypes.object
-  })
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default App;

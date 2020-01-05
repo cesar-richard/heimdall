@@ -1,6 +1,4 @@
 import axios from "axios";
-import { store } from "../../store";
-import { clearSession } from "../../actions/sessionActions";
 import { Router } from "react-router-dom";
 import heimdalConfig from "../../config";
 
@@ -22,16 +20,9 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
     }
   };
 
-  let token;
-  try {
-    token =
-      null === store.getState().session
-        ? null
-        : store.getState().session.access_token.sessionid;
-  } catch (e) {
-    store.dispatch(clearSession());
-    window.location.href = "/";
-  }
+  const token = localStorage.hasOwnProperty("accessToken")
+    ? JSON.parse(localStorage.getItem("accessToken")).sessionid
+    : null;
 
   config["get" === method ? "params" : "data"] = params;
 
@@ -49,8 +40,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
           ("Session not valid for this system" === response.data ||
             "User must be logged" === response.data.error.message)))
     ) {
-      store.dispatch(clearSession());
-      window.location.assign("/");
+      window.location.assign("/logout");
     }
 
     response = response || { data: {} };

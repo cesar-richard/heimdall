@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createSession } from "../../../actions/sessionActions";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
 import { login2, loginCas2 } from "../../../api/gill/MYACCOUNT";
@@ -96,10 +95,9 @@ class Login extends Component {
             statusMessage: "Creating session ...",
             connectionSteps: 2
           });
+          localStorage.setItem("accessToken", JSON.stringify(token));
+          apm.setUserContext({ username: token.username });
           this.props.setLoading(false);
-          this.props.createSession({
-            access_token: token
-          });
         }
       ],
       (err, res) => {
@@ -183,9 +181,7 @@ class Login extends Component {
             connectionSteps: 6
           });
           this.props.setLoading(false);
-          this.props.createSession({
-            access_token: token
-          });
+          localStorage.setItem("accessToken", JSON.stringify(token));
           window.location = `/${this.props.match.params.system_id}`;
         }
       ],
@@ -307,7 +303,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createSession: auth => dispatch(createSession(auth)),
   setLoading: loading => dispatch(setLoading(loading))
 });
 
