@@ -30,10 +30,10 @@ const packagejson = require("../package.json");
 const postcssNormalize = require("postcss-normalize");
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
+const shouldUseSourceMap = "false" !== process.env.GENERATE_SOURCEMAP;
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
-const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== "false";
+const shouldInlineRuntimeChunk = "false" !== process.env.INLINE_RUNTIME_CHUNK;
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
@@ -47,8 +47,8 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
-  const isEnvDevelopment = webpackEnv === "development";
-  const isEnvProduction = webpackEnv === "production";
+  const isEnvDevelopment = "development" === webpackEnv;
+  const isEnvProduction = "production" === webpackEnv;
 
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -58,7 +58,7 @@ module.exports = function(webpackEnv) {
     : isEnvDevelopment && "/";
   // Some apps do not use client-side routing with pushState.
   // For these, "homepage" can be set to "." to enable relative asset paths.
-  const shouldUseRelativeAssetPaths = publicPath === "./";
+  const shouldUseRelativeAssetPaths = "./" === publicPath;
 
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
@@ -621,7 +621,7 @@ module.exports = function(webpackEnv) {
         "SENTRY_PROJECT",
         "SENTRY_AUTH_TOKEN"
       ]),
-      process.env.NODE_ENV !== "development"
+      "development" == process.env.NODE_ENV
         ? new SentryWebpackPlugin({
             include: ".",
             ignore: ["node_modules", "webpack.config.js", "build"],
