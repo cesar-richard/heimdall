@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { remove } from "../../../api/gill/BLOCKED";
 import { useParams } from "react-router-dom";
 import Moment from "react-moment";
+import "moment/locale/fr";
 
 export default function BlockedItem(props) {
   const { fundationId, blockedPeople, blockedPeoples } = props;

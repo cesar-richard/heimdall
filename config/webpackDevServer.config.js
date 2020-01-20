@@ -5,7 +5,7 @@ const ignoredFiles = require("react-dev-utils/ignoredFiles");
 const paths = require("./paths");
 const fs = require("fs");
 
-const protocol = process.env.HTTPS === "true" ? "https" : "http";
+const protocol = "true" === process.env.HTTPS ? "https" : "http";
 const host = process.env.HOST || "0.0.0.0";
 
 module.exports = function(proxy, allowedHost) {
@@ -27,7 +27,7 @@ module.exports = function(proxy, allowedHost) {
     // specified the `proxy` setting. Finally, we let you override it if you
     // really know what you're doing with a special environment variable.
     disableHostCheck:
-      !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === "true",
+      !proxy || "true" === process.env.DANGEROUSLY_DISABLE_HOST_CHECK,
     // Enable gzip compression of generated files.
     compress: true,
     // Silence WebpackDevServer's own logs since they're generally not useful.
@@ -70,7 +70,7 @@ module.exports = function(proxy, allowedHost) {
       ignored: ignoredFiles(paths.appSrc)
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    https: protocol === "https",
+    https: "https" === protocol,
     host,
     overlay: false,
     historyApiFallback: {

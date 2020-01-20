@@ -19,7 +19,6 @@ import {
   Row,
   Spinner
 } from "react-bootstrap";
-import "moment/locale/fr";
 
 export default function SalesLocationList(props) {
   const { fundationId } = props;
@@ -38,7 +37,7 @@ export default function SalesLocationList(props) {
       setSalesLocations(datas.data);
       setLocationsLoading(false);
     });
-  }, [salesLocations, fundationId, system_id]);
+  }, [fundationId, system_id]);
 
   if (isLocationsLoading) {
     return (

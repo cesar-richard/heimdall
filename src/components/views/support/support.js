@@ -20,7 +20,7 @@ export default function Support(props) {
   const [readerState, setReaderState] = React.useState("warning");
   const [card, setCard] = React.useState(null);
   const [wallet, setWallet] = React.useState(null);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   React.useEffect(() => {
     initializeSocket({ system_id });
@@ -62,10 +62,11 @@ export default function Support(props) {
                   <Button
                     variant='primary'
                     onClick={() =>
-                      createPairing({ wallet: wallet.id, system_id }).then(() =>
-                        toast("Done")
-                      )
-                    }
+                      createPairing({
+                        wallet: wallet.id,
+                        system_id,
+                        event_id
+                      }).then(() => toast("Done"))}
                   >
                     Reassocier
                   </Button>
@@ -78,8 +79,7 @@ export default function Support(props) {
                         .then(() => toast("Done"))
                         .catch(err => {
                           toast.error(err);
-                        })
-                    }
+                        })}
                   >
                     Effacer
                   </Button>

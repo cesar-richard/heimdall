@@ -13,12 +13,6 @@
     "GILL_API_KEY": {
       "required": true
     },
-    "SYSTEM_ID": {
-      "required": true
-    },
-    "EVENT_ID": {
-      "required": true
-    },
     "SENTRY_AUTH_TOKEN": {
       "required": true
     },

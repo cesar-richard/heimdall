@@ -7,21 +7,20 @@ import Fundation from "./Fundation";
 import FundationModel from "../../../models/FundationModel";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import "moment/locale/fr";
 
 export default function FundationList(props) {
   const [isLoading, setLoading] = React.useState(true);
   const [fundations, setFundations] = React.useState([]);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   React.useEffect(() => {
     setLoading(true);
-    getFundations({ system_id })
+    getFundations({ system_id, event_id })
       .then(data => {
         setFundations(data.data);
         setLoading(false);
       })
       .catch(data => toast.error(data));
-  }, [system_id]);
+  }, [event_id, system_id]);
 
   let fundationList = [];
   if (isLoading) {

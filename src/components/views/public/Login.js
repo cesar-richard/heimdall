@@ -22,6 +22,10 @@ import Switch from "react-bootstrap-switch";
 import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
 import packagejson from "../../../../package.json";
 import { Redirect } from "react-router-dom";
+import { init as initApm } from "@elastic/apm-rum";
+import heimdalConfig from "../../../config";
+
+const apm = initApm(heimdalConfig.APM);
 
 class Login extends Component {
   constructor(props) {
@@ -67,6 +71,7 @@ class Login extends Component {
   async handleSubmitWeez(event) {
     event.preventDefault();
     this.props.setLoading(true);
+    localStorage.removeItem("accessToken");
     waterfall(
       [
         callback => {
@@ -95,9 +100,10 @@ class Login extends Component {
             statusMessage: "Creating session ...",
             connectionSteps: 2
           });
-          localStorage.setItem("accessToken", JSON.stringify(token));
           apm.setUserContext({ username: token.username });
           this.props.setLoading(false);
+          localStorage.setItem("accessToken", JSON.stringify(token));
+          window.location = `/${this.props.match.params.system_id}`;
         }
       ],
       (err, res) => {
@@ -111,6 +117,7 @@ class Login extends Component {
   async handleSubmitCas(event) {
     event.preventDefault();
     this.props.setLoading(true);
+    localStorage.removeItem("accessToken");
     let formData = {
       service: `http://heimdal.crichard.fr/${this.props.match.params.system_id}`,
       username: this.state.login,
@@ -180,6 +187,7 @@ class Login extends Component {
             statusMessage: "Creating session ...",
             connectionSteps: 6
           });
+          apm.setUserContext({ username: token.username });
           this.props.setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
           window.location = `/${this.props.match.params.system_id}`;
@@ -230,7 +238,7 @@ class Login extends Component {
             />
           </Form.Group>
         ) : (
-          ""
+          <></>
         )}
         <Button
           variant='primary'

@@ -4,7 +4,7 @@ import heimdalConfig from "../../config";
 export const search = ({
   queryString,
   system_id,
-  event = heimdalConfig.EVENT_ID,
+  event_id,
   limit = 25,
   offset = 0,
   ordering = "id",
@@ -14,7 +14,7 @@ export const search = ({
   return GET(
     "wallets",
     {
-      event,
+      event: event_id,
       limit,
       offset,
       ordering,

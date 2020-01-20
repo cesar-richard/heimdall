@@ -24,6 +24,7 @@ import { init as initApm } from "@elastic/apm-rum";
 import { ApmRoute } from "@elastic/apm-rum-react";
 import UserDashboard from "./components/views/users/userDashboard";
 import Support from "./components/views/support/support";
+import SystemHomepage from "./components/views/SystemHomepage";
 import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
@@ -48,15 +49,9 @@ Sentry.init({
 
 Sentry.configureScope(function(scope) {
   scope.setTag("NEMOPAY_VERSION", heimdalConfig.NEMOPAY_VERSION);
-  scope.setTag("EVENT_ID", heimdalConfig.EVENT_ID);
 });
 
-const apm = initApm({
-  serviceName: packagejson.name,
-  serverUrl: "http://apm.crichard.fr",
-  serviceVersion: packagejson.version,
-  environment: process.env.NODE_ENV
-});
+const apm = initApm(heimdalConfig.APM);
 
 library.add(
   faBuilding,
@@ -84,34 +79,44 @@ class App extends Component {
               <ApmRoute path='/403' exact component={Forbiden} />
               <ApmRoute path='/logout' exact component={Logout} />
               <ApmRoute path='/:system_id(\d+)/login' exact component={Login} />
-              <ApmRoute path='/:system_id(\d+)' exact component={Homepage} />
+              //TODO: Create system level homepage component
               <ApmRoute
-                path='/:system_id/fundations'
+                path='/:system_id(\d+)'
+                exact
+                component={SystemHomepage}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/:event_id(\d+)'
+                exact
+                component={Homepage}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/:event_id(\d+)/fundations'
                 exact
                 component={FundationList}
               />
               <ApmRoute
-                path='/:system_id(\d+)/users'
+                path='/:system_id(\d+)/:event_id(\d+)/users'
                 exact
                 component={UserDashboard}
               />
               <ApmRoute
-                path='/:system_id(\d+)/transferts'
+                path='/:system_id(\d+)/:event_id(\d+)/transferts'
                 exact
                 component={Transferts}
               />
               <ApmRoute
-                path='/:system_id(\d+)/fundations/:fundationId'
+                path='/:system_id(\d+)/:event_id(\d+)/fundations/:fundationId(\d+)'
                 exact
                 component={FundationDetails}
               />
               <ApmRoute
-                path='/:system_id(\d+)/dashboard'
+                path='/:system_id(\d+)/:event_id(\d+)/dashboard'
                 exact
                 component={Dashboard}
               />
               <ApmRoute
-                path='/:system_id(\d+)/support'
+                path='/:system_id(\d+)/:event_id(\d+)/support'
                 exact
                 component={Support}
               />
