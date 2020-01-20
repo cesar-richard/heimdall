@@ -18,7 +18,6 @@ import {
   Spinner
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import "moment/locale/fr";
 
 export default function BlockedList(props) {
   const { fundationId } = props;

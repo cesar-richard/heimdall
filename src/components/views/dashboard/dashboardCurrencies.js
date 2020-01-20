@@ -8,23 +8,23 @@ import { useParams } from "react-router-dom";
 export default function DashboardCurrencies(props) {
   const [totalCredits, setTotalCredits] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   React.useEffect(() => {
     setLoading(true);
-    getTotalCreditByCurrency({ system_id })
+    getTotalCreditByCurrency({ system_id, event_id })
       .then(data => {
         setTotalCredits(data.data);
         setLoading(false);
         setInterval(
           () =>
-            getTotalCreditByCurrency({ system_id }).then(data =>
+            getTotalCreditByCurrency({ system_id, event_id }).then(data =>
               setTotalCredits(data.data)
             ),
           5000
         );
       })
       .catch(data => toast.error(data));
-  }, [system_id]);
+  }, [event_id, system_id]);
   let rows = [];
   totalCredits.map(el =>
     rows.push(

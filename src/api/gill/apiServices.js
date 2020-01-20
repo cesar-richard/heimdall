@@ -14,7 +14,6 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
       "Nemopay-Version": heimdalConfig.NEMOPAY_VERSION
     },
     params: {
-      event: heimdalConfig.EVENT_ID,
       app_key: heimdalConfig.GILL_APP_KEY,
       ...forcedParams
     }
@@ -32,7 +31,7 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
 
   return axios(config).catch(err => {
     let { response } = err;
-    console.log(err);
+    console.error(err);
     if (
       response ||
       (401 === response.status ||
@@ -40,7 +39,8 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
           ("Session not valid for this system" === response.data ||
             "User must be logged" === response.data.error.message)))
     ) {
-      window.location.assign("/logout");
+      throw new Exception(response.data.error.message, response.data);
+      //window.location.assign("/logout");
     }
 
     response = response || { data: {} };

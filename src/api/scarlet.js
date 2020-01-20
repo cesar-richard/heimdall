@@ -22,7 +22,7 @@ export function subscribeNfc({
   socket.on("start", reader => onStart(reader));
   socket.on("end", reader => onEnd(reader));
   socket.on("getGillConfig", () =>
-    getConfig().then(config => {
+    getConfig({ system_id }).then(config => {
       socket.emit("systemConfig", config.data);
     })
   );

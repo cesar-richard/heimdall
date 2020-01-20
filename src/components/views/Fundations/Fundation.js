@@ -15,7 +15,7 @@ export default function Fundation(props) {
   const [isLoadingBlocked, setLoadingBlocked] = React.useState(true);
   const [blocked, setBlocked] = React.useState([]);
   const [salesLocations, setSalesLocations] = React.useState([]);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   const {
     fundation: { id, name }
   } = props;
@@ -68,7 +68,7 @@ export default function Fundation(props) {
     <ListGroup.Item
       variant={0 < blocked.length ? "danger" : "info"}
       action
-      href={`/${system_id}/fundations/${id}`}
+      href={`/${system_id}/${event_id}/fundations/${id}`}
     >
       <Container>
         <Row>

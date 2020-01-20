@@ -17,22 +17,20 @@ import {
   Row,
   Spinner
 } from "react-bootstrap";
-import Moment from "react-moment";
-import "moment/locale/fr";
 
 export default function FundationDetails(props) {
   const [isLoading, setLoading] = React.useState(true);
   const [fundation, setFundation] = React.useState(null);
-  const { fundationId, system_id } = useParams();
+  const { fundationId, system_id, event_id } = useParams();
 
   React.useEffect(() => {
-    getFundations({ system_id })
+    getFundations({ system_id, event_id })
       .then(data => {
         setFundation(data.data.find(item => item.id === parseInt(fundationId)));
       })
       .catch(data => toast.error(data))
       .finally(() => setLoading(false));
-  }, [fundationId, system_id]);
+  }, [event_id, fundationId, system_id]);
 
   if (isLoading) {
     return (

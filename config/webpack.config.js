@@ -615,7 +615,6 @@ module.exports = function(webpackEnv) {
         "GILL_BASE_API_URL",
         "NEMOPAY_VERSION",
         "GILL_APP_KEY",
-        "EVENT_ID",
         "SENTRY_DSN",
         "SENTRY_ORG",
         "SENTRY_PROJECT",

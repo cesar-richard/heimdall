@@ -3,8 +3,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ## Introduction
-Heimdal is a cross organizer support helper for Payutc, and globally every Weezevent's event organizer.
 
+Heimdal is a cross organizer support helper for Payutc, and globally every Weezevent's event organizer.
 
 Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Hot Loader](https://github.com/gaearon/react-hot-loader) for rapid application development (HMR).
 
@@ -22,10 +22,8 @@ Create a `.env` file at project's root containing these variables :
 
 ```
 GILL_BASE_API_URL=https://api.nemopay.net
-SYSTEM_ID=YOUR_SYSTEM_ID
 NEMOPAY_VERSION=2019-06-26
 GILL_APP_KEY=YOUR_GILL_API_KEY
-EVENT_ID=YOUR_DEFAULT_EVENT_NUMBER
 ```
 
 ## Environements

@@ -12,12 +12,17 @@ export default function Wallet(props) {
   const [currentWallet, setCurrentWallet] = React.useState(null);
   const [walletInfos, setWalletInfos] = React.useState(null);
   const { card, setWalletCb, wallet } = props;
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   React.useEffect(() => {
     setLoading(true);
     if (card) {
-      walletAutocomplete({ queryString: card.uid, limit: 2, system_id })
+      walletAutocomplete({
+        queryString: card.uid,
+        limit: 2,
+        system_id,
+        event_id
+      })
         .then(data => {
           if (0 === data.data.length) {
             toast.error(`No wallet found for ${card.uid}`);
@@ -31,7 +36,7 @@ export default function Wallet(props) {
             setWalletInfos(null);
           } else {
             setCurrentWallet(data.data[0]);
-            find({ walletId: data.data[0].id, system_id })
+            find({ walletId: data.data[0].id, system_id, event_id })
               .then(data2 => {
                 setWalletCb(data2.data);
                 setWalletInfos(data2.data);
@@ -48,7 +53,7 @@ export default function Wallet(props) {
         });
     } else if (wallet) {
       setCurrentWallet(wallet);
-      find({ walletId: wallet.id, system_id })
+      find({ walletId: wallet.id, system_id, event_id })
         .then(data2 => {
           setWalletCb(data2.data);
           setWalletInfos(data2.data);
@@ -63,7 +68,7 @@ export default function Wallet(props) {
       setWalletInfos(null);
       setLoading(false);
     }
-  }, [wallet, card, setWalletCb, system_id]);
+  }, [wallet, card, setWalletCb, system_id, event_id]);
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>
       <span className='sr-only'>Loading...</span>

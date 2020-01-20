@@ -21,14 +21,14 @@ export const walletAutocomplete = ({
   );
 };
 
-export const getBalances = ({ wallet_id, system_id }) => {
+export const getBalances = ({ wallet_id, system_id, event_id }) => {
   return POST(
     "GESUSERS/getBalances",
     {
       wallet_id
     },
     {},
-    { system_id }
+    { system_id, event_id }
   );
 };
 
@@ -48,13 +48,14 @@ export const transfer = ({
       message
     },
     {},
-    { system_id }
+    { system_id, event_id }
   );
 };
 
 export const createPairing = ({
   wallet,
   system_id,
+  event_id,
   uid = null,
   short_tag = null
 }) => {
@@ -66,6 +67,6 @@ export const createPairing = ({
       short_tag
     },
     {},
-    { system_id }
+    { system_id, event_id }
   );
 };

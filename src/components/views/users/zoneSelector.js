@@ -7,14 +7,14 @@ import { useParams } from "react-router-dom";
 export default function ZoneSelector(props) {
   const [zones, setZones] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   React.useEffect(() => {
-    getZones({ system_id }).then(data => {
+    getZones({ system_id, event_id }).then(data => {
       setZones(data.data);
       setLoading(false);
     });
-  }, [system_id]);
+  }, [event_id, system_id]);
 
   let options = [
     <option key={0} value={null}>
