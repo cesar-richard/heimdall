@@ -1,12 +1,12 @@
-# Heimdal
+# Heimdall
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ## Introduction
 
-Heimdal is a cross organizer support helper for Payutc, and globally every Weezevent's event organizer.
+Heimdall is a cross organizer support helper for Payutc, and globally every Weezevent's event organizer.
 
-Heimdal uses [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Hot Loader](https://github.com/gaearon/react-hot-loader) for rapid application development (HMR).
+Heimdall uses [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Hot Loader](https://github.com/gaearon/react-hot-loader) for rapid application development (HMR).
 
 <a href="https://facebook.github.io/react/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/react-padded-90.png" /></a>
 <a href="https://webpack.github.io/"><img src="https://github.com/electron-react-boilerplate/electron-react-boilerplate/blob/next/internals/img/webpack-padded-90.png" /></a>
