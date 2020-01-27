@@ -8,6 +8,9 @@ import heimdalConfig from "../config";
 import MyNavbar from "./views/navbar";
 
 export default function ComponentWrapper({ component: Component, ...rest }) {
+  const apm = initApm(heimdalConfig.APM);
+  const { system_id, event_id } = useParams();
+  apm.addLabels({ system_id, event_id });
   return (
     <>
       <MyNavbar />
