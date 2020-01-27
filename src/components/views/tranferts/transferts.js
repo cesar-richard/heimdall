@@ -62,7 +62,8 @@ export default function Transferts(props) {
         <Col>Carte source</Col>
         <Col>
           <Switch
-            onChange={(el, state) =>
+            onChange={
+              (el, state) =>
               setHandledCard(state ? READER_DESTINATION : READER_SOURCE)
             }
             name='handledCard'
