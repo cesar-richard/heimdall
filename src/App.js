@@ -29,6 +29,7 @@ import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
 import useLocalStorage from "react-use-localstorage";
+import ComponentWrapper from "./components/ComponentWrapper";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -72,53 +73,67 @@ class App extends Component {
     apm.setUserContext({ username });
     return (
       <Fragment key='App'>
-        <MyNavbar />
         <div className='App'>
           <Router>
             <Switch>
               <ApmRoute path='/403' exact component={Forbiden} />
               <ApmRoute path='/logout' exact component={Logout} />
               <ApmRoute path='/:system_id(\d+)/login' exact component={Login} />
-              //TODO: Create system level homepage component
               <ApmRoute
                 path='/:system_id(\d+)'
                 exact
-                component={SystemHomepage}
+                component={props => (
+                  <ComponentWrapper component={SystemHomepage} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)'
                 exact
-                component={Homepage}
+                component={props => (
+                  <ComponentWrapper component={Homepage} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/fundations'
                 exact
-                component={FundationList}
+                component={props => (
+                  <ComponentWrapper component={FundationList} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/users'
                 exact
-                component={UserDashboard}
+                component={props => (
+                  <ComponentWrapper component={UserDashboard} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/transferts'
                 exact
-                component={Transferts}
+                component={props => (
+                  <ComponentWrapper component={Transferts} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/fundations/:fundationId(\d+)'
                 exact
-                component={FundationDetails}
+                component={props => (
+                  <ComponentWrapper component={FundationDetails} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/dashboard'
                 exact
-                component={Dashboard}
+                component={props => (
+                  <ComponentWrapper component={Dashboard} {...props} />
+                )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/support'
                 exact
-                component={Support}
+                component={props => (
+                  <ComponentWrapper component={Support} {...props} />
+                )}
               />
             </Switch>
           </Router>
