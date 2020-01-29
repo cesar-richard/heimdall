@@ -7,13 +7,17 @@ import { useParams } from "react-router-dom";
 import heimdalConfig from "../config";
 import MyNavbar from "./views/navbar";
 
-export default function ComponentWrapper({ component: Component, ...rest }) {
+export default function ComponentWrapper({
+  component: Component,
+  navbar,
+  ...rest
+}) {
   const apm = initApm(heimdalConfig.APM);
   const { system_id, event_id } = useParams();
   apm.addLabels({ system_id, event_id });
   return (
     <>
-      <MyNavbar />
+      {navbar ? <MyNavbar /> : null}
       <Component />
     </>
   );

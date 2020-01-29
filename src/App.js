@@ -75,42 +75,62 @@ class App extends Component {
         <div className='App'>
           <Router>
             <Switch>
-              <ApmRoute path='/403' exact component={Forbiden} />
-              <ApmRoute path='/logout' exact component={Logout} />
-              <ApmRoute path='/:system_id(\d+)/login' exact component={Login} />
+              <ApmRoute
+                path='/403'
+                exact
+                component={props => <ComponentWrapper component={Forbiden} />}
+              />
+              <ApmRoute
+                path='/logout'
+                exact
+                component={props => <ComponentWrapper component={Logout} />}
+              />
+              <ApmRoute
+                path='/:system_id(\d+)/login'
+                exact
+                component={props => <ComponentWrapper component={Login} />}
+              />
               <ApmRoute
                 path='/:system_id(\d+)'
                 exact
                 component={props => (
-                  <ComponentWrapper component={SystemHomepage} />
+                  <ComponentWrapper navbar component={SystemHomepage} />
                 )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)'
                 exact
                 component={props => (
-                  <ComponentWrapper component={Homepage} {...props} />
+                  <ComponentWrapper navbar component={Homepage} {...props} />
                 )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/fundations'
                 exact
                 component={props => (
-                  <ComponentWrapper component={FundationList} {...props} />
+                  <ComponentWrapper
+                    navbar
+                    component={FundationList}
+                    {...props}
+                  />
                 )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/users'
                 exact
                 component={props => (
-                  <ComponentWrapper component={UserDashboard} {...props} />
+                  <ComponentWrapper
+                    navbar
+                    component={UserDashboard}
+                    {...props}
+                  />
                 )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/transferts'
                 exact
                 component={props => (
-                  <ComponentWrapper component={Transferts} {...props} />
+                  <ComponentWrapper navbar component={Transferts} {...props} />
                 )}
               />
               <ApmRoute
@@ -124,14 +144,14 @@ class App extends Component {
                 path='/:system_id(\d+)/:event_id(\d+)/dashboard'
                 exact
                 component={props => (
-                  <ComponentWrapper component={Dashboard} {...props} />
+                  <ComponentWrapper navbar component={Dashboard} {...props} />
                 )}
               />
               <ApmRoute
                 path='/:system_id(\d+)/:event_id(\d+)/support'
                 exact
                 component={props => (
-                  <ComponentWrapper component={Support} {...props} />
+                  <ComponentWrapper navbar component={Support} {...props} />
                 )}
               />
             </Switch>
