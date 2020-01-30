@@ -105,6 +105,7 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts"
     ],
+    "coverageDirectory": "<rootDir>/coverage/",
     "setupFiles": [
       "react-app-polyfill/jsdom",
       "jest-localstorage-mock"
