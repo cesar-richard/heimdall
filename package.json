@@ -1,6 +1,6 @@
 {
   "name": "Heimdall",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "author": "Cesar Richard <licorne@utc.fr>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
@@ -130,7 +130,9 @@
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "moduleFileExtensions": [
       "web.js",
       "js",
