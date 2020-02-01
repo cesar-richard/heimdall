@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 export const getTicketGrantingTicket = (casUrl, username, password, service) =>
   axios({
-    url: "https://cors-anywhere.herokuapp.com/" + casUrl.data + "/v1/tickets/",
+    url: "https://cors-anywhere.herokuapp.com/" + casUrl + "/v1/tickets/",
     method: "POST",
     headers: {
       "Content-type": "application/x-www-form-urlencoded",
@@ -22,7 +22,7 @@ export const getServiceTicket = (
   axios({
     url:
       "https://cors-anywhere.herokuapp.com/" +
-      casUrl.data +
+      casUrl +
       "/v1/tickets/" +
       ticketGrantingTicket,
     method: "POST",
