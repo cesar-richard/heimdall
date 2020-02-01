@@ -1,19 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./store";
-import { BrowserRouter as Router } from "react-router-dom";
+import Enzyme, { mount, render, shallow } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>,
-    div
-  );
-  ReactDOM.unmountComponentAtNode(div);
+Enzyme.configure({ adapter: new Adapter() });
+describe("Main App", () => {
+  it("Render without crashing", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });

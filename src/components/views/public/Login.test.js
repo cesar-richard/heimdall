@@ -2,7 +2,6 @@ import React from "react";
 import Login from "./Login";
 import Enzyme, { mount, render, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { MemoryRouter, Route } from "react-router-dom";
 import "jest-localstorage-mock";
 
 Enzyme.configure({ adapter: new Adapter() });
