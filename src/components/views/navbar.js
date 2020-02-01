@@ -39,9 +39,7 @@ export default function MyNavbar(props) {
                     Support
                   </Nav.Link>
                 </>
-              ) : (
-                <></>
-              )}
+              ) : null}
               <Nav.Link href='/logout'>Logout</Nav.Link>
             </Nav>
             <Navbar.Text>
@@ -49,9 +47,7 @@ export default function MyNavbar(props) {
             </Navbar.Text>
           </Navbar.Collapse>
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </Navbar>
   );
 }
