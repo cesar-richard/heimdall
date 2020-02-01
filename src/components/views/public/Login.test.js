@@ -15,7 +15,7 @@ jest.mock("react", () => {
   const ActualReact = require.requireActual("react");
   return {
     ...ActualReact,
-    useContext: () => ({ match: { params: { system_id: 160677 } } }) // what you want to return when useContext get fired goes here
+    useContext: () => ({ match: { params: { system_id: 160677 } } })
   };
 });
 
@@ -28,7 +28,7 @@ describe("Login Component", () => {
     it("Render for logged in user", () => {
       localStorage.setItem(
         "accessToken",
-        JSON.stringify({ username: "myusername" })
+        JSON.stringify({ username: "unicorn" })
       );
       const wrapper = shallow(<Login />);
       expect(wrapper).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe("Login Component", () => {
     it("Render for logged in user", () => {
       localStorage.setItem(
         "accessToken",
-        JSON.stringify({ username: "myusername" })
+        JSON.stringify({ username: "unicorn" })
       );
       const wrapper = shallow(<Login />);
       expect(wrapper).toMatchSnapshot();

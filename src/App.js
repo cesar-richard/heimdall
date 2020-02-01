@@ -75,65 +75,69 @@ class App extends Component {
         <div className='App'>
           <Router>
             <Switch>
-              <ComponentWrapper path='/403' exact navbar component={Forbiden} />
+              <ComponentWrapper path='403' exact navbar component={Forbiden} />
+              <ComponentWrapper path='logout' exact navbar component={Logout} />
               <ComponentWrapper
-                path='/logout'
-                exact
-                navbar
-                component={Logout}
-              />
-              <ComponentWrapper
-                path='/:system_id(\d+)/login'
+                path='login'
+                systemAware
                 exact
                 component={Login}
               />
               <ComponentWrapper
-                path='/:system_id(\d+)'
+                path=''
+                systemAware
                 exact
                 navbar
                 component={SystemHomepage}
               />
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)'
+                path=''
+                eventAware
                 exact
                 navbar
                 component={Homepage}
               />
 
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/fundations'
+                path='fundations'
+                eventAware
                 exact
                 navbar
                 component={FundationList}
               />
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/users'
+                path='users'
                 exact
                 navbar
+                eventAware
                 component={UserDashboard}
               />
 
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/transferts'
+                path='transferts'
+                eventAware
                 exact
                 navbar
                 component={Transferts}
               />
 
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/fundations/:fundationId(\d+)'
+                path='fundations/:fundationId(\d+)'
+                eventAware
                 exact
                 navbar
                 component={FundationDetails}
               />
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/dashboard'
+                path='dashboard'
+                eventAware
                 exact
                 navbar
                 component={Dashboard}
               />
               <ComponentWrapper
-                path='/:system_id(\d+)/:event_id(\d+)/support'
+                path='support'
+                eventAware
                 exact
                 navbar
                 component={Support}
