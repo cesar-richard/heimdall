@@ -27,3 +27,6 @@ yarn-error.log*
 smashtest/
 
 .env
+
+cc-test-reporter
+coverage
