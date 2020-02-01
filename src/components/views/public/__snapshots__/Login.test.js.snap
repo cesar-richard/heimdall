@@ -1,43 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Login Component Render for a CAS orga Render for logged in user 1`] = `
+<Redirect
+  to="/160677"
+/>
+`;
+
 exports[`Login Component Render for a CAS orga Render for logged out user 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "35s7uq",
-          "pathname": "/80405",
-          "search": "",
-          "state": undefined,
-        },
-      ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "35s7uq",
-        "pathname": "/80405",
-        "search": "",
-        "state": undefined,
-      },
-      "push": [Function],
-      "replace": [Function],
-    }
-  }
+<header
+  className="App-header"
 >
-  <Route
-    component={[Function]}
-    path="/:system_id"
-  />
-</Router>
+  <Container
+    fluid={false}
+  >
+    <ForwardRef
+      noGutters={false}
+    >
+      <Col />
+      <Col
+        sm={3}
+      >
+        <div
+          className="text-center"
+        >
+          <div
+            className="block-center mt-xl wd-xl login-body"
+          >
+            <div
+              className="panel panel-dark panel-flat"
+            >
+              <div
+                className="panel-heading text-center"
+                id="login-page-container"
+              >
+                <h1>
+                  Heimdall
+                </h1>
+                <div />
+              </div>
+              <div
+                className="panel-body"
+              >
+                <Spinner
+                  animation="border"
+                  role="status"
+                  size="sm"
+                >
+                  <span
+                    className="sr-only"
+                  >
+                    Loading...
+                  </span>
+                </Spinner>
+              </div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </Col>
+      <Col />
+    </ForwardRef>
+  </Container>
+</header>
+`;
+
+exports[`Login Component Render for a non CAS orga Render for logged in user 1`] = `
+<Redirect
+  to="/160677"
+/>
+`;
+
+exports[`Login Component Render for a non CAS orga Render for logged out user 1`] = `
+<header
+  className="App-header"
+>
+  <Container
+    fluid={false}
+  >
+    <ForwardRef
+      noGutters={false}
+    >
+      <Col />
+      <Col
+        sm={3}
+      >
+        <div
+          className="text-center"
+        >
+          <div
+            className="block-center mt-xl wd-xl login-body"
+          >
+            <div
+              className="panel panel-dark panel-flat"
+            >
+              <div
+                className="panel-heading text-center"
+                id="login-page-container"
+              >
+                <h1>
+                  Heimdall
+                </h1>
+                <div />
+              </div>
+              <div
+                className="panel-body"
+              >
+                <Spinner
+                  animation="border"
+                  role="status"
+                  size="sm"
+                >
+                  <span
+                    className="sr-only"
+                  >
+                    Loading...
+                  </span>
+                </Spinner>
+              </div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </Col>
+      <Col />
+    </ForwardRef>
+  </Container>
+</header>
 `;

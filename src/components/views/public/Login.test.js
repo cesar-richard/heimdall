@@ -11,59 +11,41 @@ beforeEach(() => {
   localStorage.clear();
 });
 jest.mock("../../../api/gill/resources");
+jest.mock("react", () => {
+  const ActualReact = require.requireActual("react");
+  return {
+    ...ActualReact,
+    useContext: () => ({ match: { params: { system_id: 160677 } } }) // what you want to return when useContext get fired goes here
+  };
+});
 
 describe("Login Component", () => {
   describe("Render for a CAS orga", () => {
     it("Render for logged out user", () => {
-      const match = { params: { system_id: 160677 } };
-      const wrapper = shallow(<Login match={match} context={5} />);
+      const wrapper = shallow(<Login />);
       expect(wrapper).toMatchSnapshot();
-      console.log(wrapper);
     });
-    /*
     it("Render for logged in user", () => {
       localStorage.setItem(
         "accessToken",
         JSON.stringify({ username: "myusername" })
       );
-      const tree = renderer
-        .create(
-          <MemoryRouter initialEntries={["/80405"]}>
-            <Route path='/:system_id'>
-              <Login />
-            </Route>
-          </MemoryRouter>
-        )
-        .toJSON();
+      const wrapper = shallow(<Login />);
+      expect(wrapper).toMatchSnapshot();
     });
   });
-
   describe("Render for a non CAS orga", () => {
     it("Render for logged out user", () => {
-      const tree = renderer
-        .create(
-          <MemoryRouter initialEntries={["/80405"]}>
-            <Route path='/:system_id'>
-              <Login />
-            </Route>
-          </MemoryRouter>
-        )
-        .toJSON();
+      const wrapper = shallow(<Login />);
+      expect(wrapper).toMatchSnapshot();
     });
     it("Render for logged in user", () => {
       localStorage.setItem(
         "accessToken",
         JSON.stringify({ username: "myusername" })
       );
-      const tree = renderer
-        .create(
-          <MemoryRouter initialEntries={["/80405"]}>
-            <Route path='/:system_id'>
-              <Login />
-            </Route>
-          </MemoryRouter>
-        )
-        .toJSON();
-    });*/
+      const wrapper = shallow(<Login />);
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 });

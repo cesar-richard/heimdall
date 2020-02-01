@@ -28,7 +28,6 @@ import SystemHomepage from "./components/views/SystemHomepage";
 import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
-import useLocalStorage from "react-use-localstorage";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {

@@ -41,6 +41,8 @@ export default function Login(props) {
       setCasUrl(url.data);
     });
   }, [system_id]);
+  if (localStorage.hasOwnProperty("accessToken"))
+    return <Redirect to={`/${system_id}`} />;
 
   let handleSubmitWeez = event => {
     event.preventDefault();
@@ -70,7 +72,7 @@ export default function Login(props) {
           apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          window.location = `/${system_id}`;
+          return <Redirect to={`/${system_id}`} />;
         }
       ],
       (err, res) => {
@@ -136,7 +138,7 @@ export default function Login(props) {
           apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          window.location = `/${system_id}`;
+          return <Redirect to={`/${system_id}`} />;
         }
       ],
       (err, res) => {
