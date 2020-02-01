@@ -28,6 +28,7 @@ import SystemHomepage from "./components/views/SystemHomepage";
 import "./App.css";
 import packagejson from "../package.json";
 import heimdalConfig from "./config";
+import ComponentWrapper from "./components/ComponentWrapper";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -71,52 +72,70 @@ class App extends Component {
     apm.setUserContext({ username });
     return (
       <Fragment key='App'>
-        <MyNavbar />
         <div className='App'>
           <Router>
             <Switch>
-              <ApmRoute path='/403' exact component={Forbiden} />
-              <ApmRoute path='/logout' exact component={Logout} />
-              <ApmRoute path='/:system_id(\d+)/login' exact component={Login} />
-              //TODO: Create system level homepage component
-              <ApmRoute
+              <ComponentWrapper path='/403' exact navbar component={Forbiden} />
+              <ComponentWrapper
+                path='/logout'
+                exact
+                navbar
+                component={Logout}
+              />
+              <ComponentWrapper
+                path='/:system_id(\d+)/login'
+                exact
+                component={Login}
+              />
+              <ComponentWrapper
                 path='/:system_id(\d+)'
                 exact
+                navbar
                 component={SystemHomepage}
               />
-              <ApmRoute
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)'
                 exact
+                navbar
                 component={Homepage}
               />
-              <ApmRoute
+
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/fundations'
                 exact
+                navbar
                 component={FundationList}
               />
-              <ApmRoute
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/users'
                 exact
+                navbar
                 component={UserDashboard}
               />
-              <ApmRoute
+
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/transferts'
                 exact
+                navbar
                 component={Transferts}
               />
-              <ApmRoute
+
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/fundations/:fundationId(\d+)'
                 exact
+                navbar
                 component={FundationDetails}
               />
-              <ApmRoute
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/dashboard'
                 exact
+                navbar
                 component={Dashboard}
               />
-              <ApmRoute
+              <ComponentWrapper
                 path='/:system_id(\d+)/:event_id(\d+)/support'
                 exact
+                navbar
                 component={Support}
               />
             </Switch>

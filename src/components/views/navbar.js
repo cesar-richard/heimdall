@@ -9,7 +9,7 @@ export default function MyNavbar(props) {
   const username = isLoggedIn
     ? JSON.parse(localStorage.getItem("accessToken")).username
     : null;
-  const { system_id, event_id } = { system_id: 80405, event_id: 1 }; //useParams();
+  const { system_id, event_id } = useParams();
   return (
     <Navbar collapseOnSelect expand='sm' bg='primary' variant='dark'>
       <Navbar.Brand href={`/${system_id}`}>{packagejson.name}</Navbar.Brand>
@@ -21,21 +21,25 @@ export default function MyNavbar(props) {
             className='justify-content-between'
           >
             <Nav className='mr-auto'>
-              <Nav.Link href={`/${system_id}/${event_id}/fundations`}>
-                Fundations
-              </Nav.Link>
-              <Nav.Link href={`/${system_id}/${event_id}/users`}>
-                Users
-              </Nav.Link>
-              <Nav.Link href={`/${system_id}/${event_id}/transferts`}>
-                Transferts
-              </Nav.Link>
-              <Nav.Link href={`/${system_id}/${event_id}/dashboard`}>
-                Dashboard
-              </Nav.Link>
-              <Nav.Link href={`/${system_id}/${event_id}/support`}>
-                Support
-              </Nav.Link>
+              {undefined !== event_id ? (
+                <>
+                  <Nav.Link href={`/${system_id}/${event_id}/fundations`}>
+                    Fundations
+                  </Nav.Link>
+                  <Nav.Link href={`/${system_id}/${event_id}/users`}>
+                    Users
+                  </Nav.Link>
+                  <Nav.Link href={`/${system_id}/${event_id}/transferts`}>
+                    Transferts
+                  </Nav.Link>
+                  <Nav.Link href={`/${system_id}/${event_id}/dashboard`}>
+                    Dashboard
+                  </Nav.Link>
+                  <Nav.Link href={`/${system_id}/${event_id}/support`}>
+                    Support
+                  </Nav.Link>
+                </>
+              ) : null}
               <Nav.Link href='/logout'>Logout</Nav.Link>
             </Nav>
             <Navbar.Text>
@@ -43,9 +47,7 @@ export default function MyNavbar(props) {
             </Navbar.Text>
           </Navbar.Collapse>
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </Navbar>
   );
 }

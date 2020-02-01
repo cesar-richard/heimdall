@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshots Renders logged in on event level 1`] = `
+<nav
+  className="navbar navbar-expand-sm navbar-dark bg-primary"
+>
+  <a
+    className="navbar-brand"
+    href="/160677"
+  >
+    Heimdall
+  </a>
+  <button
+    aria-controls="responsive-navbar-nav"
+    aria-label="Toggle navigation"
+    className="navbar-toggler collapsed"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="navbar-toggler-icon"
+    />
+  </button>
+  <div
+    aria-expanded={null}
+    className="justify-content-between navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
+    <div
+      className="mr-auto navbar-nav"
+      onKeyDown={[Function]}
+    >
+      <a
+        className="nav-link"
+        data-rb-event-key="/160677/1/fundations"
+        href="/160677/1/fundations"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Fundations
+      </a>
+      <a
+        className="nav-link"
+        data-rb-event-key="/160677/1/users"
+        href="/160677/1/users"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Users
+      </a>
+      <a
+        className="nav-link"
+        data-rb-event-key="/160677/1/transferts"
+        href="/160677/1/transferts"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Transferts
+      </a>
+      <a
+        className="nav-link"
+        data-rb-event-key="/160677/1/dashboard"
+        href="/160677/1/dashboard"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Dashboard
+      </a>
+      <a
+        className="nav-link"
+        data-rb-event-key="/160677/1/support"
+        href="/160677/1/support"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Support
+      </a>
+      <a
+        className="nav-link"
+        data-rb-event-key="/logout"
+        href="/logout"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Logout
+      </a>
+    </div>
+    <span
+      className="navbar-text"
+    >
+      Signed in as: 
+      <a
+        href="#login"
+      >
+        myusername
+      </a>
+    </span>
+  </div>
+</nav>
+`;
+
+exports[`Snapshots Renders logged in on system level 1`] = `
+<nav
+  className="navbar navbar-expand-sm navbar-dark bg-primary"
+>
+  <a
+    className="navbar-brand"
+    href="/160677"
+  >
+    Heimdall
+  </a>
+  <button
+    aria-controls="responsive-navbar-nav"
+    aria-label="Toggle navigation"
+    className="navbar-toggler collapsed"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="navbar-toggler-icon"
+    />
+  </button>
+  <div
+    aria-expanded={null}
+    className="justify-content-between navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
+    <div
+      className="mr-auto navbar-nav"
+      onKeyDown={[Function]}
+    >
+      <a
+        className="nav-link"
+        data-rb-event-key="/logout"
+        href="/logout"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Logout
+      </a>
+    </div>
+    <span
+      className="navbar-text"
+    >
+      Signed in as: 
+      <a
+        href="#login"
+      >
+        myusername
+      </a>
+    </span>
+  </div>
+</nav>
+`;
+
+exports[`Snapshots Renders logged out 1`] = `
+<nav
+  className="navbar navbar-expand-sm navbar-dark bg-primary"
+>
+  <a
+    className="navbar-brand"
+    href="/160677"
+  >
+    Heimdall
+  </a>
+</nav>
+`;
