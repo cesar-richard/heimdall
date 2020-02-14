@@ -620,7 +620,7 @@ module.exports = function(webpackEnv) {
         "SENTRY_PROJECT",
         "SENTRY_AUTH_TOKEN"
       ]),
-      "development" == process.env.NODE_ENV
+      "development" !== process.env.NODE_ENV
         ? new SentryWebpackPlugin({
             include: ".",
             ignore: ["node_modules", "webpack.config.js", "build"],

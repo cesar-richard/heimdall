@@ -10,7 +10,8 @@ import MyNavbar from "./views/navbar";
 export default function ComponentWrapper({
   component,
   navbar,
-  path,
+  pathSuffix,
+  exact,
   systemAware,
   eventAware,
   ...rest
@@ -18,14 +19,18 @@ export default function ComponentWrapper({
   const apm = initApm(heimdalConfig.APM);
   apm.addLabels(useParams());
   const pathPrefix = eventAware
-    ? "/:system_id(d+)/:event_id(d+)"
+    ? "/:system_id(\\d+)/:event_id(\\d+)"
     : systemAware
-    ? "/:system_id(d+)"
+    ? "/:system_id(\\d+)"
     : "";
   return (
-    <Route path={path}>
+    <Route exact={exact} path={`${pathPrefix}/${pathSuffix}`}>
       {navbar ? <MyNavbar /> : null}
-      <ApmRoute component={component} path={`${pathPrefix}/${path}`} />
+      <ApmRoute
+        component={component}
+        exact={exact}
+        path={`${pathPrefix}/${pathSuffix}`}
+      />
     </Route>
   );
 }
