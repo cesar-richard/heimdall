@@ -1,14 +1,6 @@
 import React, { Component, Fragment } from "react";
 import * as Sentry from "@sentry/browser";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import {
-  Redirect,
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  withRouter
-} from "react-router-dom";
+import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
 import Forbiden from "./components/views/public/Forbiden";
