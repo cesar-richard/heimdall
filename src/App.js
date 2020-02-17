@@ -57,8 +57,7 @@ library.add(
 
 class App extends Component {
   render() {
-    const isLoggedIn = localStorage.hasOwnProperty("accessToken");
-    const username = isLoggedIn
+    const username = localStorage.hasOwnProperty("accessToken")
       ? JSON.parse(localStorage.getItem("accessToken")).username
       : null;
     apm.setUserContext({ username });
