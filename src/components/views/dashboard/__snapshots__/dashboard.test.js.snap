@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Render without crashing 1`] = `
+<CardColumns>
+  <Card
+    body={false}
+  >
+    <CardHeader>
+      Currencies
+    </CardHeader>
+    <DashboardCurrencies />
+  </Card>
+  <Card
+    body={false}
+  >
+    <CardHeader>
+      Zone accesses
+    </CardHeader>
+    <DashboardZoneAccesses />
+  </Card>
+</CardColumns>
+`;
