@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Render without crashing 1`] = `
+<Container
+  fluid={true}
+  style={
+    Object {
+      "backgroundColor": "#2C3E50",
+      "display": "flex",
+      "justifyContent": "center",
+    }
+  }
+>
+  <ForwardRef
+    noGutters={false}
+  >
+    <img
+      src="/img/forbiden.png"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    />
+  </ForwardRef>
+</Container>
+`;
