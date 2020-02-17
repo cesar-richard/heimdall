@@ -1,4 +1,4 @@
-# Heimdall
+# Heimdall [![Coverage Status](https://coveralls.io/repos/github/cesar-richard/heimdall/badge.svg?branch=master)](https://coveralls.io/github/cesar-richard/heimdall?branch=master)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
