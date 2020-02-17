@@ -12,4 +12,4 @@ script:
   - yarn build
 after_script:
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.json coverage/lcov.info # Format frontend coverage
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi # Upload coverage/codeclimate.json
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage;cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; fi # Upload coverage/codeclimate.json
