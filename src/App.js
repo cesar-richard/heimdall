@@ -57,10 +57,13 @@ library.add(
 
 class App extends Component {
   render() {
-    const username = localStorage.hasOwnProperty("accessToken")
-      ? JSON.parse(localStorage.getItem("accessToken")).username
-      : null;
-    apm.setUserContext({ username });
+    apm.setUserContext({
+      username: JSON.parse(
+        localStorage.getItem("accessToken")
+          ? localStorage.getItem("accessToken")
+          : "{}"
+      ).username
+    });
     return (
       <Fragment key='App'>
         <div className='App'>
