@@ -27,7 +27,10 @@ function test(method, methodName, data) {
       await expect(method("endPoint", [], [], [])).resolves.toEqual(data);
     });
     it("Throw Exception on error", async () => {
-      const data = { response: { status: 401 } };
+      const data = {
+        response: { config: undefined, message: "Gill said : undefined" },
+        status: 401
+      };
       axios.mockImplementationOnce(() => Promise.reject(data));
       await expect(method("endPoint", [], [], [])).rejects.toEqual(data);
     });
