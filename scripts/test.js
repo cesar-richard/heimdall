@@ -35,6 +35,7 @@ function isInMercurialRepository() {
   }
 }
 
+argv.push("--coverage");
 // Watch unless on CI or explicitly running all tests
 if (!process.env.CI && -1 === argv.indexOf("--watchAll")) {
   // https://github.com/facebook/create-react-app/issues/5210
