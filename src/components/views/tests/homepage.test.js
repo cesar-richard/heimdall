@@ -1,5 +1,5 @@
 import React from "react";
-import Homepage from "./homepage";
+import Homepage from "../homepage";
 import Enzyme, { mount, render, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { MemoryRouter, Route } from "react-router-dom";
@@ -17,7 +17,7 @@ describe("Homepage", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("Renders logged in on system level", () => {
+  it("Renders logged in on event level", () => {
     localStorage.setItem(
       "accessToken",
       JSON.stringify({ username: "myusername" })

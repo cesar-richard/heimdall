@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Homepage Renders logged in on system level 1`] = `
+exports[`Homepage Renders logged in on event level 1`] = `
 <Router
   history={
     Object {
@@ -11,7 +11,7 @@ exports[`Homepage Renders logged in on system level 1`] = `
       "entries": Array [
         Object {
           "hash": "",
-          "key": "xrv2vm",
+          "key": "i2z3bv",
           "pathname": "/160677/1",
           "search": "",
           "state": undefined,
@@ -25,7 +25,7 @@ exports[`Homepage Renders logged in on system level 1`] = `
       "listen": [Function],
       "location": Object {
         "hash": "",
-        "key": "xrv2vm",
+        "key": "i2z3bv",
         "pathname": "/160677/1",
         "search": "",
         "state": undefined,
@@ -54,7 +54,7 @@ exports[`Homepage Renders logged out 1`] = `
       "entries": Array [
         Object {
           "hash": "",
-          "key": "owfxhm",
+          "key": "r4hrcb",
           "pathname": "/160677/1",
           "search": "",
           "state": undefined,
@@ -68,7 +68,7 @@ exports[`Homepage Renders logged out 1`] = `
       "listen": [Function],
       "location": Object {
         "hash": "",
-        "key": "owfxhm",
+        "key": "r4hrcb",
         "pathname": "/160677/1",
         "search": "",
         "state": undefined,

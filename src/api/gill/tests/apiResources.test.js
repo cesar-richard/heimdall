@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DELETE, GET, PATCH, POST, PUT } from "./apiServices";
+import { DELETE, GET, PATCH, POST, PUT } from "../apiResources";
 jest.mock("axios");
 beforeEach(() => {
   localStorage.clear();
