@@ -16,14 +16,9 @@ import { useParams } from "react-router-dom";
 import { getEvents } from "../../api/gill/resources";
 
 export default function Homepage(props) {
-  const [loading, setLoading] = React.useState(false);
   const goTo = React.useCallback(m => window.location.assign(m), []);
   const { system_id, event_id } = useParams();
-  return loading ? (
-    <Spinner animation='border' role='status' size='sm'>
-      <span className='sr-only'>Loading...</span>
-    </Spinner>
-  ) : (
+  retur(
     <Container fluid style={{ padding: 0 }}>
       <Row>
         <Col style={{ padding: 0 }}>
