@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Router } from "react-router-dom";
 import heimdalConfig from "../../config";
+import "jest-localstorage-mock";
 
 axios.defaults.baseURL = heimdalConfig.GILL_BASE_API_URL;
 
