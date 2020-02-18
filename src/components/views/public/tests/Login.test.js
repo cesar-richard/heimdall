@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./Login";
+import Login from "../Login";
 import Enzyme, { mount, render, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import "jest-localstorage-mock";

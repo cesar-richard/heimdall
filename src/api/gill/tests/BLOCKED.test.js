@@ -1,6 +1,6 @@
-import { POST } from "./apiServices";
-import { getAllBlocked, remove } from "./BLOCKED";
-jest.mock("./apiServices");
+import { POST } from "../apiServices";
+import { getAllBlocked, remove } from "../BLOCKED";
+jest.mock("../apiServices");
 
 describe("getAllBlocked", () => {
   it("fetches successfully data from API", async () => {
