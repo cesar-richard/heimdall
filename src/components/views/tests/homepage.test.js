@@ -8,8 +8,10 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("Homepage", () => {
   it("Renders logged out", () => {
     const wrapper = shallow(
-      <MemoryRouter initialEntries={["/160677/1"]}>
-        <Route path='/:system_id/:event_id'>
+      <MemoryRouter
+        initialEntries={[{ pathname: "/160677/1", key: "testKey" }]}
+      >
+        <Route key='testRouter' path='/:system_id/:event_id'>
           <Homepage />
         </Route>
       </MemoryRouter>
@@ -23,8 +25,10 @@ describe("Homepage", () => {
       JSON.stringify({ username: "myusername" })
     );
     const wrapper = shallow(
-      <MemoryRouter initialEntries={["/160677/1"]}>
-        <Route path='/:system_id/:event_id'>
+      <MemoryRouter
+        initialEntries={[{ pathname: "/160677/1", key: "testKey" }]}
+      >
+        <Route key='testRouter' path='/:system_id/:event_id'>
           <Homepage />
         </Route>
       </MemoryRouter>

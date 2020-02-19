@@ -36,7 +36,9 @@ function test(method, methodName, data, expectedCallParams) {
     });
     it("Throw Exception on empty error", async () => {
       axios.mockImplementationOnce(() => Promise.reject());
-      await expect(method("endPoint", [], [], [])).rejects.toEqual();
+      await expect(method("endPoint", [], [], [])).rejects.toEqual(
+        "unknown error"
+      );
       expect(axios).toHaveBeenCalledWith(expectedCallParams);
     });
   });
@@ -47,8 +49,9 @@ describe("apiResources", () => {
     DELETE,
     "DELETE",
     {
-      response: { config: undefined, message: "Gill said : undefined" },
-      status: 401
+      status: undefined,
+      config: undefined,
+      message: "Gill said : undefined"
     },
     {
       data: [],
@@ -67,8 +70,9 @@ describe("apiResources", () => {
     GET,
     "GET",
     {
-      response: { config: undefined, message: "Gill said : undefined" },
-      status: 401
+      status: undefined,
+      config: undefined,
+      message: "Gill said : undefined"
     },
     {
       headers: {
@@ -86,8 +90,9 @@ describe("apiResources", () => {
     PATCH,
     "PATCH",
     {
-      response: { config: undefined, message: "Gill said : undefined" },
-      status: 401
+      status: undefined,
+      config: undefined,
+      message: "Gill said : undefined"
     },
     {
       data: [],
@@ -106,8 +111,9 @@ describe("apiResources", () => {
     POST,
     "POST",
     {
-      response: { config: undefined, message: "Gill said : undefined" },
-      status: 401
+      status: undefined,
+      config: undefined,
+      message: "Gill said : undefined"
     },
     {
       data: [],
@@ -126,8 +132,9 @@ describe("apiResources", () => {
     PUT,
     "PUT",
     {
-      response: { config: undefined, message: "Gill said : undefined" },
-      status: 401
+      status: undefined,
+      config: undefined,
+      message: "Gill said : undefined"
     },
     {
       data: [],
