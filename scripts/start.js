@@ -67,12 +67,12 @@ checkBrowsers(paths.appPath, isInteractive)
     return choosePort(HOST, DEFAULT_PORT);
   })
   .then(port => {
-    if (port == null) {
+    if (null == port) {
       // We have not found a port.
       return;
     }
     const config = configFactory("development");
-    const protocol = process.env.HTTPS === "true" ? "https" : "http";
+    const protocol = "true" === process.env.HTTPS ? "https" : "http";
     const appName = require(paths.appPackageJson).name;
     const useTypeScript = fs.existsSync(paths.appTsConfig);
     const urls = prepareUrls(protocol, HOST, port);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { DELETE, GET, PATCH, POST, PUT } from "../apiServices";
 import heimdalConfig from "../../../config";
+import "jest-localstorage-mock";
 jest.mock("axios");
 beforeEach(() => {
   localStorage.clear();
