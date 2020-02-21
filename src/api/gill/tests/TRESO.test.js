@@ -1,6 +1,10 @@
 import { POST } from "../apiClient";
 import { getTotalCreditByCurrency } from "../TRESO";
 jest.mock("../apiClient");
+beforeEach(() => {
+  jest.resetAllMocks();
+  jest.mock("../apiClient");
+});
 
 describe("getTotalCreditByCurrency", () => {
   it("fetches successfully data from API", async () => {

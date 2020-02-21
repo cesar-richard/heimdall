@@ -1,6 +1,10 @@
-import { GET } from "../apiClient";
+import { GET, POST, PUT } from "../apiClient";
 import { getEvents, getFundations } from "../resources";
 jest.mock("../apiClient");
+beforeEach(() => {
+  jest.resetAllMocks();
+  jest.mock("../apiClient");
+});
 
 const errorReal = {
   config: {
@@ -62,6 +66,13 @@ describe("resources API", () => {
           system_id: 160677
         })
       ).resolves.toEqual(data);
+      expect(GET).toHaveBeenCalledWith(
+        "resources",
+        "events",
+        { ordering: "-live_start", removed__isnull: true },
+        {},
+        { system_id: 160677 }
+      );
     });
   });
   describe("getFundations", () => {
@@ -74,6 +85,13 @@ describe("resources API", () => {
           event_id: 1
         })
       ).resolves.toEqual(data);
+      expect(GET).toHaveBeenCalledWith(
+        "resources",
+        "fundations",
+        { ordering: "name" },
+        {},
+        { event_id: 1, system_id: 160677 }
+      );
     });
   });
 });
