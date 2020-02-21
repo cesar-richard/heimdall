@@ -1,6 +1,6 @@
-import { POST } from "../apiServices";
+import { POST } from "../apiClient";
 import { getTotalCreditByCurrency } from "../TRESO";
-jest.mock("../apiServices");
+jest.mock("../apiClient");
 
 describe("getTotalCreditByCurrency", () => {
   it("fetches successfully data from API", async () => {

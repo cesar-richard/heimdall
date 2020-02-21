@@ -1,5 +1,5 @@
-import { POST } from "../apiServices";
-jest.mock("../apiServices");
+import { POST } from "../apiClient";
+jest.mock("../apiClient");
 
 describe("OFFLINE", () => {
   it("TODO", async () => {
