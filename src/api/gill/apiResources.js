@@ -33,13 +33,13 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
   }
 
   return axios(config).catch(err => {
-    let { response } = err;
-    console.error(err);
-    if (response && (401 === response.status || 403 === response.status)) {
-      console.error(response.data);
-      //window.location.assign("/logout");
+    if (err === undefined) {
+      throw "unknown error";
     }
-
+    let { response } = err;
+    if (response && 401 === response.status) {
+      window.location.assign("/logout");
+    }
     response = response || { data: {} };
     const errorObject = {
       config: response.config,

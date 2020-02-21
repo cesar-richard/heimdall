@@ -1,6 +1,5 @@
 import axios from "axios";
 import heimdalConfig from "../../config";
-import "jest-localstorage-mock";
 
 axios.defaults.baseURL = heimdalConfig.GILL_BASE_API_URL;
 
@@ -30,8 +29,10 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
   }
 
   return axios(config).catch(err => {
+    if (err === undefined) {
+      throw "unknown error";
+    }
     let { response } = err;
-    console.error(err);
     if (
       response ||
       (401 === response.status ||
@@ -39,13 +40,12 @@ const request = (endPoint, method, params, headers = {}, forcedParams = {}) => {
           ("Session not valid for this system" === response.data ||
             "User must be logged" === response.data.error.message)))
     ) {
-      throw new Exception(response.data.error.message, response.data);
+      throw "unknown error";
       //window.location.assign("/logout");
     }
 
     response = response || { data: {} };
 
-    console.error(response.data.error);
     let message = response.data.message
       ? response.data.message
       : response.data.error

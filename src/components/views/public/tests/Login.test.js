@@ -9,7 +9,7 @@ Enzyme.configure({ adapter: new Adapter() });
 beforeEach(() => {
   localStorage.clear();
 });
-jest.mock("../../../api/gill/resources");
+jest.mock("../../../../api/gill/resources");
 jest.mock("react", () => {
   const ActualReact = require.requireActual("react");
   return {
