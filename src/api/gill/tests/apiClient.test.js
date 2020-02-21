@@ -10,6 +10,18 @@ beforeEach(() => {
   jest.mock("axios");
 });
 
+function testInvalidType(method, methodName) {
+  describe(methodName, () => {
+    it("Should throw an error", async () => {
+      try {
+        method("InvalidType", "endPoint", [], []);
+      } catch (e) {
+        expect(e).toBe("Invalid request type");
+      }
+    });
+  });
+}
+
 function test(type, method, methodName, data, expectedCallParams) {
   describe(methodName, () => {
     it("Send requests to API", async () => {
@@ -18,6 +30,13 @@ function test(type, method, methodName, data, expectedCallParams) {
       expect(axios).toHaveBeenCalledWith(expectedCallParams);
     });
     it("Send requests to API with forcedParams", async () => {
+      axios.mockImplementationOnce(() => Promise.resolve(data));
+      await expect(method(type, "endPoint", [], [], null, [])).resolves.toEqual(
+        data
+      );
+      expect(axios).toHaveBeenCalledWith(expectedCallParams);
+    });
+    it("Send requests to API with custom header", async () => {
       axios.mockImplementationOnce(() => Promise.resolve(data));
       await expect(method(type, "endPoint", [], [], [])).resolves.toEqual(data);
       expect(axios).toHaveBeenCalledWith(expectedCallParams);
@@ -157,5 +176,12 @@ describe("apiClient", () => {
   });
   describe("Services", () => {
     testType("services");
+  });
+  describe("Invalid type", () => {
+    testInvalidType(DELETE, "DELETE");
+    testInvalidType(GET, "GET");
+    testInvalidType(PATCH, "PATCH");
+    testInvalidType(POST, "POST");
+    testInvalidType(PUT, "PUT");
   });
 });
