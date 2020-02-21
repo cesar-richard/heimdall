@@ -1,5 +1,5 @@
 import React from "react";
-import MyNavbar from "./navbar";
+import MyNavbar from "../navbar";
 import renderer from "react-test-renderer";
 import { MemoryRouter, Route } from "react-router-dom";
 import "jest-localstorage-mock";

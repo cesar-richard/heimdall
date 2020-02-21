@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getServiceTicket, getTicketGrantingTicket } from "./cas";
+import { getServiceTicket, getTicketGrantingTicket } from "../cas";
 jest.mock("axios");
 describe("getTicketGrantingTicket", () => {
   it("fetches successfully data from API", async () => {

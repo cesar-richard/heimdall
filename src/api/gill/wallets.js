@@ -1,4 +1,4 @@
-import { GET, POST } from "./apiResources";
+import { GET, POST } from "./apiClient";
 import heimdalConfig from "../../config";
 
 export const search = ({
@@ -12,6 +12,7 @@ export const search = ({
   weez_removed = false
 }) => {
   return GET(
+    "resources",
     "wallets",
     {
       event: event_id,
@@ -28,7 +29,7 @@ export const search = ({
 };
 
 export const find = ({ walletId, system_id }) => {
-  return GET(`wallets/${walletId}`, {}, {}, { system_id });
+  return GET("resources", `wallets/${walletId}`, {}, {}, { system_id });
 };
 
 export const batchAccess = ({
@@ -41,6 +42,7 @@ export const batchAccess = ({
   periods = [4]
 }) => {
   return POST(
+    "resources",
     `wallets/batch_access?id__in=${walletIds.join()}`,
     {
       action_set: [
@@ -66,6 +68,7 @@ export const batchRefill = ({
   refillKind = "Heimdal"
 }) => {
   return POST(
+    "resources",
     `wallets/batch_refill?id__in=${walletIds.join()}`,
     {
       action_set: [

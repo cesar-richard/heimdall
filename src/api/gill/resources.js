@@ -1,7 +1,8 @@
-import { GET, POST, PUT } from "./apiResources";
+import { GET, POST, PUT } from "./apiClient";
 
 export const getFundations = ({ system_id, event_id }) => {
   return GET(
+    "resources",
     "fundations",
     { ordering: "name" },
     {},
@@ -18,15 +19,22 @@ export const getWalletGroups = ({
   system_id,
   event_id
 }) => {
-  return GET("walletgroups", { limit, ordering }, {}, { system_id, event_id });
+  return GET(
+    "resources",
+    "walletgroups",
+    { limit, ordering },
+    {},
+    { system_id, event_id }
+  );
 };
 
 export const getCurrencies = ({ group, system_id, event_id }) => {
-  return GET("currencies", { group }, {}, { system_id, event_id });
+  return GET("resources", "currencies", { group }, {}, { system_id, event_id });
 };
 
 export const getSalesLocations = ({ fundationId, system_id, event_id }) => {
   return GET(
+    "resources",
     "saleslocations",
     { fundation: fundationId },
     {},
@@ -43,6 +51,7 @@ export const putSalesLocations = ({
   event_id
 }) => {
   return PUT(
+    "resources",
     "saleslocations/" + salesLocationId,
     {
       id: salesLocationId,
@@ -61,7 +70,7 @@ export const getZones = ({
   system_id,
   event_id
 }) => {
-  return GET("zones", { periods }, {}, { system_id, event_id });
+  return GET("resources", "zones", { periods }, {}, { system_id, event_id });
 };
 
 export const addWalletToWalletgroup = ({
@@ -71,6 +80,7 @@ export const addWalletToWalletgroup = ({
   event_id
 }) => {
   return POST(
+    "resources",
     `walletgroups/${walletGroupId}/members`,
     {
       wallet_id: walletId
@@ -89,6 +99,7 @@ export const getZoneAccesses = ({
   event_id
 } = {}) => {
   return GET(
+    "resources",
     "zoneaccesses",
     { wallet, period, zone, limit },
     {},
@@ -97,7 +108,7 @@ export const getZoneAccesses = ({
 };
 
 export const getPeriods = ({ event = 1, system_id }) => {
-  return GET("periods", { event }, {}, { system_id });
+  return GET("resources", "periods", { event }, {}, { system_id });
 };
 
 export const getEvents = ({
@@ -106,6 +117,7 @@ export const getEvents = ({
   excludeRemoved = true
 }) => {
   return GET(
+    "resources",
     "events",
     { ordering: order, removed__isnull: excludeRemoved },
     {},
