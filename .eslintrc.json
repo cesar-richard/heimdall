@@ -22,7 +22,9 @@
       "warn",
       {
         "ignoreCase": true,
-        "ignoreDeclarationSort": true
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
       }
     ],
     "sort-vars": "warn",
