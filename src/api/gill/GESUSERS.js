@@ -1,4 +1,4 @@
-import { POST } from "./apiServices";
+import { POST } from "./apiClient";
 import heimdalConfig from "../../config";
 
 export const walletAutocomplete = ({
@@ -9,6 +9,7 @@ export const walletAutocomplete = ({
   event = heimdalConfig.EVENT_ID
 }) => {
   return POST(
+    "services",
     "GESUSERS/walletAutocomplete",
     {
       queryString,
@@ -23,6 +24,7 @@ export const walletAutocomplete = ({
 
 export const getBalances = ({ wallet_id, system_id, event_id }) => {
   return POST(
+    "services",
     "GESUSERS/getBalances",
     {
       wallet_id
@@ -40,6 +42,7 @@ export const transfer = ({
   system_id
 }) => {
   return POST(
+    "services",
     "GESUSERS/transfer",
     {
       wallet_src,
@@ -60,6 +63,7 @@ export const createPairing = ({
   short_tag = null
 }) => {
   return POST(
+    "services",
     "GESUSERS/createPairing",
     {
       wallet,

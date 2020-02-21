@@ -1,6 +1,6 @@
-import { GET } from "../apiResources";
+import { GET } from "../apiClient";
 import { getEvents, getFundations } from "../resources";
-jest.mock("../apiResources");
+jest.mock("../apiClient");
 
 const errorReal = {
   config: {
