@@ -11,8 +11,8 @@ const request = (
   headers = {},
   forcedParams = {}
 ) => {
-  if ("resources" !== type && "services" !== type) {
-    throw "Invalid request type";
+  if (!["resources", "services"].includes(type)) {
+    throw new Error("Invalid request type");
   }
   let config = {
     method: method.toLowerCase(),
