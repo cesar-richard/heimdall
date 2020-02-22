@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 export default function DashboardZoneAccesses(props) {
   const [zoneAccesses, setZoneAccesses] = React.useState([]);
   const [loadingZoneAccesses, setLoadingZoneAccesses] = React.useState(true);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   const computeTotalZoneAccesses = (accesses, zones = []) => {
     let tmp = [];
     accesses.map(el => {
@@ -31,9 +31,9 @@ export default function DashboardZoneAccesses(props) {
 
   React.useEffect(() => {
     setLoadingZoneAccesses(true);
-    getZones({ system_id })
+    getZones({ system_id, event_id })
       .then(dataZones => {
-        getZoneAccesses({ system_id })
+        getZoneAccesses({ system_id, event_id })
           .then(data => {
             setZoneAccesses(
               computeTotalZoneAccesses(data.data, dataZones.data)
@@ -41,8 +41,8 @@ export default function DashboardZoneAccesses(props) {
             setLoadingZoneAccesses(false);
             setInterval(
               () =>
-                getZones({ system_id }).then(dataZones =>
-                  getZoneAccesses({ system_id }).then(data =>
+                getZones({ system_id, event_id }).then(dataZones =>
+                  getZoneAccesses({ system_id, event_id }).then(data =>
                     setZoneAccesses(
                       computeTotalZoneAccesses(data.data, dataZones.data)
                     )
@@ -54,7 +54,7 @@ export default function DashboardZoneAccesses(props) {
           .catch(data => toast.error(data));
       })
       .catch(data => toast.error(data));
-  }, [system_id]);
+  }, [event_id, system_id]);
   let rows = [];
   zoneAccesses.map(el =>
     rows.push(

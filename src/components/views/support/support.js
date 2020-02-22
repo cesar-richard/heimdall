@@ -63,7 +63,7 @@ export default function Support(props) {
                     variant='primary'
                     onClick={() =>
                       createPairing({
-                        wallet: wallet.id,
+                        wallet_id: wallet.id,
                         system_id,
                         event_id
                       }).then(() => toast("Done"))}

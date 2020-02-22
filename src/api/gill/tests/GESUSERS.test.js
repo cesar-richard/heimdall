@@ -87,13 +87,12 @@ describe("GESUSERS", () => {
     POST,
     walletAutocomplete,
     "walletAutocomplete",
-    { queryString: "qs", system_id: 160677, event_id: 1 },
+    { queryString: "qs", system_id: 160677 },
     {},
     [
       "services",
       "GESUSERS/walletAutocomplete",
       {
-        event: 1,
         queryString: "qs",
         user__merged_into: false,
         weez_removed: false

@@ -4,15 +4,10 @@ import heimdalConfig from "../../config";
 export const walletAutocomplete = ({
   queryString,
   system_id,
-  event_id,
   user__merged_into = false,
   weez_removed = false
 } = {}) => {
-  if (
-    system_id === undefined ||
-    event_id === undefined ||
-    queryString === undefined
-  )
+  if (system_id === undefined || queryString === undefined)
     throw new Error("missing parameters");
   return POST(
     "services",
@@ -20,8 +15,7 @@ export const walletAutocomplete = ({
     {
       queryString,
       user__merged_into,
-      weez_removed,
-      event: event_id
+      weez_removed
     },
     {},
     { system_id }

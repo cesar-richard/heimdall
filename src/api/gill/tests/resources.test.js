@@ -227,17 +227,10 @@ describe("resources API", () => {
     getZones,
     "getZones",
     {
-      periods: [1],
       system_id: 160677,
       event_id: 1
     },
     {},
-    [
-      "resources",
-      "zones",
-      { periods: [1] },
-      {},
-      { event_id: 1, system_id: 160677 }
-    ]
+    ["resources", "zones", {}, {}, { event_id: 1, system_id: 160677 }]
   );
 });

@@ -33,7 +33,7 @@ export const getWalletGroups = ({
 };
 
 export const getCurrencies = ({ group, system_id, event_id } = {}) => {
-  if (system_id === undefined || event_id === undefined || group === undefined)
+  if (system_id === undefined || event_id === undefined)
     throw new Error("missing parameters");
   return GET("resources", "currencies", { group }, {}, { system_id, event_id });
 };
@@ -95,11 +95,7 @@ export const getZones = ({
   system_id,
   event_id
 } = {}) => {
-  if (
-    system_id === undefined ||
-    event_id === undefined ||
-    periods === undefined
-  )
+  if (system_id === undefined || event_id === undefined)
     throw new Error("missing parameters");
   return GET("resources", "zones", { periods }, {}, { system_id, event_id });
 };
@@ -136,13 +132,7 @@ export const getZoneAccesses = ({
   system_id,
   event_id
 } = {}) => {
-  if (
-    system_id === undefined ||
-    event_id === undefined ||
-    zone === undefined ||
-    period === undefined ||
-    wallet === undefined
-  )
+  if (system_id === undefined || event_id === undefined)
     throw new Error("missing parameters");
   return GET(
     "resources",
