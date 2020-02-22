@@ -1,6 +1,8 @@
 import { GET, POST, PUT } from "./apiClient";
 
-export const getFundations = ({ system_id, event_id }) => {
+export const getFundations = ({ system_id, event_id } = {}) => {
+  if (system_id === undefined || event_id === undefined)
+    throw new Error("missing parameters");
   return GET(
     "resources",
     "fundations",
@@ -18,7 +20,9 @@ export const getWalletGroups = ({
   ordering = "name,id",
   system_id,
   event_id
-}) => {
+} = {}) => {
+  if (system_id === undefined || event_id === undefined)
+    throw new Error("missing parameters");
   return GET(
     "resources",
     "walletgroups",
@@ -28,11 +32,23 @@ export const getWalletGroups = ({
   );
 };
 
-export const getCurrencies = ({ group, system_id, event_id }) => {
+export const getCurrencies = ({ group, system_id, event_id } = {}) => {
+  if (system_id === undefined || event_id === undefined || group === undefined)
+    throw new Error("missing parameters");
   return GET("resources", "currencies", { group }, {}, { system_id, event_id });
 };
 
-export const getSalesLocations = ({ fundationId, system_id, event_id }) => {
+export const getSalesLocations = ({
+  fundationId,
+  system_id,
+  event_id
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    fundationId === undefined
+  )
+    throw new Error("missing parameters");
   return GET(
     "resources",
     "saleslocations",
@@ -49,7 +65,16 @@ export const putSalesLocations = ({
   enabled,
   system_id,
   event_id
-}) => {
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    enabled === undefined ||
+    fundationId === undefined ||
+    salesLocationId === undefined ||
+    name === undefined
+  )
+    throw new Error("missing parameters");
   return PUT(
     "resources",
     "saleslocations/" + salesLocationId,
@@ -69,7 +94,13 @@ export const getZones = ({
   ordering = "name,id",
   system_id,
   event_id
-}) => {
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    periods === undefined
+  )
+    throw new Error("missing parameters");
   return GET("resources", "zones", { periods }, {}, { system_id, event_id });
 };
 
@@ -78,7 +109,14 @@ export const addWalletToWalletgroup = ({
   walletId,
   system_id,
   event_id
-}) => {
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    walletGroupId === undefined ||
+    walletId === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "resources",
     `walletgroups/${walletGroupId}/members`,
@@ -98,6 +136,14 @@ export const getZoneAccesses = ({
   system_id,
   event_id
 } = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    zone === undefined ||
+    period === undefined ||
+    wallet === undefined
+  )
+    throw new Error("missing parameters");
   return GET(
     "resources",
     "zoneaccesses",
@@ -107,7 +153,8 @@ export const getZoneAccesses = ({
   );
 };
 
-export const getPeriods = ({ event = 1, system_id }) => {
+export const getPeriods = ({ event = 1, system_id } = {}) => {
+  if (system_id === undefined) throw new Error("missing parameters");
   return GET("resources", "periods", { event }, {}, { system_id });
 };
 
@@ -115,7 +162,8 @@ export const getEvents = ({
   system_id,
   order = "-live_start",
   excludeRemoved = true
-}) => {
+} = {}) => {
+  if (system_id === undefined) throw new Error("missing parameters");
   return GET(
     "resources",
     "events",
