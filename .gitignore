@@ -4,6 +4,7 @@
 /node_modules
 
 # testing
+test-report.html
 /coverage
 
 # production
