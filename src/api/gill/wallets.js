@@ -10,7 +10,13 @@ export const search = ({
   ordering = "id",
   user__merged_into = false,
   weez_removed = false
-}) => {
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    queryString === undefined
+  )
+    throw new Error("missing parameters");
   return GET(
     "resources",
     "wallets",
@@ -37,10 +43,16 @@ export const batchAccess = ({
   quantity,
   zones,
   system_id,
-  event = heimdalConfig.EVENT_ID,
   kind = "set",
   periods = [4]
-}) => {
+} = {}) => {
+  if (
+    walletIds === undefined ||
+    quantity === undefined ||
+    zones === undefined ||
+    system_id === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "resources",
     `wallets/batch_access?id__in=${walletIds.join()}`,
@@ -65,8 +77,15 @@ export const batchRefill = ({
   currency,
   system_id,
   kind = "set",
-  refillKind = "Heimdal"
-}) => {
+  refillKind = "Heimdall"
+} = {}) => {
+  if (
+    walletIds === undefined ||
+    quantity === undefined ||
+    currency === undefined ||
+    system_id === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "resources",
     `wallets/batch_refill?id__in=${walletIds.join()}`,
