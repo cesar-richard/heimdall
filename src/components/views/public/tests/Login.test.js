@@ -18,7 +18,7 @@ jest.mock("react", () => {
   };
 });
 
-describe("Login Component", () => {
+describe("Login", () => {
   describe("Render for a CAS orga", () => {
     it("Render for logged out user", () => {
       const wrapper = shallow(<Login />);

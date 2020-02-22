@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dashboard Render without crashing 1`] = `
+exports[`Forbiden Render without crashing 1`] = `
 <Container
   fluid={true}
   style={
