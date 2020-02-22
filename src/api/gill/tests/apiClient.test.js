@@ -16,7 +16,7 @@ function testInvalidType(method, methodName) {
       try {
         method("InvalidType", "endPoint", [], []);
       } catch (e) {
-        expect(e).toBe("Invalid request type");
+        expect(e.message).toBe("Invalid request type");
       }
     });
   });

@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 export default function Balances(props) {
   const [loading, setLoading] = React.useState(true);
   const [balances, setBalances] = React.useState([]);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   React.useEffect(() => {
     setLoading(true);
-    getBalances({ wallet_id: props.walletId, system_id })
+    getBalances({ wallet_id: props.walletId, system_id, event_id })
       .then(data => {
         setBalances(data.data);
         setLoading(false);
@@ -22,7 +22,7 @@ export default function Balances(props) {
         setLoading(false);
         toast.error(`Error with gill: ${err}`);
       });
-  }, [props.walletId, system_id]);
+  }, [event_id, props.walletId, system_id]);
 
   return loading ? (
     <Spinner animation='border' role='status' size='sm'>

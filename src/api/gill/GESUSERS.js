@@ -3,26 +3,32 @@ import heimdalConfig from "../../config";
 
 export const walletAutocomplete = ({
   queryString,
-  user__merged_into = false,
-  weez_removed = false,
   system_id,
-  event = heimdalConfig.EVENT_ID
-}) => {
+  user__merged_into = false,
+  weez_removed = false
+} = {}) => {
+  if (system_id === undefined || queryString === undefined)
+    throw new Error("missing parameters");
   return POST(
     "services",
     "GESUSERS/walletAutocomplete",
     {
       queryString,
       user__merged_into,
-      weez_removed,
-      event
+      weez_removed
     },
     {},
     { system_id }
   );
 };
 
-export const getBalances = ({ wallet_id, system_id, event_id }) => {
+export const getBalances = ({ wallet_id, system_id, event_id } = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    wallet_id === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "services",
     "GESUSERS/getBalances",
@@ -39,8 +45,18 @@ export const transfer = ({
   wallet_dst,
   amount,
   message,
-  system_id
-}) => {
+  system_id,
+  event_id
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    wallet_src === undefined ||
+    wallet_dst === undefined ||
+    message === undefined ||
+    amount === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "services",
     "GESUSERS/transfer",
@@ -56,17 +72,23 @@ export const transfer = ({
 };
 
 export const createPairing = ({
-  wallet,
+  wallet_id,
   system_id,
   event_id,
   uid = null,
   short_tag = null
-}) => {
+} = {}) => {
+  if (
+    system_id === undefined ||
+    event_id === undefined ||
+    wallet_id === undefined
+  )
+    throw new Error("missing parameters");
   return POST(
     "services",
     "GESUSERS/createPairing",
     {
-      wallet,
+      wallet: wallet_id,
       uid,
       short_tag
     },

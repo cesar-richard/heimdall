@@ -13,7 +13,7 @@ export default function DataRow(props) {
   const [wallet, setWallet] = React.useState(null);
   const [error, setError] = React.useState(null);
   const { cells, addWallet, removeWallet } = props;
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   let queryString = "";
   const walletId = cells[0].value;
@@ -23,7 +23,7 @@ export default function DataRow(props) {
   React.useEffect(() => {
     setLoading(true);
     if ("" !== walletId) {
-      find({ walletId, system_id })
+      find({ walletId, system_id, event_id })
         .then(data => {
           if (wallet) {
             removeWallet(wallet.id);
@@ -42,7 +42,7 @@ export default function DataRow(props) {
           setError(`Error with gill: ${err.toString()}`);
         });
     } else if ("" !== queryString) {
-      search({ queryString, limit: 2, system_id })
+      search({ queryString, limit: 2, system_id, event_id })
         .then(data => {
           if (0 === data.data.length) {
             if (wallet) {

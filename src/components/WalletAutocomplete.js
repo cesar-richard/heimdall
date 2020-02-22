@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 export default function WalletAutocomplete(props) {
   const [current, setCurrent] = React.useState(props.value || "");
   const [suggestions, setSuggestions] = React.useState([""]);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   const getSuggestions = value => {
     const escapedValue = value.trim();
@@ -20,7 +20,8 @@ export default function WalletAutocomplete(props) {
     walletAutocomplete({
       queryString: escapedValue,
       limit: 10,
-      system_id
+      system_id,
+      event: event_id
     }).then(data => {
       setSuggestions(data.data);
     });

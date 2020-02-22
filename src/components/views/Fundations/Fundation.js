@@ -23,13 +23,13 @@ export default function Fundation(props) {
     if (0 == id) {
       return setLoadingSalesLoc(false);
     }
-    getSalesLocations({ fundationId: id, system_id })
+    getSalesLocations({ fundationId: id, system_id, event_id })
       .then(data => {
         setSalesLocations(data.data);
       })
       .catch(data => toast.error(data))
       .finally(() => setLoadingSalesLoc(false));
-  }, [id, system_id]);
+  }, [event_id, id, system_id]);
 
   React.useEffect(() => {
     getAllBlocked({ fundationId: id, system_id })

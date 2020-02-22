@@ -12,7 +12,7 @@ export default function SalesLocationItem(props) {
     salesLocation
   );
   const [isLoading, setLoading] = React.useState(false);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   const handleClick = e => {
     setLoading(true);
     putSalesLocations({
@@ -20,7 +20,8 @@ export default function SalesLocationItem(props) {
       salesLocationId: e.target.dataset.slid,
       name: e.target.dataset.name,
       enabled: e.target.dataset.enabled,
-      system_id
+      system_id,
+      event_id
     })
       .then(datas => {
         setSalesLocationData(datas.data);

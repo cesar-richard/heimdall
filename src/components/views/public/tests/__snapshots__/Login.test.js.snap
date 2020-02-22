@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login Component Render for a CAS orga Render for logged in user 1`] = `
+exports[`Login Render for a CAS orga Render for logged in user 1`] = `
 <Redirect
   to="/160677"
 />
 `;
 
-exports[`Login Component Render for a CAS orga Render for logged out user 1`] = `
+exports[`Login Render for a CAS orga Render for logged out user 1`] = `
 <header
   className="App-header"
 >
@@ -64,13 +64,13 @@ exports[`Login Component Render for a CAS orga Render for logged out user 1`] = 
 </header>
 `;
 
-exports[`Login Component Render for a non CAS orga Render for logged in user 1`] = `
+exports[`Login Render for a non CAS orga Render for logged in user 1`] = `
 <Redirect
   to="/160677"
 />
 `;
 
-exports[`Login Component Render for a non CAS orga Render for logged out user 1`] = `
+exports[`Login Render for a non CAS orga Render for logged out user 1`] = `
 <header
   className="App-header"
 >

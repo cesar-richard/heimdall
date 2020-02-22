@@ -25,7 +25,7 @@ export default function SalesLocationList(props) {
   const [isLocationsLoading, setLocationsLoading] = React.useState(true);
   const [salesLocations, setSalesLocations] = React.useState(null);
   const [valueFilter, setValueFilter] = React.useState("");
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   React.useEffect(() => {
     if (0 === fundationId) {
@@ -33,11 +33,13 @@ export default function SalesLocationList(props) {
       setLocationsLoading(false);
       return;
     }
-    getSalesLocations({ fundationId: fundationId, system_id }).then(datas => {
-      setSalesLocations(datas.data);
-      setLocationsLoading(false);
-    });
-  }, [fundationId, system_id]);
+    getSalesLocations({ fundationId: fundationId, system_id, event_id }).then(
+      datas => {
+        setSalesLocations(datas.data);
+        setLocationsLoading(false);
+      }
+    );
+  }, [event_id, fundationId, system_id]);
 
   if (isLocationsLoading) {
     return (
