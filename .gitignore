@@ -5,6 +5,7 @@
 
 # testing
 test-report.html
+jest_html_reporters.html
 /coverage
 
 # production
