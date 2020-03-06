@@ -10,7 +10,7 @@
     "DANGEROUSLY_DISABLE_HOST_CHECK": {
       "required": true
     },
-    "GILL_API_KEY": {
+    "GILL_APP_KEY": {
       "required": true
     },
     "SENTRY_AUTH_TOKEN": {
