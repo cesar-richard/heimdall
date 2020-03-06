@@ -6,6 +6,7 @@ import ZoneSelector from "./zoneSelector";
 import PeriodSelector from "./periodSelector";
 import { batchAccess, batchRefill } from "../../../api/gill/wallets";
 import { addWalletToWalletgroup } from "../../../api/gill/resources";
+import { block } from "../../../api/gill/BLOCKED";
 import { useParams } from "react-router-dom";
 import PromisePool from "es6-promise-pool";
 import PropTypes from "prop-types";
@@ -46,17 +47,28 @@ export default function ActionForm({ walletList }) {
       case "addWalletsToGroup":
         return addWalletToWalletgroup({
           walletGroupId: group,
-          walletId: wallet,
+          walletId: wallet.id,
           system_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
       case "setCurrencyForWallet":
         return batchRefill({
-          walletIds: [wallet],
+          walletIds: [wallet.id],
           quantity: currencyQuantity * 100,
           currency,
           system_id
+        }).then(() =>
+          setProcessState(Math.floor((++count / walletList.length) * 100))
+        );
+      case "blockWallet":
+        return block({
+          userId: wallet.user.id,
+          fundationId: 0,
+          system_id,
+          raison: "Campagne d'integ",
+          walletId: wallet.id,
+          dateFin: "2020-03-12T22:59:00.000Z"
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -101,10 +113,10 @@ export default function ActionForm({ walletList }) {
               <option value='addZoneAccessToWallet'>
                 Add zone access to wallets
               </option>
+              <option value='blockWallet'>Block wallet</option>
             </Form.Control>
           </Form.Group>
         </Col>
-
         {"setCurrencyForWallet" === action ? (
           <>
             <Col sm={2}>
@@ -140,6 +152,8 @@ export default function ActionForm({ walletList }) {
               />
             </Form.Group>
           </Col>
+        ) : "blockWallet" === action ? (
+          <Col sm={2} />
         ) : (
           <>
             <Col sm={2}>

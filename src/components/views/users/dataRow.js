@@ -26,17 +26,17 @@ export default function DataRow(props) {
       find({ walletId, system_id, event_id })
         .then(data => {
           if (wallet) {
-            removeWallet(wallet.id);
+            removeWallet(wallet);
           }
           setWallet(data.data);
-          addWallet(data.data.id);
+          addWallet(data.data);
           setError(null);
           setLoading(false);
         })
         .catch(err => {
           setLoading(false);
           if (wallet) {
-            removeWallet(wallet.id);
+            removeWallet(wallet);
           }
           setWallet(null);
           setError(`Error with gill: ${err.toString()}`);
@@ -46,7 +46,7 @@ export default function DataRow(props) {
         .then(data => {
           if (0 === data.data.length) {
             if (wallet) {
-              removeWallet(wallet.id);
+              removeWallet(wallet);
             }
             setWallet(null);
             setError("No wallet found");
@@ -55,7 +55,7 @@ export default function DataRow(props) {
             setError("More than one wallet found");
           } else {
             setWallet(data.data[0]);
-            addWallet(data.data[0].id);
+            addWallet(data.data[0]);
             setError(null);
           }
           setLoading(false);
@@ -66,7 +66,7 @@ export default function DataRow(props) {
         });
     } else {
       if (wallet) {
-        removeWallet(wallet.id);
+        removeWallet(wallet);
       }
       setWallet(null);
       setError(null);
@@ -93,7 +93,9 @@ export default function DataRow(props) {
         ) : error ? (
           `${error}`
         ) : wallet ? (
-          `${wallet.user ? wallet.user.username : wallet.name}(W${wallet.id})`
+          `${wallet.user ? wallet.user.username : wallet.name}(U${
+            wallet.user.id
+          }W${wallet.id})`
         ) : (
           "Empty string"
         )}
