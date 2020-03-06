@@ -1,6 +1,9 @@
 {
   "name": "Heimdall",
   "version": "3.4.0",
+  "engines": {
+    "node": "10.17.0"
+  },
   "author": "Cesar Richard <licorne@utc.fr>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
