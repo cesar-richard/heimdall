@@ -4,17 +4,22 @@ import WalletGroupSelector from "./walletGroupSelector";
 import CurrencySelector from "./currencySelector";
 import ZoneSelector from "./zoneSelector";
 import PeriodSelector from "./periodSelector";
+import FundationSelector from "./fundationSelector";
 import { batchAccess, batchRefill } from "../../../api/gill/wallets";
 import { addWalletToWalletgroup } from "../../../api/gill/resources";
 import { block } from "../../../api/gill/BLOCKED";
 import { useParams } from "react-router-dom";
 import PromisePool from "es6-promise-pool";
 import PropTypes from "prop-types";
+import moment from "moment";
+import MomentInput from "react-moment-input";
 
 export default function ActionForm({ walletList }) {
   const [action, setAction] = React.useState("addWalletsToGroup");
   const [group, setGroup] = React.useState(null);
   const [currency, setCurrency] = React.useState(null);
+  const [group, setGroup] = React.useState("");
+  const [currency, setCurrency] = React.useState("");
   const [currencyQuantity, setCurrencyQuantity] = React.useState(0);
   const [zoneQuantity, setZoneQuantity] = React.useState(0);
   const [zone, setZone] = React.useState(null);
@@ -22,6 +27,11 @@ export default function ActionForm({ walletList }) {
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [processState, setProcessState] = React.useState(0);
   const [method, setMethod] = React.useState("set");
+  const [blockEndDate, setBlockEndDate] = React.useState(
+    moment().add(1, "day")
+  );
+  const [fundation, setFundation] = React.useState("default");
+  const [label, setLabel] = React.useState("");
   const { system_id } = useParams();
   let count = 0;
 
@@ -64,11 +74,11 @@ export default function ActionForm({ walletList }) {
       case "blockWallet":
         return block({
           userId: wallet.user.id,
-          fundationId: 0,
+          fundationId: fundation,
           system_id,
-          raison: "Campagne d'integ",
+          raison: label,
           walletId: wallet.id,
-          dateFin: "2020-03-12T22:59:00.000Z"
+          dateFin: blockEndDate.toISOString()
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -153,7 +163,45 @@ export default function ActionForm({ walletList }) {
             </Form.Group>
           </Col>
         ) : "blockWallet" === action ? (
-          <Col sm={2} />
+          <>
+            <Col sm={2}>
+              <Form.Group controlId='selectFundation' disabled={isProcessing}>
+                <FundationSelector
+                  value={fundation}
+                  onChange={synth => setFundation(synth.target.value)}
+                  disabled={isProcessing}
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={2}>
+              <Form.Group controlId='blockLabel' disabled={isProcessing}>
+                <Form.Control
+                  onChange={synthEvent => {
+                    setLabel(synthEvent.target.value);
+                  }}
+                  value={label}
+                  disabled={isProcessing}
+                  placeholder='Motif'
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={3}>
+              <MomentInput
+                min={moment()}
+                value={blockEndDate}
+                options
+                readOnly={false}
+                icon={false}
+                format='DD/MM/YYYY HH:mm'
+                iconType=''
+                onChange={date => {
+                  console.log(date);
+                  setBlockEndDate(date);
+                }}
+              />
+            </Col>
+          </>
         ) : (
           <>
             <Col sm={2}>
