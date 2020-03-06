@@ -623,11 +623,11 @@ module.exports = function(webpackEnv) {
       "development" !== process.env.NODE_ENV
         ? new SentryWebpackPlugin({
             include: ".",
-            ignore: ["node_modules", "webpack.config.js", "build", "coverage"],
-            release: `${packagejson.name}@${packagejson.version}`,
-            setCommits: {
+            ignore: ["node_modules", "webpack.config.js", "build"],
+            release: `${packagejson.name}@${packagejson.version}`
+            /*setCommits: {
               auto: true
-            }
+            }*/
           })
         : null
     ].filter(Boolean),
