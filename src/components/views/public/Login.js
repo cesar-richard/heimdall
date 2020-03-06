@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import PropTypes from "prop-types";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
@@ -29,12 +29,13 @@ const apm = initApm(heimdalConfig.APM);
 export default function Login(props) {
   const [casUrl, setCasUrl] = React.useState(null);
   const [isLoading, setLoading] = React.useState(false);
-  const [usingCAS, setUsingCAS] = React.useState(true);
+  const [usingCAS, setUsingCAS] = React.useState(false);
   const [processStep, setProcessStep] = React.useState(0);
   const [statusMessage, setStatusMessage] = React.useState("");
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { system_id } = useParams();
+  let history = useHistory();
 
   React.useEffect(() => {
     getCasUrl(system_id).then(url => {
@@ -72,7 +73,7 @@ export default function Login(props) {
           apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          return <Redirect to={`/${system_id}`} />;
+          history.push(`/${system_id}`);
         }
       ],
       (err, res) => {
@@ -138,7 +139,7 @@ export default function Login(props) {
           apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          return <Redirect to={`/${system_id}`} />;
+          history.push(`/${system_id}`);
         }
       ],
       (err, res) => {
