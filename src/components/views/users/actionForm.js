@@ -18,8 +18,6 @@ export default function ActionForm({ walletList }) {
   const [action, setAction] = React.useState("addWalletsToGroup");
   const [group, setGroup] = React.useState(null);
   const [currency, setCurrency] = React.useState(null);
-  const [group, setGroup] = React.useState("");
-  const [currency, setCurrency] = React.useState("");
   const [currencyQuantity, setCurrencyQuantity] = React.useState(0);
   const [zoneQuantity, setZoneQuantity] = React.useState(0);
   const [zone, setZone] = React.useState(null);
