@@ -1,8 +1,10 @@
 import openSocket from "socket.io-client";
 import { getConfig } from "./gill/OFFLINE";
 let socket = {};
+let systemId = null;
 
 export function initializeSocket({ system_id }) {
+  systemId = system_id;
   socket = openSocket("http://localhost:3001");
   getConfig({ system_id }).then(config => {
     socket.emit("systemConfig", config.data);
@@ -21,11 +23,13 @@ export function subscribeNfc({
   socket.on("error", err => onError(err));
   socket.on("start", reader => onStart(reader));
   socket.on("end", reader => onEnd(reader));
-  socket.on("getGillConfig", () =>
-    getConfig({ system_id }).then(config => {
-      socket.emit("systemConfig", config.data);
-    })
-  );
+  socket.on("getGillConfig", () => {
+    if (null !== systemId) {
+      getConfig({ system_id: systemId }).then(config => {
+        socket.emit("systemConfig", config.data);
+      });
+    }
+  });
 }
 
 export function setMode(mode) {

@@ -6,15 +6,12 @@ import ActionForm from "./actionForm";
 function reducer(state, action) {
   switch (action.type) {
     case "addWallet":
-      if (!state.includes(action.wallet)) {
-        state.push(action.wallet);
-      }
-      return state;
+      let tmp = state;
+      if (0 === tmp.filter(x => x.id === action.wallet.id).length)
+        tmp.push(action.wallet);
+      return tmp;
     case "removeWallet":
-      if (state.includes(action.wallet)) {
-        state.splice(state.indexOf(action.wallet), 1);
-      }
-      return state;
+      return state.filter(x => x.id !== action.wallet.id);
     default:
       return state;
   }
