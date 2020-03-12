@@ -43,7 +43,7 @@ export default function ActionForm({ walletList }) {
     switch (action) {
       case "addZoneAccessToWallet":
         return batchAccess({
-          walletIds: [wallet],
+          walletIds: [wallet.id],
           quantity: zoneQuantity,
           kind: method,
           zones: [zone],
