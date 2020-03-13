@@ -93,6 +93,7 @@ export default function ActionForm({ walletList }) {
         walletsToProcess = [];
         walletList.map(w => walletsToProcess.push(w));
         count = 0;
+        setProcessState(count);
         setIsProcessing(true);
         pool
           .start()
