@@ -29,7 +29,7 @@ const apm = initApm(heimdalConfig.APM);
 export default function Login(props) {
   const [casUrl, setCasUrl] = React.useState(null);
   const [isLoading, setLoading] = React.useState(false);
-  const [usingCAS, setUsingCAS] = React.useState(false);
+  const [usingCAS, setUsingCAS] = React.useState(true);
   const [processStep, setProcessStep] = React.useState(0);
   const [statusMessage, setStatusMessage] = React.useState("");
   const [login, setLogin] = React.useState("");

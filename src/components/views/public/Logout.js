@@ -3,5 +3,6 @@ import { Redirect } from "react-router-dom";
 
 export default function Logout(props) {
   localStorage.removeItem("accessToken");
-  return <Redirect to='/' />;
+  const { system_id } = useParams();
+  return <Redirect to={system_id ? `/${system_id}/login` : "/"} />;
 }
