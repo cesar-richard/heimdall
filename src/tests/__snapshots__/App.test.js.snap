@@ -124,7 +124,7 @@ exports[`Main App Render without crashing 1`] = `
       <span>
         Heimdall
         @
-        3.3.5
+        3.4.3
       </span>
     </footer>
   </div>
