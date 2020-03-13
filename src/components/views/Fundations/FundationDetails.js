@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+
 import { getFundations } from "../../../api/gill/resources";
 import FundationModel from "../../../models/FundationModel";
 import BlockedList from "../blockedPeoples/BlockedList";

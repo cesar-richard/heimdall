@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
 import { getAllBlocked } from "../../../api/gill/BLOCKED";
 import BlockedModel from "../../../models/BlockedModel";
