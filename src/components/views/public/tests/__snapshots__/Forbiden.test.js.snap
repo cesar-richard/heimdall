@@ -11,7 +11,7 @@ exports[`Forbiden Render without crashing 1`] = `
     }
   }
 >
-  <ForwardRef
+  <Row
     noGutters={false}
   >
     <img
@@ -22,6 +22,6 @@ exports[`Forbiden Render without crashing 1`] = `
         }
       }
     />
-  </ForwardRef>
+  </Row>
 </Container>
 `;

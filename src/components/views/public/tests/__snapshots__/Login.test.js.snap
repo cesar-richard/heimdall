@@ -13,7 +13,7 @@ exports[`Login Render for a CAS orga Render for logged out user 1`] = `
   <Container
     fluid={false}
   >
-    <ForwardRef
+    <Row
       noGutters={false}
     >
       <Col />
@@ -59,7 +59,7 @@ exports[`Login Render for a CAS orga Render for logged out user 1`] = `
         </div>
       </Col>
       <Col />
-    </ForwardRef>
+    </Row>
   </Container>
 </header>
 `;
@@ -77,7 +77,7 @@ exports[`Login Render for a non CAS orga Render for logged out user 1`] = `
   <Container
     fluid={false}
   >
-    <ForwardRef
+    <Row
       noGutters={false}
     >
       <Col />
@@ -123,7 +123,7 @@ exports[`Login Render for a non CAS orga Render for logged out user 1`] = `
         </div>
       </Col>
       <Col />
-    </ForwardRef>
+    </Row>
   </Container>
 </header>
 `;
