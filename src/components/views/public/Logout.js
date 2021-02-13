@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useParams } from "react";
 import { Redirect } from "react-router-dom";
 
 export default function Logout(props) {

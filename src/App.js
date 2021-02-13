@@ -13,7 +13,6 @@ import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
 import { init as initApm } from "@elastic/apm-rum";
-import { ApmRoute } from "@elastic/apm-rum-react";
 import UserDashboard from "./components/views/users/userDashboard";
 import Support from "./components/views/support/support";
 import SystemHomepage from "./components/views/SystemHomepage";
@@ -43,7 +42,7 @@ Sentry.configureScope(function(scope) {
   scope.setTag("NEMOPAY_VERSION", heimdalConfig.NEMOPAY_VERSION);
 });
 
-const apm = initApm(heimdalConfig.APM);
+//const apm = initApm(heimdalConfig.APM);
 
 library.add(
   faBuilding,
@@ -57,13 +56,13 @@ library.add(
 
 class App extends Component {
   render() {
-    apm.setUserContext({
-      username: JSON.parse(
-        localStorage.getItem("accessToken")
-          ? localStorage.getItem("accessToken")
-          : "{}"
-      ).username
-    });
+    // apm.setUserContext({
+    //   username: JSON.parse(
+    //     localStorage.getItem("accessToken")
+    //       ? localStorage.getItem("accessToken")
+    //       : "{}"
+    //   ).username
+    // });
     return (
       <Fragment key='App'>
         <div className='App'>

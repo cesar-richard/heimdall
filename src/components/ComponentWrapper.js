@@ -16,21 +16,18 @@ export default function ComponentWrapper({
   eventAware,
   ...rest
 }) {
-  const apm = initApm(heimdalConfig.APM);
-  apm.addLabels(useParams());
+  //const apm = initApm(heimdalConfig.APM);
+  //apm.addLabels(useParams());
   const pathPrefix = eventAware
     ? "/:system_id(\\d+)/:event_id(\\d+)"
     : systemAware
     ? "/:system_id(\\d+)"
     : "";
   return (
-    <Route exact={exact} path={`${pathPrefix}/${pathSuffix}`}>
-      {navbar ? <MyNavbar /> : null}
-      <ApmRoute
-        component={component}
-        exact={exact}
-        path={`${pathPrefix}/${pathSuffix}`}
-      />
-    </Route>
+    <Route
+      exact={exact}
+      path={`${pathPrefix}/${pathSuffix}`}
+      component={component}
+    />
   );
 }
