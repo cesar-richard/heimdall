@@ -5,12 +5,12 @@ const heimdalConfig = {
   GILL_APP_KEY: process.env.GILL_APP_KEY || "YOUR_GILL_API_KEY",
   SENTRY_DSN:
     process.env.SENTRY_DSN ||
-    "https://8ae1c2142c714e2784f38e9080503348@sentry.io/1792330",
-  APM: {
-    serviceName: packagejson.name,
-    serverUrl: "http://apm.crichard.fr",
-    serviceVersion: packagejson.version,
-    environment: process.env.NODE_ENV
-  }
+    "https://8ae1c2142c714e2784f38e9080503348@sentry.io/1792330"
+  // APM: {
+  //   serviceName: packagejson.name,
+  //   serverUrl: "http://apm.crichard.fr",
+  //   serviceVersion: packagejson.version,
+  //   environment: process.env.NODE_ENV
+  // }
 };
 export default heimdalConfig;
