@@ -12,7 +12,6 @@ import { Col, Nav, Row, Tab } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import MyNavbar from "./components/views/navbar";
 import Homepage from "./components/views/homepage";
-import { init as initApm } from "@elastic/apm-rum";
 import UserDashboard from "./components/views/users/userDashboard";
 import Support from "./components/views/support/support";
 import SystemHomepage from "./components/views/SystemHomepage";

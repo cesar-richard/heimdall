@@ -21,7 +21,6 @@ import Switch from "react-bootstrap-switch";
 import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
 import packagejson from "../../../../package.json";
 import { Redirect } from "react-router-dom";
-import { init as initApm } from "@elastic/apm-rum";
 import heimdalConfig from "../../../config";
 
 const apm = initApm(heimdalConfig.APM);

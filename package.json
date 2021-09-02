@@ -1,14 +1,13 @@
 {
   "name": "Heimdall",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "engines": {
-    "node": "14.X"
+    "node": "15.X"
   },
   "author": "Cesar Richard <cesar.richard2@gmail.com>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
   "private": true,
   "dependencies": {
-    "@elastic/apm-rum-react": "^0.3.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
@@ -24,7 +23,6 @@
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "dotenv-webpack": "^1.7.0",
-    "elastic-apm-node": "^3.3.0",
     "es6-promise-pool": "^2.5.0",
     "file-loader": "5.0.2",
     "fs-extra": "8.1.0",
