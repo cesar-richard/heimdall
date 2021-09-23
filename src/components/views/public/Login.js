@@ -23,7 +23,7 @@ import packagejson from "../../../../package.json";
 import { Redirect } from "react-router-dom";
 import heimdalConfig from "../../../config";
 
-const apm = initApm(heimdalConfig.APM);
+//const apm = initApm(heimdalConfig.APM);
 
 export default function Login(props) {
   const [casUrl, setCasUrl] = React.useState(null);
@@ -69,7 +69,7 @@ export default function Login(props) {
         (token, callback) => {
           setStatusMessage("Creating session ...");
           setProcessStep(2);
-          apm.setUserContext({ username: token.username });
+          //apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
           history.push(`/${system_id}`);
@@ -135,7 +135,7 @@ export default function Login(props) {
         (token, callback) => {
           setStatusMessage("Creating session ...");
           setProcessStep(6);
-          apm.setUserContext({ username: token.username });
+          //apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
           history.push(`/${system_id}`);
