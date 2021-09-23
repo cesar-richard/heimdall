@@ -117,14 +117,14 @@ exports[`Main App Render without crashing 1`] = `
       <br />
       <span>
         ©
-        2020
+        2021
          - C.Richard
       </span>
       <br />
       <span>
         Heimdall
         @
-        3.4.3
+        3.4.4
       </span>
     </footer>
   </div>
