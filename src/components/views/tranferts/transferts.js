@@ -44,6 +44,9 @@ export default function Transferts(props) {
       onCard: card => {
         setReaderState("success");
         onCardHandler.current(card);
+        setHandledCard(
+          handledCard === READER_SOURCE ? READER_DESTINATION : READER_SOURCE
+        );
       },
       onError: error => {
         toast.error(error);
@@ -62,10 +65,8 @@ export default function Transferts(props) {
         <Col>Carte source</Col>
         <Col>
           <Switch
-            onChange={
-              (el, state) =>
-              setHandledCard(state ? READER_DESTINATION : READER_SOURCE)
-            }
+            onChange={(el, state) =>
+              setHandledCard(state ? READER_DESTINATION : READER_SOURCE)}
             name='handledCard'
             animate
             inverse
@@ -81,7 +82,7 @@ export default function Transferts(props) {
       <Row>
         <Col md={4}>
           {sourceCard ? (
-            <Wallet uid={sourceCard.uid} setWalletCb={setWalletSource} />
+            <Wallet card={sourceCard} setWalletCb={setWalletSource} />
           ) : (
             <></>
           )}
@@ -112,10 +113,7 @@ export default function Transferts(props) {
         </Col>
         <Col md={4}>
           {destinationCard ? (
-            <Wallet
-              uid={destinationCard.uid}
-              setWalletCb={setWalletDestination}
-            />
+            <Wallet card={destinationCard} setWalletCb={setWalletDestination} />
           ) : (
             <></>
           )}
