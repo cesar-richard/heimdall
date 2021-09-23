@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 export default function TransfertCard(props) {
   const { transfertCallback, walletDestination, walletSource } = props;
   const [isLoading, setLoading] = React.useState(false);
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
 
   return (
     <Card border='primary'>
@@ -29,7 +29,7 @@ export default function TransfertCard(props) {
             <ListGroup.Item>
               <Button
                 variant='success'
-                disabled={isLoading}
+                disabled={isLoading || 0 === walletSource.credit}
                 onClick={() => {
                   setLoading(true);
                   transfer({
@@ -37,7 +37,8 @@ export default function TransfertCard(props) {
                     wallet_dst: walletDestination.id,
                     amount: walletSource.credit,
                     message: "Maintenance SiMDE (Heimdall)",
-                    system_id
+                    system_id,
+                    event_id
                   })
                     .then(data => {
                       setLoading(false);
