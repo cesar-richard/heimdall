@@ -30,6 +30,16 @@ export default function Transferts(props) {
   const onCardHandler = React.useRef();
   const { system_id } = useParams();
 
+  const handleCard = React.useCallback(
+    card => {
+      setReaderState("success");
+      onCardHandler.current(card);
+      setHandledCard(
+        handledCard === READER_SOURCE ? READER_DESTINATION : READER_SOURCE
+      );
+    },
+    [handledCard]
+  );
   React.useEffect(() => {
     if (handledCard === READER_SOURCE) {
       onCardHandler.current = setSourceCard;
@@ -42,11 +52,7 @@ export default function Transferts(props) {
     initializeSocket({ system_id });
     subscribeNfc({
       onCard: card => {
-        setReaderState("success");
-        onCardHandler.current(card);
-        setHandledCard(
-          handledCard === READER_SOURCE ? READER_DESTINATION : READER_SOURCE
-        );
+        handleCard(card);
       },
       onError: error => {
         toast.error(error);
@@ -55,7 +61,7 @@ export default function Transferts(props) {
       onStart: () => setReaderState("success"),
       onEnd: () => setReaderState("dark")
     });
-  }, [system_id]);
+  }, [system_id, handleCard]);
   return (
     <Container>
       <Row>

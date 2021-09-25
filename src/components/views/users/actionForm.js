@@ -30,7 +30,7 @@ export default function ActionForm({ walletList }) {
   );
   const [fundation, setFundation] = React.useState("default");
   const [label, setLabel] = React.useState("");
-  const { system_id } = useParams();
+  const { system_id, event_id } = useParams();
   let count = 0;
 
   const CONCURENCY_LIMIT = 10;
@@ -48,7 +48,8 @@ export default function ActionForm({ walletList }) {
           kind: method,
           zones: [zone],
           periods: [period],
-          system_id
+          system_id,
+          event_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -56,7 +57,8 @@ export default function ActionForm({ walletList }) {
         return addWalletToWalletgroup({
           walletGroupId: group,
           walletId: wallet.id,
-          system_id
+          system_id,
+          event_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -65,7 +67,8 @@ export default function ActionForm({ walletList }) {
           walletIds: [wallet.id],
           quantity: currencyQuantity * 100,
           currency,
-          system_id
+          system_id,
+          event_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
@@ -76,7 +79,8 @@ export default function ActionForm({ walletList }) {
           system_id,
           raison: label,
           walletId: wallet.id,
-          dateFin: blockEndDate.toISOString()
+          dateFin: blockEndDate.toISOString(),
+          event_id
         }).then(() =>
           setProcessState(Math.floor((++count / walletList.length) * 100))
         );
