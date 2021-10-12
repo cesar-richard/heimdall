@@ -1,8 +1,8 @@
 {
   "name": "Heimdall",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "engines": {
-    "node": "15.X"
+    "node": ">=15"
   },
   "author": "Cesar Richard <cesar.richard2@gmail.com>",
   "homepage": "https://heimdal-utc.herokuapp.com/",

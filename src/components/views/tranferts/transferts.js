@@ -23,30 +23,25 @@ export default function Transferts(props) {
   const [readerState, setReaderState] = React.useState("warning");
   const [sourceCard, setSourceCard] = React.useState(null);
   const [destinationCard, setDestinationCard] = React.useState(null);
-  const [handledCard, setHandledCard] = React.useState(READER_SOURCE);
   const [walletSource, setWalletSource] = React.useState(null);
   const [walletDestination, setWalletDestination] = React.useState(null);
 
   const onCardHandler = React.useRef();
   const { system_id } = useParams();
 
-  const handleCard = React.useCallback(
-    card => {
-      setReaderState("success");
-      onCardHandler.current(card);
-      setHandledCard(
-        handledCard === READER_SOURCE ? READER_DESTINATION : READER_SOURCE
-      );
-    },
-    [handledCard]
-  );
-  React.useEffect(() => {
-    if (handledCard === READER_SOURCE) {
-      onCardHandler.current = setSourceCard;
-    } else if (handledCard === READER_DESTINATION) {
-      onCardHandler.current = setDestinationCard;
+  const handleCard = React.useCallback(card => {
+    setReaderState("success");
+    switch (card.model.type) {
+      case "ULTRALIGHT":
+        setSourceCard(card);
+        break;
+      case "MIFARE_DESFIRE":
+        setDestinationCard(card);
+        break;
+      default:
+        console.error("Invalid card type");
     }
-  }, [handledCard]);
+  });
 
   React.useEffect(() => {
     initializeSocket({ system_id });
@@ -61,7 +56,7 @@ export default function Transferts(props) {
       onStart: () => setReaderState("success"),
       onEnd: () => setReaderState("dark")
     });
-  }, [system_id, handleCard]);
+  }, [system_id]);
   return (
     <Container>
       <Row>
@@ -69,20 +64,7 @@ export default function Transferts(props) {
       </Row>
       <Row>
         <Col>Carte source</Col>
-        <Col>
-          <Switch
-            onChange={(el, state) =>
-              setHandledCard(state ? READER_DESTINATION : READER_SOURCE)}
-            name='handledCard'
-            animate
-            inverse
-            value={handledCard === READER_DESTINATION}
-            onColor='default'
-            offColor='default'
-            onText='Destination'
-            offText='Source'
-          />
-        </Col>
+        <Col />
         <Col>Carte destination</Col>
       </Row>
       <Row>
@@ -105,7 +87,6 @@ export default function Transferts(props) {
                   setWalletSource(null);
                   setSourceCard(null);
                   setDestinationCard(null);
-                  setHandledCard(READER_SOURCE);
                 }}
               />
             ) : (

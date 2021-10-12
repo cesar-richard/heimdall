@@ -69,7 +69,6 @@ export default function Login(props) {
         (token, callback) => {
           setStatusMessage("Creating session ...");
           setProcessStep(2);
-          //apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
           history.push(`/${system_id}`);

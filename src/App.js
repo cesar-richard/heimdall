@@ -34,7 +34,8 @@ import {
 Sentry.init({
   dsn: heimdalConfig.SENTRY_DSN,
   environment: process.env.NODE_ENV,
-  release: `${packagejson.name}@${packagejson.version}`
+  release: `${packagejson.name}@${packagejson.version}`,
+  autoSessionTracking: true
 });
 
 Sentry.configureScope(function(scope) {
