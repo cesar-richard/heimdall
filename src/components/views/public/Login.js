@@ -251,5 +251,3 @@ export default function Login(props) {
     </header>
   );
 }
-
-Login.propTypes = {};
