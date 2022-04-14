@@ -14,7 +14,7 @@
     "@sentry/browser": "^5.10.2",
     "@sentry/cli": "^1.48.0",
     "@svgr/webpack": "5.1.0",
-    "async": "^3.0.1",
+    "async": "^3.2.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "camelcase": "^5.2.0",
