@@ -40,3 +40,27 @@ export const getWifiConfigs = ({ system_id, event_id } = {}) => {
     { system_id, event_id }
   );
 };
+
+export const updateOrder = ({
+  system_id,
+  event_id,
+  order,
+  status,
+  location_id,
+  desk_id
+} = {}) => {
+  if (system_id === undefined || event_id === undefined)
+    throw new Error("missing parameters");
+  return POST(
+    "services",
+    "OFFLINE/updateOrder",
+    {
+      order,
+      status,
+      location_id,
+      desk_id
+    },
+    {},
+    { system_id, event_id }
+  );
+};
