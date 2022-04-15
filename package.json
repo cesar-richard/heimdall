@@ -2,7 +2,7 @@
   "name": "heimdall",
   "version": "3.4.5",
   "engines": {
-    "node": ">=17"
+    "node": "17.X"
   },
   "author": "Cesar Richard <cesar.richard2@gmail.com>",
   "homepage": "https://heimdal-utc.herokuapp.com/",
