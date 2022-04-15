@@ -23,7 +23,7 @@ export default function DataRow(props) {
   React.useEffect(() => {
     setLoading(true);
     if ("" !== walletId) {
-      find({ walletId, system_id, event_id })
+      find({ walletId:walletId.replace("W",""), system_id, event_id })
         .then(data => {
           if (wallet) {
             removeWallet(wallet);

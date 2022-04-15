@@ -18,8 +18,6 @@ import TransfertCard from "./transfertCard";
 import { useParams } from "react-router-dom";
 
 export default function Transferts(props) {
-  const READER_SOURCE = "source";
-  const READER_DESTINATION = "destination";
   const [readerState, setReaderState] = React.useState("warning");
   const [sourceCard, setSourceCard] = React.useState(null);
   const [destinationCard, setDestinationCard] = React.useState(null);
@@ -29,7 +27,7 @@ export default function Transferts(props) {
   const onCardHandler = React.useRef();
   const { system_id } = useParams();
 
-  const handleCard = React.useCallback(card => {
+  const handleCard = card => {
     setReaderState("success");
     switch (card.model.type) {
       case "ULTRALIGHT":
@@ -41,7 +39,7 @@ export default function Transferts(props) {
       default:
         console.error("Invalid card type");
     }
-  });
+  };
 
   React.useEffect(() => {
     initializeSocket({ system_id });
