@@ -1,11 +1,11 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
+/.pnp
+.pnp.js
 
 # testing
-test-report.html
-jest_html_reporters.html
 /coverage
 
 # production
@@ -21,14 +21,3 @@ jest_html_reporters.html
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-.idea
-
-/public/config.js
-
-smashtest/
-
-.env
-
-cc-test-reporter
-coverage

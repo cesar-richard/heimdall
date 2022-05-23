@@ -1,8 +1,10 @@
-import React, { Component, useParams } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useParams } from "react";
+import {useNavigate} from "react-router-dom";
 
-export default function Logout(props) {
+
+export default function Logout() {
   localStorage.removeItem("accessToken");
   const { system_id } = useParams();
-  return <Redirect to={system_id ? `/${system_id}/login` : "/"} />;
+  let navigate = useNavigate();
+  return navigate(system_id ? `/login` : "/");
 }

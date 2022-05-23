@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
+import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { getAllMyRightsEvents } from "../../../api/gill/USERRIGHT";
 import { getCasUrl } from "../../../api/gill/ROSETTINGS";
@@ -20,10 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Switch from "react-bootstrap-switch";
 import "react-bootstrap-switch/dist/css/bootstrap3/react-bootstrap-switch.min.css";
 import packagejson from "../../../../package.json";
-import { Redirect } from "react-router-dom";
 import heimdalConfig from "../../../config";
 
-//const apm = initApm(heimdalConfig.APM);
 
 export default function Login(props) {
   const [casUrl, setCasUrl] = React.useState(null);
@@ -34,7 +33,7 @@ export default function Login(props) {
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { system_id } = useParams();
-  let history = useHistory();
+  let navigate = useNavigate();
 
   React.useEffect(() => {
     getCasUrl(system_id).then(url => {
@@ -42,7 +41,7 @@ export default function Login(props) {
     });
   }, [system_id]);
   if (localStorage.hasOwnProperty("accessToken"))
-    return <Redirect to={`/${system_id}`} />;
+    navigate(`/${system_id}`);
 
   let handleSubmitWeez = event => {
     event.preventDefault();
@@ -71,7 +70,7 @@ export default function Login(props) {
           setProcessStep(2);
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          history.push(`/${system_id}`);
+          navigate(`/${system_id}`);
         }
       ],
       (err, res) => {
@@ -137,7 +136,7 @@ export default function Login(props) {
           //apm.setUserContext({ username: token.username });
           setLoading(false);
           localStorage.setItem("accessToken", JSON.stringify(token));
-          history.push(`/${system_id}`);
+          navigate(`/${system_id}`);
         }
       ],
       (err, res) => {

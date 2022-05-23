@@ -12,7 +12,6 @@ export default function WalletAutocomplete(props) {
 
   const getSuggestions = value => {
     const escapedValue = value.trim();
-
     if ("" === escapedValue) {
       return [];
     }

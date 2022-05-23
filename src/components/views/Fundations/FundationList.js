@@ -8,7 +8,7 @@ import FundationModel from "../../../models/FundationModel";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function FundationList(props) {
+export default function FundationList() {
   const [isLoading, setLoading] = React.useState(true);
   const [fundations, setFundations] = React.useState([]);
   const { system_id, event_id } = useParams();
@@ -40,7 +40,4 @@ export default function FundationList(props) {
   return "Error";
 }
 
-FundationList.propTypes = {
-  fundations: PropTypes.arrayOf(PropTypes.instanceOf(FundationModel)),
-  isLoading: PropTypes.bool
-};
+FundationList.propTypes = {};

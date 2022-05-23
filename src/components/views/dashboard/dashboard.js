@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, CardColumns } from "react-bootstrap";
+import { Card, CardGroup } from "react-bootstrap";
 import DashboardCurrencies from "./dashboardCurrencies";
 import DashboardZoneAccesses from "./dashboardZoneAccesses";
 
 export default function Dashboard(props) {
   return (
-    <CardColumns>
+    <CardGroup>
       <Card>
         <Card.Header>Currencies</Card.Header>
         <DashboardCurrencies />
@@ -15,7 +15,7 @@ export default function Dashboard(props) {
         <Card.Header>Zone accesses</Card.Header>
         <DashboardZoneAccesses />
       </Card>
-    </CardColumns>
+    </CardGroup>
   );
 }
 Dashboard.propTypes = {};

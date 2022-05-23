@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
-import * as Sentry from "@sentry/browser";
-import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
+import React, {Fragment} from "react";
+import {BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Login from "./components/views/public/Login";
 import Logout from "./components/views/public/Logout";
 import Forbiden from "./components/views/public/Forbiden";
@@ -8,19 +7,15 @@ import FundationList from "./components/views/Fundations/FundationList";
 import FundationDetails from "./components/views/Fundations/FundationDetails";
 import Transferts from "./components/views/tranferts/transferts";
 import Dashboard from "./components/views/dashboard/dashboard";
-import { Col, Nav, Row, Tab } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
-import MyNavbar from "./components/views/navbar";
+import {ToastContainer} from "react-toastify";
 import Homepage from "./components/views/homepage";
 import UserDashboard from "./components/views/users/userDashboard";
 import Support from "./components/views/support/support";
 import SystemHomepage from "./components/views/SystemHomepage";
 import "./App.css";
 import packagejson from "../package.json";
-import heimdalConfig from "./config";
-import ComponentWrapper from "./components/ComponentWrapper";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
+import {library} from "@fortawesome/fontawesome-svg-core";
 import {
   faAmbulance,
   faBuilding,
@@ -30,118 +25,44 @@ import {
   faTrafficLight,
   faUser
 } from "@fortawesome/free-solid-svg-icons";
-
-Sentry.init({
-  dsn: heimdalConfig.SENTRY_DSN,
-  environment: process.env.NODE_ENV,
-  release: `${packagejson.name}@${packagejson.version}`,
-  autoSessionTracking: true
-});
-
-Sentry.configureScope(function(scope) {
-  scope.setTag("NEMOPAY_VERSION", heimdalConfig.NEMOPAY_VERSION);
-});
-
-//const apm = initApm(heimdalConfig.APM);
+import {Navigate} from "react-router";
 
 library.add(
-  faBuilding,
-  faSuitcase,
-  faKey,
-  faHandHoldingUsd,
-  faUser,
-  faTrafficLight,
-  faAmbulance
+    faBuilding,
+    faSuitcase,
+    faKey,
+    faHandHoldingUsd,
+    faUser,
+    faTrafficLight,
+    faAmbulance
 );
 
-class App extends Component {
-  render() {
-    // apm.setUserContext({
-    //   username: JSON.parse(
-    //     localStorage.getItem("accessToken")
-    //       ? localStorage.getItem("accessToken")
-    //       : "{}"
-    //   ).username
-    // });
+function App() {
     return (
       <Fragment key='App'>
         <div className='App'>
-          <Router>
-            <ComponentWrapper
-              pathSuffix='forbiden'
-              exact
-              navbar
-              component={Forbiden}
-            />
-            <ComponentWrapper
-              pathSuffix='logout'
-              exact
-              navbar
-              component={Logout}
-            />
-            <ComponentWrapper
-              pathSuffix='login'
-              exact
-              systemAware
-              component={Login}
-            />
-            <ComponentWrapper
-              pathSuffix=''
-              systemAware
-              exact
-              navbar
-              component={SystemHomepage}
-            />
-            <ComponentWrapper
-              pathSuffix=''
-              eventAware
-              exact
-              navbar
-              component={Homepage}
-            />
-            <ComponentWrapper
-              pathSuffix='fundations'
-              eventAware
-              exact
-              navbar
-              component={FundationList}
-            />
-            <ComponentWrapper
-              pathSuffix='users'
-              exact
-              navbar
-              eventAware
-              component={UserDashboard}
-            />
-            <ComponentWrapper
-              pathSuffix='transferts'
-              eventAware
-              exact
-              navbar
-              component={Transferts}
-            />
-            <ComponentWrapper
-              pathSuffix='fundations/:fundationId(\d+)'
-              eventAware
-              exact
-              navbar
-              component={FundationDetails}
-            />
-            <ComponentWrapper
-              pathSuffix='dashboard'
-              eventAware
-              exact
-              navbar
-              component={Dashboard}
-            />
-            <ComponentWrapper
-              pathSuffix='support'
-              eventAware
-              exact
-              navbar
-              component={Support}
-            />
-          </Router>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' exact element={<Navigate to='/80405/login' />} />
+              <Route path=':system_id' exact>
+                <Route path='' exact element={<SystemHomepage />} />
+                <Route path='login' exact element={<Login />} />
+                <Route path=':event_id' exact>
+                  <Route path='' exact element={<Homepage />} />
+                  <Route path='users' exact element={<UserDashboard />} />
+                  <Route path='transferts' exact element={<Transferts />} />
+                  <Route path='dashboard' exact element={<Dashboard />} />
+                  <Route path='support' exact element={<Support />} />
+                  <Route path='fundations' exact>
+                    <Route path='' exact element={<FundationList />} />
+                    <Route path=':fundationId' exact element={<FundationDetails />} />
+                  </Route>
+                </Route>
+              </Route>
+              <Route path='/logout' exact element={<Logout />} />
+              <Route path='*' element={<Forbiden />} />
+            </Routes>
+          </BrowserRouter>
           <ToastContainer />
           <footer className='text-center'>
             <span>
@@ -158,7 +79,6 @@ class App extends Component {
         </div>
       </Fragment>
     );
-  }
 }
 
 export default App;

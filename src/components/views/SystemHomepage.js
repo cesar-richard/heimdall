@@ -1,23 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Card, CardDeck, Container, ListGroup, Spinner } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams } from "react-router-dom";
+import { Card, CardGroup, Container, ListGroup, Spinner } from "react-bootstrap";
+import {useParams} from "react-router-dom";
 import { getEvents } from "../../api/gill/resources";
 import Moment from "react-moment";
 import "moment/locale/fr";
 
-export default function SystemHomepage(props) {
+export default function SystemHomepage() {
   const [loading, setLoading] = React.useState(true);
   const [events, setEvents] = React.useState([]);
-  const goTo = React.useCallback(m => window.location.assign(m), []);
   const { system_id } = useParams();
   React.useEffect(
-    () =>
+    () => {
       getEvents({ system_id }).then(events => {
         setEvents(events.data);
         setLoading(false);
-      }),
+      })
+    },
     [system_id]
   );
   return loading ? (
@@ -26,7 +24,7 @@ export default function SystemHomepage(props) {
     </Spinner>
   ) : (
     <Container fluid>
-      <CardDeck>
+      <CardGroup>
         {events.map(event => {
           return (
             <a key={event.id} href={`/${system_id}/${event.id}`}>
@@ -104,7 +102,7 @@ export default function SystemHomepage(props) {
             </a>
           );
         })}
-      </CardDeck>
+      </CardGroup>
     </Container>
   );
 }

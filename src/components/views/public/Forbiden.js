@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Container, Row } from "react-bootstrap";
 
-class Forbiden extends Component {
-  render() {
+const Forbiden = () => {
     return (
       <Container
         fluid
@@ -18,7 +17,6 @@ class Forbiden extends Component {
         </Row>
       </Container>
     );
-  }
 }
 
 export default Forbiden;
