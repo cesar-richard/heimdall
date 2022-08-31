@@ -15,6 +15,7 @@ export default function SystemHomepage(props) {
   React.useEffect(
     () =>
       getEvents({ system_id }).then(events => {
+        console.log(events)
         if(1 === events.length) {
           window.location.assign(`/${system_id}/${events[0].id}`);
         } else {
