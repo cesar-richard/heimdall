@@ -15,8 +15,12 @@ export default function SystemHomepage(props) {
   React.useEffect(
     () =>
       getEvents({ system_id }).then(events => {
-        setEvents(events.data);
-        setLoading(false);
+        if(1 === events.data.length) {
+          window.location.assign(`/${system_id}/${events.data[0].id}`);
+        } else {
+          setEvents(events.data);
+          setLoading(false);
+        }
       }),
     [system_id]
   );
